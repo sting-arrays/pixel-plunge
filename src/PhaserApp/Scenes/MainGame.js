@@ -36,8 +36,8 @@ export class MainGame extends Phaser.Scene {
 
     player.setCollideWorldBounds(true);
 
-    // this.cameras.main.startFollow(player, true);
-    // this.cameras.main.zoom = 1.5;
+    this.cameras.main.startFollow(player, true);
+    this.cameras.main.zoom = 1.5;
 
     this.anims.create({
       key: "left",
