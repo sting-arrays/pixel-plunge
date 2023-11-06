@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { TestScene } from "./Scenes/TestScene";
+import { MainGame } from "./Scenes/MainGame";
 
 export class PhaserApp {
  constructor({ width, height, id }) {
@@ -15,7 +16,7 @@ export class PhaserApp {
      debug: true,
     },
    },
-   scene: [TestScene],
+   scene: [MainGame, TestScene],
   };
   this.game = new Phaser.Game(config);
   this.game.scene.add("testscene", new TestScene());
