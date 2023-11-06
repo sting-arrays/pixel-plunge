@@ -11,10 +11,12 @@ export default function GamePage() {
     return(
         <>
             <AppBridge width={800} height={600} />
-            <Link to='/fishidex' element={ <Fishidex /> }> Fishidex </Link>
-            <Link to='/leaderboard' element={ <LeaderBoard /> }> Leader Board </Link>
-            <Link to='/upgrades' element={ <Upgrades /> }> Upgrades </Link>
-            <Link to='/' element={<WelcomePage />}> Home </Link>
+            <div className='nav-bar'>
+                <Link className='button' to='/fishidex' element={ <Fishidex /> }> Fishidex </Link>
+                <Link className='button' to='/leaderboard' element={ <LeaderBoard /> }> Leader Board </Link>
+                <Link className='button' to='/upgrades' element={ <Upgrades /> }> Upgrades </Link>
+                <Link className='button' to='/' element={<WelcomePage />}> Home </Link>
+            </div>
         </>
     )
 }

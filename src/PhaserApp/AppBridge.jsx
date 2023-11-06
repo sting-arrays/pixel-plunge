@@ -1,4 +1,4 @@
-import { memo, useLayoutEffect, useRef } from "react";
+import { memo, useLayoutEffect, useRef, useState } from "react";
 import { PhaserApp } from "./PhaserApp";
 
 export const ROOT_ID = "root-id";
@@ -9,15 +9,20 @@ const Root = memo(() => {
 Root.displayName = "Root";
 
 export const AppBridge = ({ width, height }) => {
+
  const app = useRef(null);
+
  useLayoutEffect(() => {
-  app.current = new PhaserApp({ width, height, id: ROOT_ID });
-
+   
+  app.current = new PhaserApp({ width, height, id: ROOT_ID })
+  
   return () => {
-   app.current?.destroy();
-  };
- }, [width, height]);
+   app.current?.destroy()
+  }
 
+ }, [width, height])
+ 
  return <Root />;
+
 };
 AppBridge.displayName = "AppBridge";
