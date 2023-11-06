@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import background from "../../assets/Background/background.png";
+import background from "../../assets/Background/background3.png";
 import boat from "../../assets/Scenary/boat.png";
 import dude from "../../assets/Character/dude.png";
 
@@ -27,13 +27,17 @@ export class MainGame extends Phaser.Scene {
 
     fixed = this.physics.add.staticGroup();
 
-    fixed.create(40, 75, "boat");
+    fixed.create(119, 250, "boat").setScale(3).refreshBody();
 
-    player = this.physics.add.sprite(35, 25, "dude");
+    player = this.physics.add
+      .sprite(35, 25, "dude")
+      .setScale(1.5)
+      .refreshBody();
 
     player.setCollideWorldBounds(true);
 
     // this.cameras.main.startFollow(player, true);
+    // this.cameras.main.zoom = 1.5;
 
     this.anims.create({
       key: "left",
@@ -68,29 +72,29 @@ export class MainGame extends Phaser.Scene {
   }
 
   update() {
-    if (player.y < 48) {
+    //When player is in water
+    if (player.y < 215) {
       player.body.setAllowGravity(true);
       if (cursors.left.isDown) {
-        player.setVelocityX(-50);
+        player.setVelocityX(-200);
         player.anims.play("left", true);
       } else if (cursors.right.isDown) {
-        player.setVelocityX(50);
+        player.setVelocityX(200);
         player.anims.play("right", true);
       } else {
         player.setVelocityX(0);
-        player.setVelocityY(50);
+        // player.setVelocityY(100);
         player.anims.play("turn");
       }
       if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-300);
+        player.setVelocityY(-150);
       }
-
-      if (cursors.down.isDown) {
-        player.setVelocityY(40);
-      }
+      //   if (cursors.down.isDown) {
+      //     player.setVelocityY(40);
+      //   }
     }
-
-    if (player.y > 48) {
+    //When player is out of water
+    if (player.y > 230) {
       player.body.setAllowGravity(false);
       if (cursors.left.isDown) {
         player.setVelocityX(-40);
@@ -110,6 +114,10 @@ export class MainGame extends Phaser.Scene {
       if (cursors.down.isDown) {
         player.setVelocityY(60);
       }
+    }
+
+    if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
+      player.setVelocityY(-250);
     }
 
     this.text.setText([
