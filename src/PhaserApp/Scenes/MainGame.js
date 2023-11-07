@@ -9,6 +9,9 @@ let player;
 let cursors;
 let text;
 let coins = 0;
+let fishCount = 0;
+let bucketSize = 5;
+let height = 2000;
 
 import fish1 from "../../assets/Fish/1.png";
 import fish2 from "../../assets/Fish/2.png";
@@ -39,9 +42,18 @@ export class MainGame extends Phaser.Scene {
 
   create() {
     function collectFish(player, fish) {
+      if (fishCount === bucketSize) {
+        return;
+      }
+      fishCount++;
+      coins += Phaser.Math.Between(1, 10);
       fish.disableBody(true, true);
-      coins += Phaser.Math.Between(-20, 20);
-      this.scene.launch("uiscene", { coins: coins });
+
+      this.scene.launch("uiscene", {
+        coins: coins,
+        fishCount: fishCount,
+        bucketSize: bucketSize,
+      });
     }
 
     this.add.image(400, 1000, "background");
@@ -57,8 +69,8 @@ export class MainGame extends Phaser.Scene {
     // player.setCollideWorldBounds(true);
 
     this.cameras.main.startFollow(player, true);
-    this.cameras.main.setBounds(0, 0, 800, 2000);
-    // this.cameras.main.zoom = 1.5;
+    this.cameras.main.setBounds(0, 0, 800, height);
+    this.cameras.main.zoom = 1.2;
 
     this.anims.create({
       key: "left",
@@ -136,18 +148,18 @@ export class MainGame extends Phaser.Scene {
     }
 
     this.physics.add.overlap(player, fishes, collectFish, null, this);
-    this.scene.launch("testscene");
-    this.scene.launch("uiscene", { coins: coins });
+    // this.scene.launch("testscene");
+    this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
   }
 
   update() {
-    //When player is in water
+    //When player is out of water
     if (player.y < 215) {
       player.body.setAllowGravity(true);
-      if (cursors.left.isDown) {
+      if (cursors.left.isDown && player.x > 16) {
         player.setVelocityX(-200);
         player.anims.play("left", true);
-      } else if (cursors.right.isDown) {
+      } else if (cursors.right.isDown && player.x < 784) {
         player.setVelocityX(200);
         player.anims.play("right", true);
       } else {
@@ -162,25 +174,27 @@ export class MainGame extends Phaser.Scene {
       //     player.setVelocityY(40);
       //   }
     }
-    //When player is out of water
+    //When player is in water
     if (player.y > 230) {
       player.body.setAllowGravity(false);
-      if (cursors.left.isDown) {
+      if (cursors.left.isDown && player.x > 16) {
         player.setVelocityX(-200);
         player.anims.play("left", true);
-      } else if (cursors.right.isDown) {
+      } else if (cursors.right.isDown && player.x < 784) {
         player.setVelocityX(200);
         player.anims.play("right", true);
       } else {
         player.setVelocityX(0);
-        player.setVelocityY(50);
+        player.y <= height - 48
+          ? player.setVelocityY(50)
+          : player.setVelocity(0);
         player.anims.play("turn");
       }
       if (cursors.up.isDown) {
         player.setVelocityY(-200);
       }
 
-      if (cursors.down.isDown) {
+      if (cursors.down.isDown && player.y <= height - 48) {
         player.setVelocityY(200);
       }
     }
