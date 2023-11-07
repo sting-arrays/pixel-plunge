@@ -10,7 +10,19 @@ export class TestScene extends Phaser.Scene {
  init() {}
  preload() {}
  create() {
-  testText = this.add.text(400, 300, "Test Scene");
+  this.text = this.add
+   .text(10, 10, "Cursors to move", {
+    font: "16px Courier",
+    fill: "#00FF00",
+   })
+   .setScrollFactor(0);
  }
- update() {}
+ update() {
+  this.text.setText([
+   `screen x: ${this.input.x}`,
+   `screen y: ${this.input.y}`,
+   `world x: ${this.input.mousePointer.worldX}`,
+   `world y: ${this.input.mousePointer.worldY}`,
+  ]);
+ }
 }
