@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc, getDocs, collection } from "firebase/firestore"; 
 import { getFirestore } from 'firebase/firestore';
+
 
 const firebaseConfig = {
   apiKey: `${import.meta.env.VITE_APIKEY}`,
@@ -15,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default function updateUser (user, name, email, password, fishBag, fishCount, level, money, oxygen) {
+export function updateUser (user, name, email, password, fishBag, fishCount, level, money, oxygen) {
 
     return setDoc(doc(db, "Users", user), {
     userName: user,
@@ -31,3 +32,13 @@ export default function updateUser (user, name, email, password, fishBag, fishCo
   }).then( () => console.log("this has worked") )
 
 }
+
+export async function getAllFish() {
+  let allFish = []
+  const querySnapshot = await getDocs(collection(db, "Fish"));
+  querySnapshot.forEach((doc) => {
+    allFish.push({name:doc.id,...doc.data()})
+  });
+  return allFish;
+}
+

@@ -1,4 +1,4 @@
-import updateUser from '../firebase'
+import { updateUser } from '../firebase'
 import { useState } from "react";
 
 export default function UserDetailsTest() {
