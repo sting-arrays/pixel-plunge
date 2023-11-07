@@ -5,8 +5,6 @@ import LeaderBoard from "./StartGameComponents/LeaderBoard";
 import Upgrades from "./StartGameComponents/Upgrades";
 import WelcomePage from "./WelcomePage";
 
-
-
 export default function GamePage() {
     return(
         <>

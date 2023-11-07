@@ -7,6 +7,7 @@ import LeaderBoard from "./components/StartGameComponents/LeaderBoard";
 import Upgrades from "./components/StartGameComponents/Upgrades";
 import { AppBridge } from "./PhaserApp/AppBridge";
 
+
 function App() {
   return (
     <div>
