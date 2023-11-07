@@ -6,8 +6,6 @@ import Fishidex from './components/StartGameComponents/Fishidex';
 import LeaderBoard from './components/StartGameComponents/LeaderBoard';
 import Upgrades from './components/StartGameComponents/Upgrades';
 
-
-
 function App() {
 
   return (
