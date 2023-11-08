@@ -7,7 +7,7 @@ import LoadingScreen from "./Scenes/LoadingScreen";
 import { OxygenBar } from "./Scenes/OxygenBar";
 
 export class PhaserApp {
-  constructor({ width, height, id }) {
+  constructor({ width, height, id, userName }) {
     const config = {
       type: Phaser.AUTO,
       parent: id,
@@ -30,6 +30,7 @@ export class PhaserApp {
       ],
     };
     this.game = new Phaser.Game(config);
+    this.game.scene.add("loadingpage", new LoadingScreen(), true, { userName });
   }
   update = () => {
     this.game.events.emit("update");

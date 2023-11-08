@@ -6,9 +6,11 @@ import Upgrades from "./StartGameComponents/Upgrades";
 import WelcomePage from "./WelcomePage";
 
 export default function GamePage() {
+    const userName = "Jordan_Ekford"
+
     return(
         <>
-            <AppBridge width={800} height={600} />
+            <AppBridge width={800} height={600} userName={userName} />
             <div className='nav-bar'>
                 <Link className='button' to='/fishidex' element={ <Fishidex /> }> Fishidex </Link>
                 <Link className='button' to='/leaderboard' element={ <LeaderBoard /> }> Leader Board </Link>
