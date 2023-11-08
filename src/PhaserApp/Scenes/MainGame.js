@@ -48,6 +48,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
+    
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
