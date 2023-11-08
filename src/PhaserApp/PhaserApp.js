@@ -3,8 +3,10 @@ import { TestScene } from "./Scenes/TestScene";
 import { MainGame } from "./Scenes/MainGame";
 import { UIScene } from "./Scenes/UIScene";
 import LoadingScreen from "./Scenes/LoadingScreen";
+
+
 export class PhaserApp {
- constructor({ width, height, id }) {
+ constructor({ width, height, id, userName }) {
   const config = {
    type: Phaser.AUTO,
    parent: id,
@@ -20,6 +22,7 @@ export class PhaserApp {
    scene: [LoadingScreen, MainGame, TestScene, UIScene],
   };
   this.game = new Phaser.Game(config);
+  this.game.scene.add("loadingpage", new LoadingScreen(), true, {userName})
  }
  update = () => {
   this.game.events.emit("update");

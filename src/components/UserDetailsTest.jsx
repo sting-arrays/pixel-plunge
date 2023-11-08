@@ -1,6 +1,8 @@
 import { updateUser } from '../firebase'
 import { useState } from "react";
 
+export let user = "test"
+
 export default function UserDetailsTest() {
     const [user, setUser] = useState("")
     const [name, setName] = useState("")

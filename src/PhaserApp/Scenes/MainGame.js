@@ -32,7 +32,10 @@ export class MainGame extends Phaser.Scene {
   super("maingame");
  }
 
- init() {}
+ init(data) {
+  console.log("my guy", data)
+  coins = +data.currentUserDetails.Money
+ }
 
  preload() {
   this.load.image("background", background);
@@ -64,14 +67,18 @@ export class MainGame extends Phaser.Scene {
  }
 
   create() {
+
     this.cameras.main.fadeIn(2000);
 
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
       }
+
       fishCount++;
+
       coins += Phaser.Math.Between(1, 10);
+
       fish.disableBody(true, true);
 
    this.scene.launch("uiscene", {
@@ -283,7 +290,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   this.physics.add.overlap(player, fishes, collectFish, null, this);
-  this.scene.launch("testscene");
+  // this.scene.launch("testscene");
   this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
  }
 
