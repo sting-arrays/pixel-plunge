@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import background from "../../assets/Background/background3.png";
-import boat from "../../assets/Scenary/boat.png";
+import boat from "../../assets/Scenary/boat-360x117.png";
 import fish1 from "../../assets/Fish/1.png";
 import fish2 from "../../assets/Fish/2.png";
 import fish3 from "../../assets/Fish/3.png";
@@ -50,16 +50,16 @@ export class MainGame extends Phaser.Scene {
     this.load.image("medrock1flat", medrock1flat);
     this.load.image("medrock2flat", smallrock1flat);
     this.load.spritesheet("character", character, {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 128,
+      frameHeight: 128,
     });
     this.load.spritesheet("swimming", swimming, {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 128,
+      frameHeight: 128,
     });
     this.load.spritesheet("swimmingHorizontal", swimmingHorizontal, {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 128,
+      frameHeight: 128,
     });
   }
 
@@ -134,10 +134,7 @@ export class MainGame extends Phaser.Scene {
     const boat = fixed.create(119, 250, "boat").setScale(2).refreshBody();
     boat.setSize(220, 60, true);
 
-    player = this.physics.add
-      .sprite(30, 200, "character")
-      .setScale(1.5)
-      .refreshBody();
+    player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
 
     // player.setCollideWorldBounds(true);
 
@@ -149,7 +146,7 @@ export class MainGame extends Phaser.Scene {
       key: "left",
       frames: this.anims.generateFrameNumbers("character", {
         start: 1,
-        end: 7,
+        end: 5,
       }),
       frameRate: 10,
       repeat: -1,
@@ -164,8 +161,8 @@ export class MainGame extends Phaser.Scene {
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("character", {
-        start: 11,
-        end: 15,
+        start: 6,
+        end: 10,
       }),
       frameRate: 10,
       repeat: -1,
