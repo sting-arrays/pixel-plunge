@@ -64,6 +64,8 @@ export class MainGame extends Phaser.Scene {
  }
 
  create() {
+  this.cameras.main.fadeIn(2000);
+
   function collectFish(player, fish) {
    if (fishCount === bucketSize) {
     return;
@@ -124,9 +126,10 @@ export class MainGame extends Phaser.Scene {
   }
 
   //Create Player
-  fixed.create(119, 250, "boat").setScale(2).refreshBody();
+  const boat = fixed.create(119, 250, "boat").setScale(2).refreshBody();
+  boat.setSize(220, 60, true);
 
-  player = this.physics.add.sprite(30, 30, "character").setScale(1.5).refreshBody();
+  player = this.physics.add.sprite(30, 200, "character").setScale(1.5).refreshBody();
 
   // player.setCollideWorldBounds(true);
 
