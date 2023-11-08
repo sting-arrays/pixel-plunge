@@ -4,6 +4,8 @@ import { MainGame } from "./Scenes/MainGame";
 import { UIScene } from "./Scenes/UIScene";
 import { GameOverScene } from "./Scenes/GameOver";
 import LoadingScreen from "./Scenes/LoadingScreen";
+import { OxygenBar } from "./Scenes/OxygenBar";
+
 export class PhaserApp {
   constructor({ width, height, id }) {
     const config = {
@@ -18,7 +20,14 @@ export class PhaserApp {
           debug: true,
         },
       },
-      scene: [LoadingScreen, MainGame, TestScene, UIScene, GameOverScene],
+      scene: [
+        LoadingScreen,
+        MainGame,
+        TestScene,
+        UIScene,
+        OxygenBar,
+        GameOverScene,
+      ],
     };
     this.game = new Phaser.Game(config);
   }

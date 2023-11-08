@@ -16,6 +16,7 @@ import xlrock1left from "../../assets/Scenary/xlrock1left.png";
 import xlrock1right from "../../assets/Scenary/xlrock1right.png";
 import medrock1flat from "../../assets/Scenary/medrock1flat.png";
 import smallrock1flat from "../../assets/Scenary/smallrock1flat.png";
+import EventsCenter from "../EventsCenter";
 
 let fishes;
 let fixed;
@@ -26,13 +27,17 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
+let oxygentimer = 10;
+let timeLeft;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
     super("maingame");
   }
 
-  init() {}
+  init({ timeLeft }) {
+    console.log(timeLeft);
+  }
 
   preload() {
     this.load.image("background", background);
@@ -66,6 +71,8 @@ export class MainGame extends Phaser.Scene {
   create() {
     this.cameras.main.fadeIn(2000);
 
+    this.input.keyboard.enabled = true;
+
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
@@ -81,9 +88,9 @@ export class MainGame extends Phaser.Scene {
       });
     }
 
-    setTimeout(() => {
-      this.scene.launch("GameOverScene");
-    }, 7000);
+    // setTimeout(() => {
+    //   this.scene.launch("GameOverScene");
+    // }, 5000);
 
     this.add.image(400, 1000, "background");
 
@@ -131,7 +138,7 @@ export class MainGame extends Phaser.Scene {
     }
 
     //Create Player
-    const boat = fixed.create(119, 250, "boat").setScale(2).refreshBody();
+    const boat = fixed.create(119, 250, "boat").setScale(1).refreshBody();
     boat.setSize(220, 60, true);
 
     player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
@@ -230,6 +237,12 @@ export class MainGame extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "player-dead",
+      frames: [{ key: "swimming", frame: 0 }],
+      frameRate: 11,
+    });
+
     cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(player, fixed);
@@ -290,6 +303,14 @@ export class MainGame extends Phaser.Scene {
     this.physics.add.overlap(player, fishes, collectFish, null, this);
     this.scene.launch("testscene");
     this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
+
+    EventsCenter.on(
+      "time-left",
+      (time) => {
+        timeLeft = time;
+      },
+      this
+    );
   }
 
   update() {
@@ -350,5 +371,23 @@ export class MainGame extends Phaser.Scene {
       player.flipX = false;
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
     }
+
+    if (player.y < 230) {
+      this.scene.launch("oxygenscene", { oxygentimer });
+    }
+
+    if (timeLeft === 1) {
+      // player.anims.play("player-dead", true).flipY = true;
+      // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^
+      player.flipY = true;
+      this.input.keyboard.enabled = false;
+      // player.setVelocityY(50);
+    }
   }
 }
+
+// timeLeft !== 0 &&
+//         !cursors.right.isDown &&
+//         !cursors.left.isDown &&
+//         !cursors.up.isDown &&
+//         cursors.down.isDown
