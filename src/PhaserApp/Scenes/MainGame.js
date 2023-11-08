@@ -26,6 +26,7 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
+let oxygentimer = 60;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -343,6 +344,10 @@ export class MainGame extends Phaser.Scene {
       player.setVelocityY(-250).flipY = false;
       player.flipX = false;
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
+    }
+
+    if(player.y < 230) {
+      this.scene.launch('oxygenscene',{oxygentimer})
     }
   }
 }
