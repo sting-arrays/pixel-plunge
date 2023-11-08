@@ -3,7 +3,7 @@ import { TestScene } from "./Scenes/TestScene";
 import { MainGame } from "./Scenes/MainGame";
 import { UIScene } from "./Scenes/UIScene";
 import LoadingScreen from "./Scenes/LoadingScreen";
-
+import { OxygenBar } from "./Scenes/OxygenBar";
 
 export class PhaserApp {
  constructor({ width, height, id, userName }) {
@@ -19,7 +19,7 @@ export class PhaserApp {
      debug: true,
     },
    },
-   scene: [LoadingScreen, MainGame, TestScene, UIScene],
+   scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar],
   };
   this.game = new Phaser.Game(config);
   this.game.scene.add("loadingpage", new LoadingScreen(), true, {userName})
