@@ -64,7 +64,8 @@ export class UIScene extends Phaser.Scene {
         this.o2Mask.x -= stepWidth;
 
         if (this.timeLeft === 1) {
-          this.add.text(o2Bar.x - 48, o2Bar.y + 40, "GAME OVER");
+          // this.add.text(o2Bar.x - 48, o2Bar.y + 40, "GAME OVER");
+          this.scene.launch("GameOverScene");
         }
       },
       callbackScope: this,

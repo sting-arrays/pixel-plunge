@@ -2,11 +2,19 @@ import GameOverBackground from "../../assets/Background/GameOver.png";
 
 let bg;
 let text;
+let fish;
 
 export class GameOverScene extends Phaser.Scene {
   constructor() {
     super({ key: "GameOverScene" });
   }
+
+  // init({ fishCount }) {
+  //   fish = fishCount;
+  //   console.log(fish);
+  //   console.log(fishCount);
+  //   // this.fish = data.score;
+  // }
 
   preload() {
     this.load.image("GameOverBackground", GameOverBackground);
