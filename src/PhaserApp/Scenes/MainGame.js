@@ -81,6 +81,10 @@ export class MainGame extends Phaser.Scene {
       });
     }
 
+    setTimeout(() => {
+      this.scene.launch("GameOverScene");
+    }, 7000);
+
     this.add.image(400, 1000, "background");
 
     fixed = this.physics.add.staticGroup();

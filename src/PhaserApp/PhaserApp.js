@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { TestScene } from "./Scenes/TestScene";
 import { MainGame } from "./Scenes/MainGame";
 import { UIScene } from "./Scenes/UIScene";
-import { TitleScene } from "./Scenes/TitleScene";
+import { GameOverScene } from "./Scenes/GameOver";
 import LoadingScreen from "./Scenes/LoadingScreen";
 export class PhaserApp {
   constructor({ width, height, id }) {
@@ -18,7 +18,7 @@ export class PhaserApp {
           debug: true,
         },
       },
-      scene: [LoadingScreen, TitleScene, MainGame, TestScene, UIScene],
+      scene: [LoadingScreen, MainGame, TestScene, UIScene, GameOverScene],
     };
     this.game = new Phaser.Game(config);
   }
