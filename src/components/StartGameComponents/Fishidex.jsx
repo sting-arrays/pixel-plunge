@@ -2,10 +2,6 @@ import GamePage from "../GamePage";
 import { Link } from "react-router-dom";
 import { getAllFish } from "../../firebase";
 import { useEffect, useState } from "react";
-import Cod from "../../assets/Fish/1.png"
-import Darth_Fisher from "../../assets/Fish/2.png"
-import Dory from "../../assets/Fish/3.png"
-import Jaws from "../../assets/Fish/4.png"
 
 export default function Fishidex() {
 

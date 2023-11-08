@@ -3,7 +3,7 @@ import background from "../../assets/Background/background3.png";
 import boat from "../../assets/Scenary/boat-360x117.png";
 import fish1 from "../../assets/Fish/1.png";
 import fish2 from "../../assets/Fish/2.png";
-import fish3 from "../../assets/Fish/3.png";
+import dory from "../../assets/Fish/dory.png";
 import fish4 from "../../assets/Fish/4.png";
 import character from "../../assets/Character/character.png";
 import swimming from "../../assets/Character/Swimming.png";
@@ -26,6 +26,7 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
+let caughtFish = [];
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -35,6 +36,7 @@ export class MainGame extends Phaser.Scene {
  init(data) {
   console.log("my guy", data)
   coins = +data.currentUserDetails.Money
+  bucketSize = +data.currentUserDetails.Fish_Bag
  }
 
   preload() {
@@ -42,7 +44,7 @@ export class MainGame extends Phaser.Scene {
     this.load.image("boat", boat);
     this.load.image("fish1", fish1);
     this.load.image("fish2", fish2);
-    this.load.image("fish3", fish3);
+    this.load.image("dory", dory);
     this.load.image("fish4", fish4);
     this.load.image("xlrock2flat", xlrock2flat);
     this.load.image("xlrock2left", xlrock2left);
@@ -237,8 +239,9 @@ export class MainGame extends Phaser.Scene {
 
     //Randomly spawn fish
     //Do we want to split these up into groups for points reasons? Can make the higher point fish spawn lower, be faster etc
+
     fishes = this.physics.add.group();
-    let fishArray = ["fish1", "fish2", "fish3", "fish4"];
+    let fishArray = ["fish1", "fish2", "dory", "fish4"];
     //number below is how many fish are spawned
     for (let i = 0; i < 10; i++) {
       //spawn x and y axis
