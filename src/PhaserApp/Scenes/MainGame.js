@@ -8,6 +8,14 @@ import fish4 from "../../assets/Fish/4.png";
 import character from "../../assets/Character/character.png";
 import swimming from "../../assets/Character/Swimming.png";
 import swimmingHorizontal from "../../assets/Character/Swimming-Horizontal.png";
+import xlrock2flat from "../../assets/Scenary/xlrock2flat.png";
+import xlrock2left from "../../assets/Scenary/xlrock2left.png";
+import xlrock2right from "../../assets/Scenary/xlrock2right.png";
+import xlrock1flat from "../../assets/Scenary/xlrock1flat.png";
+import xlrock1left from "../../assets/Scenary/xlrock1left.png";
+import xlrock1right from "../../assets/Scenary/xlrock1right.png";
+import medrock1flat from "../../assets/Scenary/medrock1flat.png";
+import smallrock1flat from "../../assets/Scenary/smallrock1flat.png";
 
 let fishes;
 let fixed;
@@ -33,6 +41,14 @@ export class MainGame extends Phaser.Scene {
     this.load.image("fish2", fish2);
     this.load.image("fish3", fish3);
     this.load.image("fish4", fish4);
+    this.load.image("xlrock2flat", xlrock2flat);
+    this.load.image("xlrock2left", xlrock2left);
+    this.load.image("xlrock2right", xlrock2right);
+    this.load.image("xlrock1flat", xlrock1flat);
+    this.load.image("xlrock1left", xlrock1left);
+    this.load.image("xlrock1right", xlrock1right);
+    this.load.image("medrock1flat", medrock1flat);
+    this.load.image("medrock2flat", smallrock1flat);
     this.load.spritesheet("character", character, {
       frameWidth: 32,
       frameHeight: 32,
@@ -48,6 +64,8 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.fadeIn(2000);
+
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
@@ -67,10 +85,53 @@ export class MainGame extends Phaser.Scene {
 
     fixed = this.physics.add.staticGroup();
 
-    fixed.create(119, 250, "boat").setScale(2).refreshBody();
+    //Create Rocks
+    const rockArrayFlatXL = ["xlrock1flat", "xlrock2flat"];
+    const rockArrayFlatMed = ["medrock1flat"];
+    const rockArrayFlatSmall = [];
+    const rockArrayRight = ["xlrock1right", "xlrock2right"];
+    const rockArrayLeft = ["xlrock1left", "xlrock2left"];
+
+    //flat large
+    for (let i = 0; i < 3; i++) {
+      let x = Phaser.Math.Between(0, 800);
+      let y = Phaser.Math.Between(1000, 2000);
+      let rockType = rockArrayFlatXL[Phaser.Math.Between(0, 1)];
+      const rock = fixed.create(x, y, rockType);
+      rock.setSize(260, 150);
+    }
+    //flat med
+    for (let i = 0; i < 5; i++) {
+      let x = Phaser.Math.Between(0, 800);
+      let y = Phaser.Math.Between(500, 2000);
+      let rockType = rockArrayFlatMed[Phaser.Math.Between(0, 0)];
+      const rock = fixed.create(x, y, rockType);
+      rock.setSize(150, 70);
+    }
+
+    //left
+    for (let i = 0; i < 1; i++) {
+      let x = 90;
+      let y = Phaser.Math.Between(500, 1000);
+      let rockType = rockArrayLeft[Phaser.Math.Between(0, 1)];
+      const rock = fixed.create(x, y, rockType);
+      rock.setSize(150, 270, true);
+    }
+    //right
+    for (let i = 0; i < 1; i++) {
+      let x = 710;
+      let y = Phaser.Math.Between(500, 1000);
+      let rockType = rockArrayRight[Phaser.Math.Between(0, 1)];
+      const rock = fixed.create(x, y, rockType);
+      rock.setSize(150, 260, true);
+    }
+
+    //Create Player
+    const boat = fixed.create(119, 250, "boat").setScale(2).refreshBody();
+    boat.setSize(220, 60, true);
 
     player = this.physics.add
-      .sprite(30, 30, "character")
+      .sprite(30, 200, "character")
       .setScale(1.5)
       .refreshBody();
 
@@ -226,11 +287,14 @@ export class MainGame extends Phaser.Scene {
     }
 
     this.physics.add.overlap(player, fishes, collectFish, null, this);
-    // this.scene.launch("testscene");
+    this.scene.launch("testscene");
     this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
   }
 
   update() {
+    if (player.y < 290 && player.x < 300) {
+      this.cameras.main.zoomTo(1.5, 1500);
+    }
     //When player is out of water
     if (player.y < 215) {
       player.body.setAllowGravity(true);
