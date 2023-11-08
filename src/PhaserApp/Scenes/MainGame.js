@@ -64,6 +64,7 @@ export class MainGame extends Phaser.Scene {
     }
 
     this.add.image(400, 1000, "background");
+
     fixed = this.physics.add.staticGroup();
 
     fixed.create(119, 250, "boat").setScale(2).refreshBody();

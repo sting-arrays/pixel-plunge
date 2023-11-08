@@ -1,7 +1,11 @@
-import background from "../../assets/Background/testBackground.png";
+import TitleBackground from "../../assets/Background/testBackground.png";
 
 let bg;
 let text;
+
+// clickButton() {
+//   this.scene.switch('gameScene');
+// }
 
 export class TitleScene extends Phaser.Scene {
   constructor() {
@@ -9,13 +13,20 @@ export class TitleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", background);
+    this.load.image("TitleBackground", TitleBackground);
   }
 
   create() {
-    this.add.sprite(0, 0, "background");
-    bg.setOrigin(0, 0);
+    this.add.image(0, 0, "TitleBackground").setScale(4);
+    // bg.setOrigin(0, 0);
 
-    this.add.text(100, 100, "Welcome to my game!");
+    text = this.add.text(340, 270, "Start Game!", {
+      fontSize: "20px",
+      fill: "#000",
+    });
+
+    text.setInteractive({ useHandCursor: true });
+
+    text.on("pointerdown", () => this.scene.switch("maingame"));
   }
 }
