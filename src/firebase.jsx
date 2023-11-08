@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { doc, setDoc, getDocs, collection } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, getDocs, collection } from "firebase/firestore"; 
 import { getFirestore } from 'firebase/firestore';
 
 
@@ -33,6 +33,15 @@ export function updateUser (user, name, email, password, fishBag, fishCount, lev
 
 }
 
+export async function getAllUsers() {
+  let allUsers = []
+  const querySnapshot = await getDocs(collection(db, "Users"));
+  querySnapshot.forEach((doc) => {
+    allUsers.push({name:doc.id,...doc.data()})
+  });
+  return allUsers;
+}
+
 export async function getAllFish() {
   let allFish = []
   const querySnapshot = await getDocs(collection(db, "Fish"));
@@ -41,4 +50,15 @@ export async function getAllFish() {
   });
   return allFish;
 }
+
+export async function getUserDetails(user) {
+
+  const docRef = doc(db, "Users", user);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data()
+
+}
+
+
 

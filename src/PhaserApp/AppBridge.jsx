@@ -8,13 +8,13 @@ const Root = memo(() => {
 });
 Root.displayName = "Root";
 
-export const AppBridge = ({ width, height }) => {
+export const AppBridge = ({ width, height, userName }) => {
 
  const app = useRef(null);
 
  useLayoutEffect(() => {
    
-  app.current = new PhaserApp({ width, height, id: ROOT_ID })
+  app.current = new PhaserApp({ width, height, id: ROOT_ID, userName })
   
   return () => {
    app.current?.destroy()
