@@ -64,6 +64,8 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.fadeIn(2000);
+
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
