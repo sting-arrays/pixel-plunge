@@ -5,6 +5,8 @@ import { UIScene } from "./Scenes/UIScene";
 import { GameOverScene } from "./Scenes/GameOver";
 import LoadingScreen from "./Scenes/LoadingScreen";
 import { OxygenBar } from "./Scenes/OxygenBar";
+import { EndDive } from "./Scenes/EndDive";
+import { DiveStats } from "./Scenes/DiveStats";
 
 export class PhaserApp {
   constructor({ width, height, id, userName }) {
@@ -27,6 +29,8 @@ export class PhaserApp {
         UIScene,
         OxygenBar,
         GameOverScene,
+        EndDive,
+        DiveStats,
       ],
     };
     this.game = new Phaser.Game(config);
