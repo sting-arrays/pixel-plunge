@@ -23,7 +23,7 @@ export class PhaserApp {
      debug: true,
     },
    },
-   scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar, GameOverScene],
+   scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar, GameOverScene, NewGame, EndDive, DiveStats],
   };
   this.game = new Phaser.Game(config);
   this.game.scene.add("loadingpage", new LoadingScreen(), true, { userName });

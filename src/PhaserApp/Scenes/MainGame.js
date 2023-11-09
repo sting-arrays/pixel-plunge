@@ -338,7 +338,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer });
+   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
   }
 
   if (player.y > 230) {
