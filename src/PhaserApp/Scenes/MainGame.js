@@ -57,7 +57,6 @@ export class MainGame extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", waterBG);
     this.load.image("tiles", waterTiles);
     this.load.image("extruded-tiles", extrudedWaterTiles);
-    // this.load.image("background", background);
     this.load.image("boat", boat);
     this.load.image("Cod", Cod);
     this.load.image("Darth Fisher", darthFisher);
@@ -118,7 +117,6 @@ export class MainGame extends Phaser.Scene {
         bucketSize: bucketSize,
       });
     }
-    // this.add.image(400, 1000, "background");
     fixed = this.physics.add.staticGroup();
 
     //Create Rocks
@@ -172,6 +170,7 @@ export class MainGame extends Phaser.Scene {
 
     // setTimeout(() => {
     //   this.scene.launch("GameOverScene");
+    //   this.scene.launch("EndDive");
     // }, 5000);
 
     this.anims.create({
@@ -374,6 +373,10 @@ export class MainGame extends Phaser.Scene {
       this.scene.launch("oxygenscene", { oxygentimer });
     }
 
+    if (player.y > 230) {
+      this.scene.stop("EndDive");
+    }
+
     if (timeLeft === 1) {
       // player.anims.play("player-dead", true).flipY = true;
       // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
@@ -394,6 +397,7 @@ export class MainGame extends Phaser.Scene {
 
     if (player.y < 230) {
       this.scene.launch("oxygenscene", { oxygentimer });
+      this.scene.launch("EndDive");
     }
   }
 }
