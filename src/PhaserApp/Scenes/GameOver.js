@@ -29,7 +29,7 @@ export class GameOverScene extends Phaser.Scene {
   text.setInteractive({ useHandCursor: true });
 
   text.on("pointerdown", () => {
-   this.scene.start("newgame", { currentUserDetails: userProfile });
+   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0 });
    this.scene.stop("maingame");
    //  setTimeout(() => {
    //   this.scene.start("maingame");
