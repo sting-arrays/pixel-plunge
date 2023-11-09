@@ -361,7 +361,7 @@ export class MainGame extends Phaser.Scene {
    player.setVelocityY(-250).flipY = false;
    player.flipX = false;
    //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
-   this.scene.launch("EndDive");
+   this.scene.launch("EndDive", { currentUserDetails: userProfile });
   }
  }
 }

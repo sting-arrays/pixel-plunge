@@ -3,28 +3,31 @@ import GameOverBackground from "../../assets/Background/GameOver.png";
 let bg;
 let text;
 let time;
+let userProfile;
 
 export class EndDive extends Phaser.Scene {
-  constructor() {
-    super({ key: "EndDive" });
-  }
+ constructor() {
+  super({ key: "EndDive" });
+ }
 
-  init({ timeLeft }) {}
+ init({ timeLeft, currentUserDetails }) {
+  userProfile = currentUserDetails;
+ }
 
-  preload() {}
+ preload() {}
 
-  create() {
-    text = this.add.text(530, 84, "End Dive!", {
-      fontSize: "20px",
-      fill: "#000",
-    });
+ create() {
+  text = this.add.text(530, 84, "End Dive!", {
+   fontSize: "20px",
+   fill: "#000",
+  });
 
-    text.setInteractive({ useHandCursor: true });
+  text.setInteractive({ useHandCursor: true });
 
-    text.on("pointerdown", () => {
-      // ^^ Above this line export all game data to the db
-      this.scene.launch("DiveStats");
-      this.scene.stop("EndDive");
-    });
-  }
+  text.on("pointerdown", () => {
+   // ^^ Above this line export all game data to the db
+   this.scene.launch("DiveStats", { currentUserDetails: userProfile });
+   this.scene.stop("EndDive");
+  });
+ }
 }
