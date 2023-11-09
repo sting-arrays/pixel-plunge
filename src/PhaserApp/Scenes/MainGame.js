@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { createUniqueFish } from "../utils";
 import * as index from "./index";
+import waterBG from "../../assets/Background/water-bg.json";
 
 let fishes;
 let fixed;
@@ -33,7 +34,9 @@ export class MainGame extends Phaser.Scene {
  }
 
  preload() {
-  this.load.image("background", index.background);
+  this.load.tilemapTiledJSON("map", waterBG);
+  this.load.image("tiles", index.waterTiles);
+  this.load.image("extruded-tiles", index.extrudedWaterTiles);
   this.load.image("boat", index.boat);
   this.load.image("Cod", index.Cod);
   this.load.image("Darth Fisher", index.darthFisher);
@@ -62,6 +65,12 @@ export class MainGame extends Phaser.Scene {
  }
 
  create() {
+  const map = this.make.tilemap({ key: "map" });
+  const tileSet = map.addTilesetImage("water", "extruded-tiles", 64, 64, 1, 2);
+
+  map.createLayer("background", tileSet);
+  map.createLayer("foreground", tileSet);
+
   this.cameras.main.fadeIn(2000);
   this.input.keyboard.enabled = true;
   function collectFish(player, fish) {
@@ -81,7 +90,6 @@ export class MainGame extends Phaser.Scene {
     bucketSize: bucketSize,
    });
   }
-  this.add.image(400, 1000, "background");
   fixed = this.physics.add.staticGroup();
 
   //Create Rocks
@@ -318,7 +326,10 @@ export class MainGame extends Phaser.Scene {
   }
 
   if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
+   this.scene.launch("oxygenscene", {
+    oxygentimer,
+    currentUserDetails: userProfile,
+   });
   }
 
   if (player.y > 230) {
