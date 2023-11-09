@@ -9,7 +9,7 @@ let guestAccount = {
  userName: "Guest",
  Fish_Bag: 10,
  Money: 0,
- Oxygen: 10,
+ Oxygen: 100,
 };
 
 export default class LoadingScreen extends Phaser.Scene {
@@ -18,10 +18,11 @@ export default class LoadingScreen extends Phaser.Scene {
  }
 
  init(data) {
-  if (data.currentUser === "Guest") {
-   currentUserDetails === guestAccount;
+    console.log(data)
+  if (data.email === "Guest") {
+   currentUserDetails = guestAccount;
   } else {
-   currentUser = data.userName;
+   currentUser = data.email;
    getUserDetails(currentUser).then((result) => {
     currentUserDetails = result;
    });
