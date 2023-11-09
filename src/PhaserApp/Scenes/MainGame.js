@@ -16,6 +16,7 @@ import xlrock1left from "../../assets/Scenary/xlrock1left.png";
 import xlrock1right from "../../assets/Scenary/xlrock1right.png";
 import medrock1flat from "../../assets/Scenary/medrock1flat.png";
 import smallrock1flat from "../../assets/Scenary/smallrock1flat.png";
+import EventsCenter from "../EventsCenter";
 
 let fishes;
 let fixed;
@@ -26,7 +27,8 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
-let oxygentimer = 60;
+let oxygentimer = 5;
+let timeLeft;
 let caughtFish = [];
 
 export class MainGame extends Phaser.Scene {
@@ -34,11 +36,12 @@ export class MainGame extends Phaser.Scene {
     super("maingame");
   }
 
- init(data) {
-  console.log("my guy", data)
-  coins = +data.currentUserDetails.Money
-  bucketSize = +data.currentUserDetails.Fish_Bag
- }
+  init(data) {
+    console.log(data.timeLeft);
+    console.log("my guy", data);
+    coins = +data.currentUserDetails.Money;
+    bucketSize = +data.currentUserDetails.Fish_Bag;
+  }
 
   preload() {
     this.load.image("background", background);
@@ -70,8 +73,9 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
-
     this.cameras.main.fadeIn(2000);
+
+    this.input.keyboard.enabled = true;
 
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
@@ -91,7 +95,12 @@ export class MainGame extends Phaser.Scene {
       });
     }
 
+    // setTimeout(() => {
+    //   this.scene.launch("GameOverScene");
+    // }, 5000);
+
     this.add.image(400, 1000, "background");
+
     fixed = this.physics.add.staticGroup();
 
     //Create Rocks
@@ -136,7 +145,8 @@ export class MainGame extends Phaser.Scene {
     }
 
     //Create Player
-    fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
+    const boat = fixed.create(119, 250, "boat").setScale(1).refreshBody();
+    boat.setSize(220, 60, true);
 
     player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
 
@@ -234,6 +244,12 @@ export class MainGame extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: "player-dead",
+      frames: [{ key: "swimming", frame: 0 }],
+      frameRate: 11,
+    });
+
     cursors = this.input.keyboard.createCursorKeys();
 
     this.physics.add.collider(player, fixed);
@@ -292,10 +308,18 @@ export class MainGame extends Phaser.Scene {
       fish.body.setAllowGravity(false);
     }
 
-  this.physics.add.overlap(player, fishes, collectFish, null, this);
-  // this.scene.launch("testscene");
-  this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
- }
+    this.physics.add.overlap(player, fishes, collectFish, null, this);
+    this.scene.launch("testscene");
+    this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
+
+    EventsCenter.on(
+      "time-left",
+      (time) => {
+        timeLeft = time;
+      },
+      this
+    );
+  }
 
   update() {
     if (player.y < 290 && player.x < 300) {
@@ -325,10 +349,16 @@ export class MainGame extends Phaser.Scene {
       //As the player jumps into the water the camera has a transitional Zoom in
       this.cameras.main.zoomTo(2.5, 3000);
       player.body.setAllowGravity(false);
-      if (cursors.left.isDown && player.x > 16) {
+      if (
+        (cursors.left.isDown && player.x > 16 && timeLeft > 1) ||
+        (cursors.left.isDown && player.x > 16 && timeLeft === undefined)
+      ) {
         player.setVelocityX(-200);
         player.anims.play("swimming-right", true).flipX = true;
-      } else if (cursors.right.isDown && player.x < 784) {
+      } else if (
+        (cursors.right.isDown && player.x < 784 && timeLeft > 1) ||
+        (cursors.right.isDown && player.x < 784 && timeLeft === undefined)
+      ) {
         player.setVelocityX(200);
         player.anims.play("swimming-left", true).flipX = false;
       } else {
@@ -338,12 +368,20 @@ export class MainGame extends Phaser.Scene {
           : player.setVelocity(0);
         player.anims.play("swimming-turn", true);
       }
-      if (cursors.up.isDown) {
+      if (
+        (cursors.up.isDown && timeLeft > 1) ||
+        (cursors.up.isDown && timeLeft === undefined)
+      ) {
         player.setVelocityY(-200);
         player.anims.play("swimming-up", true).flipY = false;
         player.flipX = false;
       }
-      if (cursors.down.isDown && player.y <= height - 48) {
+      if (
+        (cursors.down.isDown && player.y <= height - 48 && timeLeft > 1) ||
+        (cursors.down.isDown &&
+          player.y <= height - 48 &&
+          timeLeft === undefined)
+      ) {
         player.setVelocityY(200);
         player.anims.play("swimming-down", true).flipY = true;
         player.flipX = false;
@@ -356,8 +394,21 @@ export class MainGame extends Phaser.Scene {
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
     }
 
-    if(player.y < 230) {
-      this.scene.launch('oxygenscene',{oxygentimer})
+    if (player.y < 230) {
+      this.scene.launch("oxygenscene", { oxygentimer });
+    }
+
+    if (timeLeft === 1) {
+      // player.anims.play("player-dead", true).flipY = true;
+      // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
+
+      this.input.keyboard.enabled = false;
+      // player.body.stop();
+      player.flipY = true;
+      player.setVelocityX(0);
+      player.setVelocityY(40);
+      fishCount = 0;
+      // player.setVelocityY(50);
     }
   }
 }

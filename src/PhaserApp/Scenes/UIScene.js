@@ -5,7 +5,6 @@ let fish;
 let bucket;
 
 export class UIScene extends Phaser.Scene {
-  
   constructor() {
     super("uiscene");
   }
