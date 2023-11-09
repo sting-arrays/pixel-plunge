@@ -21,6 +21,7 @@ export default class LoadingScreen extends Phaser.Scene {
     console.log(data)
   if (data.email === "Guest") {
    currentUserDetails = guestAccount;
+   console.log("i am here", currentUserDetails)
   } else {
    currentUser = data.email;
    getUserDetails(currentUser).then((result) => {

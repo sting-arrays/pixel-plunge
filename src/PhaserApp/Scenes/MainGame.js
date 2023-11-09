@@ -23,11 +23,12 @@ export class MainGame extends Phaser.Scene {
   super("maingame");
  }
 
- init({ currentUserDetails, resetFish }) {
+ init({ currentUserDetails, resetFish, fishData }) {
   if (resetFish !== undefined) {
    fishCount = resetFish;
    console.log(resetFish);
   }
+  fishArray = fishData
   userProfile = currentUserDetails;
   coins = +currentUserDetails.Money;
   bucketSize = +currentUserDetails.Fish_Bag;
@@ -81,6 +82,7 @@ export class MainGame extends Phaser.Scene {
    fishCount++;
    for (let i = 0; i < fishArray.length; i++) {
     if (fishArray[i].name === fish.texture.key) {
+      console.log("i am fish", fishArray[i])
      coins += fishArray[i].fish_value;
     }
    }
