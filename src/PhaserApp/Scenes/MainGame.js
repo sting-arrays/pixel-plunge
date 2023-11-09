@@ -154,7 +154,7 @@ export class MainGame extends Phaser.Scene {
   this.cameras.main.zoom = 0.5;
 
   // setTimeout(() => {
-  //   this.scene.launch("GameOverScene");
+  //   this.scene.launch("EndDive");
   // }, 5000);
 
   this.anims.create({
@@ -338,7 +338,11 @@ export class MainGame extends Phaser.Scene {
   }
 
   if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
+   this.scene.launch("oxygenscene", { oxygentimer });
+  }
+
+  if (player.y > 230) {
+   this.scene.stop("EndDive");
   }
 
   if (timeLeft === 1) {
@@ -357,10 +361,7 @@ export class MainGame extends Phaser.Scene {
    player.setVelocityY(-250).flipY = false;
    player.flipX = false;
    //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
-  }
-
-  if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
+   this.scene.launch("EndDive");
   }
  }
 }
