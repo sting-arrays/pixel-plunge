@@ -5,7 +5,6 @@ export let user = "test"
 
 export default function UserDetailsTest() {
     const [user, setUser] = useState("")
-    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [fishBag, setFishBag] = useState(0)
@@ -16,7 +15,6 @@ export default function UserDetailsTest() {
 
     function clearFields() {
         setUser("")
-        setName("")
         setEmail("")
         setPassword("")
         setFishBag(0)
@@ -30,13 +28,10 @@ export default function UserDetailsTest() {
     <>
     <h2>Testing firebase updates</h2>
 
-    <form onSubmit={ (event) => {event.preventDefault(); clearFields(); updateUser(user, name, email, password, fishBag, fishCount, level, money, oxygen) } }>
+    <form onSubmit={ (event) => {event.preventDefault(); clearFields(); updateUser(user, email, password, fishBag, fishCount, level, money, oxygen) } }>
 
         <label>User Name:</label>
         <input required value={user} onChange={ event => setUser(event.target.value) }/>
-        
-        <label>Name:</label>
-        <input required value={name} onChange={ event => setName(event.target.value) }/>
         
         <label>Email:</label>
         <input required value={email} onChange={ event => setEmail(event.target.value) }/>

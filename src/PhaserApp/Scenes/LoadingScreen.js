@@ -12,23 +12,31 @@ let guestAccount = {
  Oxygen: 10,
 };
 
+let hasUserLoaded = false;
+let hasFishDataLoaded = false;
+
 export default class LoadingScreen extends Phaser.Scene {
  constructor() {
   super("loadingpage");
  }
 
  init(data) {
-  if (data.currentUser === "Guest") {
-   currentUserDetails === guestAccount;
+  if (data.email === "Guest") {
+   currentUserDetails = guestAccount;
+   hasUserLoaded = true;
   } else {
-   currentUser = data.userName;
+   currentUser = data.email;
    getUserDetails(currentUser).then((result) => {
+    console.log("got user");
     currentUserDetails = result;
-   });
-   getAllFish().then((response) => {
-    fishData = response;
+    hasUserLoaded = true;
    });
   }
+  getAllFish().then((response) => {
+   console.log("got fsh");
+   fishData = response;
+   hasFishDataLoaded = true;
+  });
  }
 
  preload() {
@@ -40,13 +48,17 @@ export default class LoadingScreen extends Phaser.Scene {
   const image = this.add.image(400, 250, "logo").setScale(0.5);
   this.add.text(335, 500, "Sting-Arrays", "#FFF");
 
-  this.cameras.main.once("camerafadeincomplete", function (camera) {
-   camera.fadeOut(2000);
-  });
-
   this.cameras.main.fadeIn(2000);
-  setTimeout(() => {
-   this.scene.start("newgame", { currentUserDetails, fishData });
-  }, 4000);
+  const loader = setInterval(() => {
+   if (hasFishDataLoaded && hasUserLoaded) {
+    this.cameras.main.once("camerafadeincomplete", function (camera) {
+     camera.fadeOut(2000);
+    });
+    setTimeout(() => {
+     this.scene.start("newgame", { currentUserDetails, fishData });
+    }, 3000);
+    clearInterval(loader);
+   }
+  }, 1000);
  }
 }
