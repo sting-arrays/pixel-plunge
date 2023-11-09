@@ -12,7 +12,7 @@ export default class LoadingScreen extends Phaser.Scene {
  }
 
  init(data) {
-  currentUser = data.userName;
+  currentUser = data.email;
   getUserDetails(currentUser).then((result) => {
    currentUserDetails = result;
   });
