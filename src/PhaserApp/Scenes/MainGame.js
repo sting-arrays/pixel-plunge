@@ -39,15 +39,17 @@ let oxygentimer = 5;
 let timeLeft;
 let caughtFish = [];
 let fishArray = [];
+let userProfile;
 
 export class MainGame extends Phaser.Scene {
  constructor() {
   super("maingame");
  }
 
- init(data) {
-  coins = +data.currentUserDetails.Money;
-  bucketSize = +data.currentUserDetails.Fish_Bag;
+ init({ currentUserDetails }) {
+  userProfile = currentUserDetails;
+  coins = +currentUserDetails.Money;
+  bucketSize = +currentUserDetails.Fish_Bag;
  }
 
  preload() {
@@ -336,7 +338,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer });
+   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
   }
 
   if (timeLeft === 1) {
@@ -358,7 +360,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   if (player.y < 230) {
-   this.scene.launch("oxygenscene", { oxygentimer });
+   this.scene.launch("oxygenscene", { oxygentimer, currentUserDetails: userProfile });
   }
  }
 }
