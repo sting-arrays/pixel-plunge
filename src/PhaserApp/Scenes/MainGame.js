@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { createUniqueFish } from "../utils";
-import * as index from './index';
+import * as index from "./index";
 
 let fishes;
 let fixed;
@@ -22,7 +22,11 @@ export class MainGame extends Phaser.Scene {
   super("maingame");
  }
 
- init({ currentUserDetails }) {
+ init({ currentUserDetails, resetFish }) {
+  if (resetFish !== undefined) {
+   fishCount = resetFish;
+   console.log(resetFish);
+  }
   userProfile = currentUserDetails;
   coins = +currentUserDetails.Money;
   bucketSize = +currentUserDetails.Fish_Bag;
