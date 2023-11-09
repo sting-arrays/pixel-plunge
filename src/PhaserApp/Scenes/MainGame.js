@@ -12,8 +12,8 @@ import northernFish from "../../assets/Fish/northern fish.png";
 import reallyBigFish from "../../assets/Fish/really big fish.png";
 import theFishNamedJordan from "../../assets/Fish/the fish named jordan.png";
 
-import waterTiles from "../../assets/Background/water-tileset.png";
-import extrudedWaterTiles from "../../assets/Background/water-tileset-extruded.png";
+import waterTiles from "../../assets/Background/water-tiles.png";
+import extrudedWaterTiles from "../../assets/Background/water-tiles-extruded.png";
 import waterBG from "../../assets/Background/water-bg.json";
 import character from "../../assets/Character/character.png";
 import swimming from "../../assets/Character/Swimming.png";
@@ -96,8 +96,8 @@ export class MainGame extends Phaser.Scene {
       2
     );
 
-    const waterLayer = map.createLayer("background", tileSet);
-    const objectLater = map.createLayer("foreground", tileSet);
+    map.createLayer("background", tileSet);
+    map.createLayer("foreground", tileSet);
 
     this.cameras.main.fadeIn(2000);
     this.input.keyboard.enabled = true;
