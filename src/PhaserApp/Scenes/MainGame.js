@@ -24,6 +24,7 @@ import xlrock1right from "../../assets/Scenary/xlrock1right.png";
 import medrock1flat from "../../assets/Scenary/medrock1flat.png";
 import smallrock1flat from "../../assets/Scenary/smallrock1flat.png";
 import { createUniqueFish } from "../utils";
+import EventsCenter from "../EventsCenter";
 
 let fishes;
 let fixed;
@@ -34,7 +35,8 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
-let oxygentimer = 60;
+let oxygentimer = 5;
+let timeLeft;
 let caughtFish = [];
 let fishArray = [];
 
@@ -44,10 +46,10 @@ export class MainGame extends Phaser.Scene {
  }
 
  init(data) {
+  console.log(data.timeLeft);
   console.log("my guy", data);
   coins = +data.currentUserDetails.Money;
   bucketSize = +data.currentUserDetails.Fish_Bag;
-  fishArray = data.fishData;
  }
 
  preload() {
@@ -81,7 +83,7 @@ export class MainGame extends Phaser.Scene {
 
  create() {
   this.cameras.main.fadeIn(2000);
-
+  this.input.keyboard.enabled = true;
   function collectFish(player, fish) {
    if (fishCount === bucketSize) {
     return;
@@ -99,7 +101,6 @@ export class MainGame extends Phaser.Scene {
     bucketSize: bucketSize,
    });
   }
-
   this.add.image(400, 1000, "background");
   fixed = this.physics.add.staticGroup();
 
@@ -126,7 +127,6 @@ export class MainGame extends Phaser.Scene {
    const rock = fixed.create(x, y, rockType);
    rock.setSize(150, 70);
   }
-
   //left
   for (let i = 0; i < 1; i++) {
    let x = 90;
@@ -145,8 +145,6 @@ export class MainGame extends Phaser.Scene {
   }
 
   //Create Player
-  fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
-
   player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
 
   // player.setCollideWorldBounds(true);
@@ -154,6 +152,10 @@ export class MainGame extends Phaser.Scene {
   this.cameras.main.startFollow(player, true);
   // this.cameras.main.setBounds(0, 0, 800, height);
   this.cameras.main.zoom = 0.5;
+
+  // setTimeout(() => {
+  //   this.scene.launch("GameOverScene");
+  // }, 5000);
 
   this.anims.create({
    key: "left",
@@ -191,6 +193,10 @@ export class MainGame extends Phaser.Scene {
   //   frameRate: 11,
   //   repeat: -1,
   // });
+
+  //Create Player
+  const boat = fixed.create(119, 250, "boat").setScale(1).refreshBody();
+  boat.setSize(220, 60, true);
 
   //Currently leaving the upward movement as a fixed frame until animation works
   this.anims.create({
@@ -242,6 +248,11 @@ export class MainGame extends Phaser.Scene {
    frameRate: 10,
    repeat: -1,
   });
+  this.anims.create({
+   key: "player-dead",
+   frames: [{ key: "swimming", frame: 0 }],
+   frameRate: 11,
+  });
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -251,7 +262,6 @@ export class MainGame extends Phaser.Scene {
   //Do we want to split these up into groups for points reasons? Can make the higher point fish spawn lower, be faster etc
 
   const fishes = this.physics.add.group();
-
   createUniqueFish(10, 400, 600, fishes, "Dory", 400, 600);
   createUniqueFish(10, 500, 800, fishes, "Darth Fisher", 500, 800);
   createUniqueFish(10, 700, 1100, fishes, "Dory", 700, 1100);
@@ -259,13 +269,21 @@ export class MainGame extends Phaser.Scene {
   createUniqueFish(10, 0, 0, fishes, "Dory", 1500, 2000);
 
   this.physics.add.overlap(player, fishes, collectFish, null, this);
-  // this.scene.launch("testscene");
+  this.scene.launch("testscene");
   this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
+
+  EventsCenter.on(
+   "time-left",
+   (time) => {
+    timeLeft = time;
+   },
+   this
+  );
  }
 
  update() {
   if (player.y < 290 && player.x < 300) {
-   //  this.cameras.main.zoomTo(1.5, 1500);
+   this.cameras.main.zoomTo(1.5, 1500);
   }
   //When player is out of water
   if (player.y < 215) {
@@ -289,12 +307,12 @@ export class MainGame extends Phaser.Scene {
   //When player is in water
   if (player.y > 230) {
    //As the player jumps into the water the camera has a transitional Zoom in
-   //  this.cameras.main.zoomTo(2.5, 3000);
+   this.cameras.main.zoomTo(2.5, 3000);
    player.body.setAllowGravity(false);
-   if (cursors.left.isDown && player.x > 16) {
+   if ((cursors.left.isDown && player.x > 16 && timeLeft > 1) || (cursors.left.isDown && player.x > 16 && timeLeft === undefined)) {
     player.setVelocityX(-200);
     player.anims.play("swimming-right", true).flipX = true;
-   } else if (cursors.right.isDown && player.x < 784) {
+   } else if ((cursors.right.isDown && player.x < 784 && timeLeft > 1) || (cursors.right.isDown && player.x < 784 && timeLeft === undefined)) {
     player.setVelocityX(200);
     player.anims.play("swimming-left", true).flipX = false;
    } else {
@@ -302,18 +320,40 @@ export class MainGame extends Phaser.Scene {
     player.y <= height - 48 ? player.setVelocityY(50) : player.setVelocity(0);
     player.anims.play("swimming-turn", true);
    }
-   if (cursors.up.isDown) {
+   if ((cursors.up.isDown && timeLeft > 1) || (cursors.up.isDown && timeLeft === undefined)) {
     player.setVelocityY(-200);
     player.anims.play("swimming-up", true).flipY = false;
     player.flipX = false;
    }
-   if (cursors.down.isDown && player.y <= height - 48) {
+   if ((cursors.down.isDown && player.y <= height - 48 && timeLeft > 1) || (cursors.down.isDown && player.y <= height - 48 && timeLeft === undefined)) {
     player.setVelocityY(200);
     player.anims.play("swimming-down", true).flipY = true;
     player.flipX = false;
    }
   }
 
+  if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
+   player.setVelocityY(-250).flipY = false;
+   player.flipX = false;
+   //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
+  }
+
+  if (player.y < 230) {
+   this.scene.launch("oxygenscene", { oxygentimer });
+  }
+
+  if (timeLeft === 1) {
+   // player.anims.play("player-dead", true).flipY = true;
+   // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
+
+   this.input.keyboard.enabled = false;
+   // player.body.stop();
+   player.flipY = true;
+   player.setVelocityX(0);
+   player.setVelocityY(40);
+   fishCount = 0;
+   // player.setVelocityY(50);
+  }
   if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
    player.setVelocityY(-250).flipY = false;
    player.flipX = false;
