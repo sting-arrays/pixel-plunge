@@ -4,14 +4,16 @@ let bg;
 let text;
 let time;
 let userProfile;
+let fishArray;
 
 export class EndDive extends Phaser.Scene {
  constructor() {
   super({ key: "EndDive" });
  }
 
- init({ timeLeft, currentUserDetails }) {
+ init({ timeLeft, currentUserDetails, fishData }) {
   userProfile = currentUserDetails;
+  fishArray = fishData;
  }
 
  preload() {}
@@ -26,7 +28,7 @@ export class EndDive extends Phaser.Scene {
 
   text.on("pointerdown", () => {
    // ^^ Above this line export all game data to the db
-   this.scene.launch("DiveStats", { currentUserDetails: userProfile });
+   this.scene.launch("DiveStats", { currentUserDetails: userProfile, fishData: fishArray });
    this.scene.stop("EndDive");
   });
  }

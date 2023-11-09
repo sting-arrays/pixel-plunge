@@ -4,14 +4,16 @@ let bg;
 let text;
 let time;
 let userProfile;
+let fishArray;
 
 export class DiveStats extends Phaser.Scene {
  constructor() {
   super({ key: "DiveStats" });
  }
 
- init({ timeLeft, currentUserDetails }) {
+ init({ timeLeft, currentUserDetails, fishData }) {
   userProfile = currentUserDetails;
+  fishArray = fishData;
  }
 
  preload() {
@@ -31,7 +33,7 @@ export class DiveStats extends Phaser.Scene {
   text.on("pointerdown", () => {
    // ^^ Above this line export all game data to the db
    this.scene.stop("DiveStats");
-   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0 });
+   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0, fishData: fishArray });
    this.scene.stop("maingame");
   });
  }
