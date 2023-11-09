@@ -5,21 +5,19 @@ import GamePage from "./components/GamePage";
 import Fishidex from "./components/StartGameComponents/Fishidex";
 import LeaderBoard from "./components/StartGameComponents/LeaderBoard";
 import Upgrades from "./components/StartGameComponents/Upgrades";
-import { AppBridge } from "./PhaserApp/AppBridge";
-
 
 function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/fishidex" element={<Fishidex />} />
-        <Route path="/leaderboard" element={<LeaderBoard />} />
-        <Route path="/upgrades" element={<Upgrades />} />
-      </Routes>
-    </div>
-  );
+ return (
+  <div>
+   <Routes>
+    <Route path="/" element={<WelcomePage />} />
+    <Route path="/game" element={<GamePage />} />
+    <Route path="/fishidex" element={<Fishidex />} />
+    <Route path="/leaderboard" element={<LeaderBoard />} />
+    <Route path="/upgrades" element={<Upgrades />} />
+   </Routes>
+  </div>
+ );
 }
 
 export default App;
