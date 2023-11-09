@@ -27,7 +27,7 @@ let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
 let height = 2000;
-let oxygentimer = 60;
+let oxygentimer = 5;
 let timeLeft;
 let caughtFish = [];
 
@@ -349,10 +349,16 @@ export class MainGame extends Phaser.Scene {
       //As the player jumps into the water the camera has a transitional Zoom in
       this.cameras.main.zoomTo(2.5, 3000);
       player.body.setAllowGravity(false);
-      if (cursors.left.isDown && player.x > 16) {
+      if (
+        (cursors.left.isDown && player.x > 16 && timeLeft > 1) ||
+        (cursors.left.isDown && player.x > 16 && timeLeft === undefined)
+      ) {
         player.setVelocityX(-200);
         player.anims.play("swimming-right", true).flipX = true;
-      } else if (cursors.right.isDown && player.x < 784) {
+      } else if (
+        (cursors.right.isDown && player.x < 784 && timeLeft > 1) ||
+        (cursors.right.isDown && player.x < 784 && timeLeft === undefined)
+      ) {
         player.setVelocityX(200);
         player.anims.play("swimming-left", true).flipX = false;
       } else {
@@ -362,12 +368,20 @@ export class MainGame extends Phaser.Scene {
           : player.setVelocity(0);
         player.anims.play("swimming-turn", true);
       }
-      if (cursors.up.isDown) {
+      if (
+        (cursors.up.isDown && timeLeft > 1) ||
+        (cursors.up.isDown && timeLeft === undefined)
+      ) {
         player.setVelocityY(-200);
         player.anims.play("swimming-up", true).flipY = false;
         player.flipX = false;
       }
-      if (cursors.down.isDown && player.y <= height - 48) {
+      if (
+        (cursors.down.isDown && player.y <= height - 48 && timeLeft > 1) ||
+        (cursors.down.isDown &&
+          player.y <= height - 48 &&
+          timeLeft === undefined)
+      ) {
         player.setVelocityY(200);
         player.anims.play("swimming-down", true).flipY = true;
         player.flipX = false;
@@ -386,16 +400,15 @@ export class MainGame extends Phaser.Scene {
 
     if (timeLeft === 1) {
       // player.anims.play("player-dead", true).flipY = true;
-      // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^
-      player.flipY = true;
+      // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
+
       this.input.keyboard.enabled = false;
+      // player.body.stop();
+      player.flipY = true;
+      player.setVelocityX(0);
+      player.setVelocityY(40);
+      fishCount = 0;
       // player.setVelocityY(50);
     }
   }
 }
-
-// timeLeft !== 0 &&
-//         !cursors.right.isDown &&
-//         !cursors.left.isDown &&
-//         !cursors.up.isDown &&
-//         cursors.down.isDown

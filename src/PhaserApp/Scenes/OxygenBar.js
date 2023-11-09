@@ -32,6 +32,7 @@ export class OxygenBar extends Phaser.Scene {
       delay: 1000,
       callback: function () {
         this.timeLeft--;
+        console.log(this.timeLeft);
         EventsCenter.emit("time-left", this.timeLeft);
 
         let stepWidth = this.o2Mask.displayWidth / this.initialTime;

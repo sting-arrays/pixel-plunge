@@ -9,11 +9,7 @@ export class GameOverScene extends Phaser.Scene {
     super({ key: "GameOverScene" });
   }
 
-  init({ timeLeft }) {
-    console.log(timeLeft);
-    time = timeLeft;
-    console.log(timeLeft);
-  }
+  init({ timeLeft }) {}
 
   preload() {
     this.load.image("GameOverBackground", GameOverBackground);
@@ -30,8 +26,7 @@ export class GameOverScene extends Phaser.Scene {
     text.setInteractive({ useHandCursor: true });
 
     text.on("pointerdown", () => {
-      this.scene.stop("GameOverScene");
-      this.scene.launch("maingame");
+      location.reload();
     });
   }
 }
