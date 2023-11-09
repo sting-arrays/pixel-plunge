@@ -30,9 +30,9 @@ export class DiveStats extends Phaser.Scene {
 
   text.on("pointerdown", () => {
    // ^^ Above this line export all game data to the db
-   this.scene.stop("maingame");
-   this.scene.start("newgame", { currentUserDetails: userProfile });
    this.scene.stop("DiveStats");
+   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0 });
+   this.scene.stop("maingame");
   });
  }
 }

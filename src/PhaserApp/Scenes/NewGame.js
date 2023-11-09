@@ -3,13 +3,15 @@ import gameLogo from "../../assets/Other/pixelplungelogo.png";
 
 let userProfile;
 let fishArray;
+let fishCount;
 
 export default class LoadingScreen extends Phaser.Scene {
  constructor() {
   super("newgame");
  }
 
- init({ currentUserDetails, fishData }) {
+ init({ currentUserDetails, fishData, resetFish }) {
+  fishCount = resetFish;
   userProfile = currentUserDetails;
   fishArray = fishData;
  }
@@ -28,7 +30,7 @@ export default class LoadingScreen extends Phaser.Scene {
 
   this.cameras.main.fadeIn(1000);
   setTimeout(() => {
-   this.scene.start("maingame", { currentUserDetails: userProfile, fishData: fishArray });
+   this.scene.start("maingame", { currentUserDetails: userProfile, fishData: fishArray, resetFish: fishCount });
   }, 2000);
  }
 }
