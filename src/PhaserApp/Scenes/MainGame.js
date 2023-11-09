@@ -1,30 +1,6 @@
 import Phaser from "phaser";
-import background from "../../assets/Background/background3.png";
-import boat from "../../assets/Scenary/boat-360x117.png";
-import Cod from "../../assets/Fish/Cod.png";
-import darthFisher from "../../assets/Fish/Darth Fisher.png";
-import Dory from "../../assets/Fish/Dory.png";
-import Jaws from "../../assets/Fish/Jaws.png";
-import McFish from "../../assets/Fish/McFish.png";
-import coolfish from "../../assets/Fish/coolfish.png";
-import magicFish from "../../assets/Fish/magic fish.png";
-import northernFish from "../../assets/Fish/northern fish.png";
-import reallyBigFish from "../../assets/Fish/really big fish.png";
-import theFishNamedJordan from "../../assets/Fish/the fish named jordan.png";
-
-import character from "../../assets/Character/character.png";
-import swimming from "../../assets/Character/Swimming.png";
-import swimmingHorizontal from "../../assets/Character/Swimming-Horizontal.png";
-import xlrock2flat from "../../assets/Scenary/xlrock2flat.png";
-import xlrock2left from "../../assets/Scenary/xlrock2left.png";
-import xlrock2right from "../../assets/Scenary/xlrock2right.png";
-import xlrock1flat from "../../assets/Scenary/xlrock1flat.png";
-import xlrock1left from "../../assets/Scenary/xlrock1left.png";
-import xlrock1right from "../../assets/Scenary/xlrock1right.png";
-import medrock1flat from "../../assets/Scenary/medrock1flat.png";
-import smallrock1flat from "../../assets/Scenary/smallrock1flat.png";
 import { createUniqueFish } from "../utils";
-import EventsCenter from "../EventsCenter";
+import * as index from './index';
 
 let fishes;
 let fixed;
@@ -53,29 +29,29 @@ export class MainGame extends Phaser.Scene {
  }
 
  preload() {
-  this.load.image("background", background);
-  this.load.image("boat", boat);
-  this.load.image("Cod", Cod);
-  this.load.image("Darth Fisher", darthFisher);
-  this.load.image("Dory", Dory);
-  this.load.image("Jaws", Jaws);
-  this.load.image("xlrock2flat", xlrock2flat);
-  this.load.image("xlrock2left", xlrock2left);
-  this.load.image("xlrock2right", xlrock2right);
-  this.load.image("xlrock1flat", xlrock1flat);
-  this.load.image("xlrock1left", xlrock1left);
-  this.load.image("xlrock1right", xlrock1right);
-  this.load.image("medrock1flat", medrock1flat);
-  this.load.image("medrock2flat", smallrock1flat);
-  this.load.spritesheet("character", character, {
+  this.load.image("background", index.background);
+  this.load.image("boat", index.boat);
+  this.load.image("Cod", index.Cod);
+  this.load.image("Darth Fisher", index.darthFisher);
+  this.load.image("Dory", index.Dory);
+  this.load.image("Jaws", index.Jaws);
+  this.load.image("xlrock2flat", index.xlrock2flat);
+  this.load.image("xlrock2left", index.xlrock2left);
+  this.load.image("xlrock2right", index.xlrock2right);
+  this.load.image("xlrock1flat", index.xlrock1flat);
+  this.load.image("xlrock1left", index.xlrock1left);
+  this.load.image("xlrock1right", index.xlrock1right);
+  this.load.image("medrock1flat", index.medrock1flat);
+  this.load.image("medrock2flat", index.smallrock1flat);
+  this.load.spritesheet("character", index.character, {
    frameWidth: 128,
    frameHeight: 128,
   });
-  this.load.spritesheet("swimming", swimming, {
+  this.load.spritesheet("swimming", index.swimming, {
    frameWidth: 128,
    frameHeight: 128,
   });
-  this.load.spritesheet("swimmingHorizontal", swimmingHorizontal, {
+  this.load.spritesheet("swimmingHorizontal", index.swimmingHorizontal, {
    frameWidth: 128,
    frameHeight: 128,
   });
@@ -271,7 +247,7 @@ export class MainGame extends Phaser.Scene {
   //this.scene.launch("testscene");
   this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
 
-  EventsCenter.on(
+  index.EventsCenter.on(
    "time-left",
    (time) => {
     timeLeft = time;
