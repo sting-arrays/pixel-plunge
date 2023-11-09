@@ -26,7 +26,10 @@ export class GameOverScene extends Phaser.Scene {
     text.setInteractive({ useHandCursor: true });
 
     text.on("pointerdown", () => {
-      location.reload();
+      this.scene.stop('maingame')
+      // this.scene.restart('maingame')
+      this.scene.start('maingame')
+      this.scene.stop('GameOverScene')
     });
   }
 }
