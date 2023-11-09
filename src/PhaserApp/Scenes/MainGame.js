@@ -46,8 +46,6 @@ export class MainGame extends Phaser.Scene {
  }
 
  init(data) {
-  console.log(data.timeLeft);
-  console.log("my guy", data);
   coins = +data.currentUserDetails.Money;
   bucketSize = +data.currentUserDetails.Fish_Bag;
  }
@@ -150,7 +148,7 @@ export class MainGame extends Phaser.Scene {
   // player.setCollideWorldBounds(true);
 
   this.cameras.main.startFollow(player, true);
-  // this.cameras.main.setBounds(0, 0, 800, height);
+  this.cameras.main.setBounds(0, 0, 800, height);
   this.cameras.main.zoom = 0.5;
 
   // setTimeout(() => {
@@ -195,7 +193,7 @@ export class MainGame extends Phaser.Scene {
   // });
 
   //Create Player
-  const boat = fixed.create(119, 250, "boat").setScale(1).refreshBody();
+  const boat = fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
   boat.setSize(220, 60, true);
 
   //Currently leaving the upward movement as a fixed frame until animation works
@@ -266,10 +264,9 @@ export class MainGame extends Phaser.Scene {
   createUniqueFish(10, 500, 800, fishes, "Darth Fisher", 500, 800);
   createUniqueFish(10, 700, 1100, fishes, "Dory", 700, 1100);
   createUniqueFish(10, 1000, 1400, fishes, "Darth Fisher", 1000, 1400);
-  createUniqueFish(10, 0, 0, fishes, "Dory", 1500, 2000);
 
   this.physics.add.overlap(player, fishes, collectFish, null, this);
-  this.scene.launch("testscene");
+  //this.scene.launch("testscene");
   this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
 
   EventsCenter.on(
