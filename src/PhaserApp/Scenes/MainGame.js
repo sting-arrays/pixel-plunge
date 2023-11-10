@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { createUniqueFish } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
+import swampBG from "../../assets/Background/swamp-bg.json";
 
 let fishes;
 let fixed;
@@ -35,8 +36,8 @@ export class MainGame extends Phaser.Scene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON("map", waterBG);
-    this.load.image("tiles", index.waterTiles);
+    this.load.tilemapTiledJSON("default", waterBG);
+    this.load.tilemapTiledJSON("swamp", swampBG);
     this.load.image("extruded-tiles", index.extrudedWaterTiles);
     this.load.image("boat", index.boat);
     this.load.image("Cod", index.Cod);
@@ -62,9 +63,12 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
-    const map = this.make.tilemap({ key: "map" });
+    const mapKeys = ["default", "swamp"];
+    const map = this.make.tilemap({
+      key: mapKeys[Phaser.Math.Between(0, mapKeys.length - 1)],
+    });
     const tileSet = map.addTilesetImage(
-      "water",
+      "water_(4)",
       "extruded-tiles",
       64,
       64,
@@ -315,8 +319,11 @@ export class MainGame extends Phaser.Scene {
       ) {
         player.setVelocityY(200);
         player.anims.play("swimming-down", true);
-      } else {
-        player.setVelocity(0);
+      } else if (
+        (!cursors.isDown && timeLeft > 1) ||
+        (!cursors.isDown && timeLeft === undefined)
+      ) {
+        player.setVelocityY(10).setVelocityX(0);
         player.anims.play("swimming-idle", true);
       }
     }
@@ -340,16 +347,13 @@ export class MainGame extends Phaser.Scene {
     }
 
     if (timeLeft === 1) {
-      // player.anims.play("player-dead", true).flipY = true;
       // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
 
       this.input.keyboard.enabled = false;
-      // player.body.stop();
-      player.flipY = true;
+      player.anims.play("player-dead", true).flipY = true;
       player.setVelocityX(0);
       player.setVelocityY(40);
       fishCount = 0;
-      // player.setVelocityY(50);
     }
     if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
       player.setVelocityY(-250).flipY = false;

@@ -1,3 +1,4 @@
+// image assets
 export { default as background } from "../../assets/Background/background3.png";
 export { default as boat } from "../../assets/Scenary/boat-360x117.png";
 export { default as Cod } from "../../assets/Fish/Cod.png";
@@ -10,8 +11,12 @@ export { default as magicFish } from "../../assets/Fish/magic fish.png";
 export { default as northernFish } from "../../assets/Fish/northern fish.png";
 export { default as reallyBigFish } from "../../assets/Fish/really big fish.png";
 export { default as theFishNamedJordan } from "../../assets/Fish/the fish named jordan.png";
+
+// sprites
 export { default as character } from "../../assets/Character/character.png";
 export { default as swimming } from "../../assets/Character/swimming-anims.png";
+
+// objects & tilesets
 export { default as xlrock2flat } from "../../assets/Scenary/xlrock2flat.png";
 export { default as xlrock2left } from "../../assets/Scenary/xlrock2left.png";
 export { default as xlrock2right } from "../../assets/Scenary/xlrock2right.png";
@@ -20,6 +25,6 @@ export { default as xlrock1left } from "../../assets/Scenary/xlrock1left.png";
 export { default as xlrock1right } from "../../assets/Scenary/xlrock1right.png";
 export { default as medrock1flat } from "../../assets/Scenary/medrock1flat.png";
 export { default as smallrock1flat } from "../../assets/Scenary/smallrock1flat.png";
+export { default as extrudedWaterTiles } from "../../assets/Background/water-tiles-nobg-ext.png";
+
 export { default as EventsCenter } from "../EventsCenter";
-export { default as waterTiles } from "../../assets/Background/water-tiles.png";
-export { default as extrudedWaterTiles } from "../../assets/Background/water-tiles-extruded.png";
