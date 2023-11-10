@@ -28,7 +28,6 @@ export default function Login() {
             <input type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
             <button type="submit"> Login </button>
         </form>
-        < AuthDetails />
         </>
     )
 }

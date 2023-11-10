@@ -32,7 +32,6 @@ export default function Register() {
             <input type="userName" placeholder="Enter username" value={userName} onChange={e => setUserName(e.target.value)}></input>
             <button type="submit"> Register </button>
         </form>
-        < AuthDetails />
         </>
     )
 }
