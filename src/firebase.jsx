@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, setDoc, getDocs, collection, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, getDocs, collection, updateDoc, query, orderBy } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
  apiKey: `${import.meta.env.VITE_APIKEY}`,
@@ -74,3 +75,4 @@ export async function upgradeFishNet(user, newValue, newMoney) {
   Money: newMoney,
  });
 }
+
