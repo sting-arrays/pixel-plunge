@@ -18,7 +18,7 @@ let timeLeft;
 let caughtFish = [];
 let fishArray = [];
 let userProfile;
-let coinsCollectedThatDive = coins - coins;
+let coinsCollectedThatDive;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -64,6 +64,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
+    coinsCollectedThatDive = 0;
     const mapKeys = ["default", "swamp"];
     const map = this.make.tilemap({
       key: mapKeys[Phaser.Math.Between(0, mapKeys.length - 1)],

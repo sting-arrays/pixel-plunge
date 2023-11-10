@@ -74,6 +74,7 @@ function updateUser() {
   totalFishCaught = fishJustCaught + currentFishCaught;
 
   totalFishFound = currentFishFound;
+
   if (eachFishCaught !== undefined) {
     eachFishCaught.forEach((fish) => {
       if (currentFishFound.includes(fish) === false) {
