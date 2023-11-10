@@ -10,7 +10,7 @@ import { EndDive } from "./Scenes/EndDive";
 import { DiveStats } from "./Scenes/DiveStats";
 
 export class PhaserApp {
- constructor({ width, height, id, userName }) {
+ constructor({ width, height, id, email }) {
   const config = {
    type: Phaser.AUTO,
    parent: id,
@@ -26,7 +26,7 @@ export class PhaserApp {
    scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar, GameOverScene, NewGame, EndDive, DiveStats],
   };
   this.game = new Phaser.Game(config);
-  this.game.scene.add("loadingpage", new LoadingScreen(), true, { userName });
+  this.game.scene.add("loadingpage", new LoadingScreen(), true, { email });
  }
  update = () => {
   this.game.events.emit("update");

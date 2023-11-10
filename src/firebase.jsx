@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { doc, getDoc, setDoc, getDocs, collection } from "firebase/firestore"; 
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -15,12 +16,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+export const auth = getAuth(app);
 
-export function updateUser (user, name, email, password, fishBag, fishCount, level, money, oxygen) {
+//adding register user functionality: 
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then( userCredential => {const user = userCredential.user})
+//   .catch( error => console.log(error) )
 
-    return setDoc(doc(db, "Users", user), {
+export function updateUser (user, email, password, fishBag, fishCount, level, money, oxygen) {
+
+    return setDoc(doc(db, "Users", email), {
     userName: user,
-    name: name,
     email: email,
     Password: password,
     Fish_Bag: fishBag,

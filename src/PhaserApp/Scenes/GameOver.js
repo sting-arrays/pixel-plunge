@@ -4,14 +4,16 @@ let bg;
 let text;
 let time;
 let userProfile;
+let fishArray;
 
 export class GameOverScene extends Phaser.Scene {
  constructor() {
   super({ key: "GameOverScene" });
  }
 
- init({ timeLeft, currentUserDetails }) {
+ init({ timeLeft, currentUserDetails, fishData }) {
   userProfile = currentUserDetails;
+  fishArray = fishData;
  }
 
  preload() {
@@ -29,7 +31,7 @@ export class GameOverScene extends Phaser.Scene {
   text.setInteractive({ useHandCursor: true });
 
   text.on("pointerdown", () => {
-   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0 });
+   this.scene.start("newgame", { currentUserDetails: userProfile, resetFish: 0, fishData: fishArray });
    this.scene.stop("maingame");
    //  setTimeout(() => {
    //   this.scene.start("maingame");

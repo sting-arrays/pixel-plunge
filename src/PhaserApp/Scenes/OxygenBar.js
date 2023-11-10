@@ -4,15 +4,17 @@ import oxygenContainerTexture from "../../assets/UI/o2border-192x192.png";
 import EventsCenter from "../EventsCenter";
 
 let userProfile;
+let fishArray;
 
 export class OxygenBar extends Phaser.Scene {
  constructor() {
   super("oxygenscene");
  }
 
- init({ oxygentimer, currentUserDetails }) {
+ init({ oxygentimer, currentUserDetails, fishData }) {
   userProfile = currentUserDetails;
   this.initialTime = oxygentimer;
+  fishArray = fishData;
  }
 
  preload() {
@@ -41,7 +43,7 @@ export class OxygenBar extends Phaser.Scene {
     this.o2Mask.x -= stepWidth;
 
     if (this.timeLeft === 1) {
-     this.scene.launch("GameOverScene", { currentUserDetails: userProfile });
+     this.scene.launch("GameOverScene", { currentUserDetails: userProfile, fishData: fishArray });
     }
    },
    callbackScope: this,

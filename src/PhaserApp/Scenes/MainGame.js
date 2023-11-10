@@ -23,15 +23,16 @@ export class MainGame extends Phaser.Scene {
     super("maingame");
   }
 
-  //  init({ currentUserDetails, resetFish }) {
-  //   if (resetFish !== undefined) {
-  //    fishCount = resetFish;
-  //    console.log(resetFish);
-  //   }
-  //   userProfile = currentUserDetails;
-  //   coins = +currentUserDetails.Money;
-  //   bucketSize = +currentUserDetails.Fish_Bag;
-  //  }
+  init({ currentUserDetails, resetFish, fishData }) {
+    if (resetFish !== undefined) {
+      fishCount = resetFish;
+    }
+    fishArray = fishData;
+    userProfile = currentUserDetails;
+    coins = +currentUserDetails.Money;
+    bucketSize = +currentUserDetails.Fish_Bag;
+    oxygentimer = +currentUserDetails.Oxygen;
+  }
 
   preload() {
     this.load.tilemapTiledJSON("map", waterBG);
@@ -330,6 +331,7 @@ export class MainGame extends Phaser.Scene {
       this.scene.launch("oxygenscene", {
         oxygentimer,
         currentUserDetails: userProfile,
+        fishData: fishArray,
       });
     }
 
@@ -353,7 +355,10 @@ export class MainGame extends Phaser.Scene {
       player.setVelocityY(-250).flipY = false;
       player.flipX = false;
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
-      this.scene.launch("EndDive", { currentUserDetails: userProfile });
+      this.scene.launch("EndDive", {
+        currentUserDetails: userProfile,
+        fishData: fishArray,
+      });
     }
   }
 }
