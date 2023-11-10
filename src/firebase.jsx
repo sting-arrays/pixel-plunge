@@ -84,3 +84,18 @@ export function updateDiveStats(user, fishCount, money, caughtFish) {
     caught_fish: caughtFish,
   }).then(() => console.log("this has worked"));
 }
+
+export async function upgradeOxygen(user, newValue, newMoney) {
+  const docRef = doc(db, "Users", user);
+  await updateDoc(docRef, {
+    Oxygen: newValue,
+    Money: newMoney,
+  });
+}
+export async function upgradeFishNet(user, newValue, newMoney) {
+  const docRef = doc(db, "Users", user);
+  await updateDoc(docRef, {
+    Fish_Bag: newValue,
+    Money: newMoney,
+  });
+}
