@@ -6,14 +6,27 @@ let text;
 let time;
 let userProfile;
 let fishArray;
-let fishCaught;
+let fishCaught = [];
 let counter = {};
 let caughtString = "";
+let coinsCollected;
 
 index.EventsCenter.on(
   "fish-caught",
   (caughtFish) => {
+    console.log(caughtFish);
     fishCaught = caughtFish.map((fish) => fish);
+    console.log(fishCaught);
+  },
+  this
+);
+
+index.EventsCenter.on(
+  "coins-collected",
+  (coins) => {
+    console.log(coins);
+    coinsCollected = coins;
+    console.log(coinsCollected);
   },
   this
 );
@@ -33,10 +46,6 @@ function returnCaughtString() {
     caughtString += `${key} x${value} `;
   }
   return caughtString;
-}
-
-for (const [key, value] of Object.entries(counter)) {
-  caughtString += `${key} x${value} `;
 }
 
 export class DiveStats extends Phaser.Scene {
@@ -61,7 +70,12 @@ export class DiveStats extends Phaser.Scene {
       fill: "#000",
     });
 
-    this.add.text(180, 270, `Fish Caught: ${returnCaughtString()}`, {
+    this.add.text(180, 300, `Fish Caught: ${returnCaughtString()}`, {
+      fontSize: "20px",
+      fill: "#000",
+    });
+
+    this.add.text(180, 250, `Coins Collected: ${coinsCollected}`, {
       fontSize: "20px",
       fill: "#000",
     });

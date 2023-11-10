@@ -96,6 +96,7 @@ export class MainGame extends Phaser.Scene {
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
           coins += fishArray[i].fish_value;
+          index.EventsCenter.emit("coins-collected", coins);
         }
       }
       fish.disableBody(true, true);
@@ -105,6 +106,12 @@ export class MainGame extends Phaser.Scene {
         bucketSize: bucketSize,
       });
     }
+
+    if (fishCount === 0) {
+      index.EventsCenter.emit("fish-caught", caughtFish);
+      index.EventsCenter.emit("coins-collected", coins);
+    }
+
     fixed = this.physics.add.staticGroup();
 
     //Create Rocks
