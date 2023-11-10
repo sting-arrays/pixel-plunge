@@ -13,7 +13,9 @@ export default function Login() {
     const signIn = (e) => {
        e.preventDefault()
        signInWithEmailAndPassword(auth, email, password)
-       .then( userCredential => console.log(userCredential))
+       .then( userCredential => {console.log(userCredential)
+        localStorage.setItem('email', email)
+        })
        .then ( () => setCurrentUser(email) )
        .catch( error => console.log(error) )
     }
@@ -26,7 +28,6 @@ export default function Login() {
             <input type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
             <button type="submit"> Login </button>
         </form>
-        < AuthDetails />
         </>
     )
 }

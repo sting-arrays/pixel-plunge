@@ -7,9 +7,22 @@ import LeaderBoard from "./components/StartGameComponents/LeaderBoard";
 import Upgrades from "./components/StartGameComponents/Upgrades";
 import Login from "./components/FireBaseAuth/Login";
 import Register from "./components/FireBaseAuth/Register";
+import { useEffect, useContext } from "react";
+import { UserNameContext } from "./contexts/UsernameContext";
 
 
 function App() {
+
+    const {currentUser, setCurrentUser} = useContext(UserNameContext);
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('email')
+        if(loggedIn) {
+            setCurrentUser(loggedIn);
+        }
+    },[]);
+
+
  return (
   <div>
    <Routes>

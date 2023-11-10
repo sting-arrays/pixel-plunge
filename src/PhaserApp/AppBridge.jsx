@@ -20,7 +20,7 @@ export const AppBridge = ({ width, height, email }) => {
    app.current?.destroy()
   }
 
- }, [width, height])
+ }, [width, height, email])
  
  return <Root />;
 
