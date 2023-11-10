@@ -18,6 +18,7 @@ let timeLeft;
 let caughtFish = [];
 let fishArray = [];
 let userProfile;
+let coinsCollectedThatDive = coins - coins;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -89,14 +90,14 @@ export class MainGame extends Phaser.Scene {
       if (fishCount === bucketSize) {
         return;
       }
-      console.log(fish.texture.key, "Each Fish");
       caughtFish.push(fish.texture.key);
       fishCount++;
       index.EventsCenter.emit("fish-caught", caughtFish);
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
-          coins += fishArray[i].fish_value;
-          index.EventsCenter.emit("coins-collected", coins);
+          // coins += fishArray[i].fish_value;
+          coinsCollectedThatDive += fishArray[i].fish_value;
+          index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
         }
       }
       fish.disableBody(true, true);
@@ -109,7 +110,7 @@ export class MainGame extends Phaser.Scene {
 
     if (fishCount === 0) {
       index.EventsCenter.emit("fish-caught", caughtFish);
-      index.EventsCenter.emit("coins-collected", coins);
+      index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
     }
 
     fixed = this.physics.add.staticGroup();

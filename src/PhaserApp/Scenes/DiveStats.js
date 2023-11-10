@@ -1,5 +1,6 @@
 import GameStatsCard from "../../assets/Background/DiveStats.png";
 import * as index from "./index";
+import { updateDiveStats } from "../../firebase";
 
 let bg;
 let text;
@@ -9,14 +10,23 @@ let fishArray;
 let fishCaught = [];
 let counter = {};
 let caughtString = "";
+
 let coinsCollected;
+let currentMoney;
+let totalMoney;
+
+let fishJustCaught;
+let currentFishCaught;
+let totalFishCaught;
+
+let eachFishCaught;
+let currentFishFound;
+let totalFishFound;
 
 index.EventsCenter.on(
   "fish-caught",
   (caughtFish) => {
-    console.log(caughtFish);
     fishCaught = caughtFish.map((fish) => fish);
-    console.log(fishCaught);
   },
   this
 );
@@ -24,28 +34,53 @@ index.EventsCenter.on(
 index.EventsCenter.on(
   "coins-collected",
   (coins) => {
-    console.log(coins);
     coinsCollected = coins;
-    console.log(coinsCollected);
   },
   this
 );
 
 function returnCaughtString() {
-  let counter = {};
-  let caughtString = "";
+  if (fishCaught.length === 0) {
+    return "None";
+  } else {
+    let counter = {};
+    let caughtString = "";
+    eachFishCaught = [];
+    fishJustCaught = 0;
 
-  fishCaught.forEach((ele) => {
-    if (counter[ele]) {
-      counter[ele] += 1;
-    } else {
-      counter[ele] = 1;
+    fishJustCaught = fishCaught.length;
+
+    fishCaught.forEach((ele) => {
+      if (counter[ele]) {
+        counter[ele] += 1;
+      } else {
+        counter[ele] = 1;
+      }
+    });
+
+    for (const [key, value] of Object.entries(counter)) {
+      caughtString += `${key} x${value} `;
     }
-  });
-  for (const [key, value] of Object.entries(counter)) {
-    caughtString += `${key} x${value} `;
+
+    eachFishCaught = Object.keys(counter);
+
+    return caughtString;
   }
-  return caughtString;
+}
+
+function updateUser() {
+  totalMoney = coinsCollected + currentMoney;
+
+  totalFishCaught = fishJustCaught + currentFishCaught;
+
+  totalFishFound = currentFishFound;
+  if (eachFishCaught !== undefined) {
+    eachFishCaught.forEach((fish) => {
+      if (currentFishFound.includes(fish) === false) {
+        totalFishFound.push(fish);
+      }
+    });
+  }
 }
 
 export class DiveStats extends Phaser.Scene {
@@ -54,8 +89,11 @@ export class DiveStats extends Phaser.Scene {
   }
 
   init({ timeLeft, currentUserDetails, fishData }) {
-    userProfile = currentUserDetails;
     fishArray = fishData;
+    userProfile = currentUserDetails;
+    currentMoney = userProfile.Money;
+    currentFishCaught = userProfile.Fish_Count;
+    currentFishFound = userProfile.caught_fish;
   }
 
   preload() {
@@ -81,7 +119,16 @@ export class DiveStats extends Phaser.Scene {
     });
 
     text.setInteractive({ useHandCursor: true });
-
+    updateUser();
+    updateDiveStats(
+      userProfile.email,
+      totalFishCaught,
+      totalMoney,
+      totalFishFound
+    );
+    userProfile.Money = totalMoney;
+    userProfile.Fish_Count = totalFishCaught;
+    userProfile.caught_fish;
     text.on("pointerdown", () => {
       // ^^ Above this line export all game data to the db
       this.scene.stop("DiveStats");
