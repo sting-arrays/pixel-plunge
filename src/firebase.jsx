@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, setDoc, getDocs, collection } from "firebase/firestore";
+import { doc, getDoc, setDoc, getDocs, collection, updateDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -58,4 +58,19 @@ export async function getUserDetails(user) {
  const docSnap = await getDoc(docRef);
 
  return docSnap.data();
+}
+
+export async function upgradeOxygen(user, newValue, newMoney) {
+ const docRef = doc(db, "Users", user);
+ await updateDoc(docRef, {
+  Oxygen: newValue,
+  Money: newMoney,
+ });
+}
+export async function upgradeFishNet(user, newValue, newMoney) {
+ const docRef = doc(db, "Users", user);
+ await updateDoc(docRef, {
+  Fish_Bag: newValue,
+  Money: newMoney,
+ });
 }
