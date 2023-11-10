@@ -80,12 +80,19 @@ export class MainGame extends Phaser.Scene {
     map.createLayer("foreground", tileSet);
 
     this.cameras.main.fadeIn(2000);
+
     this.input.keyboard.enabled = true;
+
+    caughtFish = [];
+
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
       }
+      console.log(fish.texture.key, "Each Fish");
+      caughtFish.push(fish.texture.key);
       fishCount++;
+      index.EventsCenter.emit("fish-caught", caughtFish);
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
           coins += fishArray[i].fish_value;
@@ -306,15 +313,27 @@ export class MainGame extends Phaser.Scene {
         player.setVelocityX(200);
         player.anims.play("swimming-right", true);
       } else if (
-        (cursors.up.isDown && timeLeft > 1) ||
-        (cursors.up.isDown && timeLeft === undefined)
+        (cursors.up.isDown &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft > 1) ||
+        (cursors.up.isDown &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft === undefined)
       ) {
         player.setVelocityY(-200);
         player.anims.play("swimming-up", true);
       } else if (
-        (cursors.down.isDown && player.y <= height - 48 && timeLeft > 1) ||
         (cursors.down.isDown &&
           player.y <= height - 48 &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft > 1) ||
+        (cursors.down.isDown &&
+          player.y <= height - 48 &&
+          // player.x < 784 &&
+          // player.x > 16 &&
           timeLeft === undefined)
       ) {
         player.setVelocityY(200);
