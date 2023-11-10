@@ -18,6 +18,7 @@ let timeLeft;
 let caughtFish = [];
 let fishArray = [];
 let userProfile;
+let coinsCollectedThatDive;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -63,6 +64,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   create() {
+    coinsCollectedThatDive = 0;
     const mapKeys = ["default", "swamp"];
     const map = this.make.tilemap({
       key: mapKeys[Phaser.Math.Between(0, mapKeys.length - 1)],
@@ -80,15 +82,23 @@ export class MainGame extends Phaser.Scene {
     map.createLayer("foreground", tileSet);
 
     this.cameras.main.fadeIn(2000);
+
     this.input.keyboard.enabled = true;
+
+    caughtFish = [];
+
     function collectFish(player, fish) {
       if (fishCount === bucketSize) {
         return;
       }
+      caughtFish.push(fish.texture.key);
       fishCount++;
+      index.EventsCenter.emit("fish-caught", caughtFish);
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
-          coins += fishArray[i].fish_value;
+          // coins += fishArray[i].fish_value;
+          coinsCollectedThatDive += fishArray[i].fish_value;
+          index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
         }
       }
       fish.disableBody(true, true);
@@ -98,6 +108,12 @@ export class MainGame extends Phaser.Scene {
         bucketSize: bucketSize,
       });
     }
+
+    if (fishCount === 0) {
+      index.EventsCenter.emit("fish-caught", caughtFish);
+      index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
+    }
+
     fixed = this.physics.add.staticGroup();
 
     //Create Rocks
@@ -306,15 +322,27 @@ export class MainGame extends Phaser.Scene {
         player.setVelocityX(200);
         player.anims.play("swimming-right", true);
       } else if (
-        (cursors.up.isDown && timeLeft > 1) ||
-        (cursors.up.isDown && timeLeft === undefined)
+        (cursors.up.isDown &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft > 1) ||
+        (cursors.up.isDown &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft === undefined)
       ) {
         player.setVelocityY(-200);
         player.anims.play("swimming-up", true);
       } else if (
-        (cursors.down.isDown && player.y <= height - 48 && timeLeft > 1) ||
         (cursors.down.isDown &&
           player.y <= height - 48 &&
+          // player.x < 784 &&
+          // player.x > 16 &&
+          timeLeft > 1) ||
+        (cursors.down.isDown &&
+          player.y <= height - 48 &&
+          // player.x < 784 &&
+          // player.x > 16 &&
           timeLeft === undefined)
       ) {
         player.setVelocityY(200);

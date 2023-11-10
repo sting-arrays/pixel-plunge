@@ -1,5 +1,4 @@
 // image assets
-export { default as background } from "../../assets/Background/background3.png";
 export { default as boat } from "../../assets/Scenary/boat-360x117.png";
 export { default as Cod } from "../../assets/Fish/Cod.png";
 export { default as darthFisher } from "../../assets/Fish/Darth Fisher.png";
