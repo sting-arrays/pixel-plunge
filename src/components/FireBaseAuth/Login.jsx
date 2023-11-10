@@ -13,7 +13,9 @@ export default function Login() {
     const signIn = (e) => {
        e.preventDefault()
        signInWithEmailAndPassword(auth, email, password)
-       .then( userCredential => console.log(userCredential))
+       .then( userCredential => {console.log(userCredential)
+        localStorage.setItem('email', email)
+        })
        .then ( () => setCurrentUser(email) )
        .catch( error => console.log(error) )
     }
