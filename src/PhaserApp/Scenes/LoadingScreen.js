@@ -27,13 +27,11 @@ export default class LoadingScreen extends Phaser.Scene {
   } else {
    currentUser = data.email;
    getUserDetails(currentUser).then((result) => {
-    console.log("got user");
     currentUserDetails = result;
     hasUserLoaded = true;
    });
   }
   getAllFish().then((response) => {
-   console.log("got fsh");
    fishData = response;
    hasFishDataLoaded = true;
   });

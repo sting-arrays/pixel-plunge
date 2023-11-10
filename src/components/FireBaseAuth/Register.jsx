@@ -15,7 +15,9 @@ export default function Register() {
        e.preventDefault()
        createUserWithEmailAndPassword(auth, email, password)
        .then( userCredential => {
-            updateUser(userName, email, password, 5, 0, 0, 0, 20)}
+            updateUser(userName, email, password, 5, 0, 0, 0, 20)
+            localStorage.setItem('email', email)
+        }
             )
        .then ( () => setCurrentUser(email) )
        .catch( error => console.log(error) )

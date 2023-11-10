@@ -4,16 +4,22 @@ import Fishidex from "./StartGameComponents/Fishidex";
 import LeaderBoard from "./StartGameComponents/LeaderBoard";
 import Upgrades from "./StartGameComponents/Upgrades";
 import WelcomePage from "./WelcomePage";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserNameContext } from "../contexts/UsernameContext";
 
 export default function GamePage() {
-  const { currentUser } = useContext(UserNameContext);
-  const email = currentUser;
+  const { currentUser, setCurrentUser } = useContext(UserNameContext);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('email')
+    if(loggedIn) {
+        setCurrentUser(loggedIn);
+    }
+},[]);
 
   return (
     <>
-      <AppBridge width={800} height={600} email={email} />
+      <AppBridge width={800} height={600} email={currentUser} />
       <div className="nav-bar">
         <Link className="button" to="/fishidex" element={<Fishidex />}>
           {" "}
