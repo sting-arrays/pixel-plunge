@@ -12,7 +12,7 @@ let text;
 let coins = 0;
 let fishCount = 0;
 let bucketSize = 5;
-let height = 2000;
+let height = 2048;
 let oxygentimer = 30;
 let timeLeft;
 let caughtFish = [];
@@ -324,12 +324,12 @@ export class MainGame extends Phaser.Scene {
         player.anims.play("swimming-right", true);
       } else if (
         (cursors.up.isDown &&
-          // player.x < 784 &&
-          // player.x > 16 &&
+          player.x < 784 &&
+          player.x > 16 &&
           timeLeft > 1) ||
         (cursors.up.isDown &&
-          // player.x < 784 &&
-          // player.x > 16 &&
+          player.x < 784 &&
+          player.x > 16 &&
           timeLeft === undefined)
       ) {
         player.setVelocityY(-200);
@@ -337,13 +337,13 @@ export class MainGame extends Phaser.Scene {
       } else if (
         (cursors.down.isDown &&
           player.y <= height - 48 &&
-          // player.x < 784 &&
-          // player.x > 16 &&
+          player.x < 784 &&
+          player.x > 16 &&
           timeLeft > 1) ||
         (cursors.down.isDown &&
           player.y <= height - 48 &&
-          // player.x < 784 &&
-          // player.x > 16 &&
+          player.x < 784 &&
+          player.x > 16 &&
           timeLeft === undefined)
       ) {
         player.setVelocityY(200);
