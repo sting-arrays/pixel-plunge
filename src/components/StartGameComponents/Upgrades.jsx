@@ -13,6 +13,13 @@ export default function Upgrades() {
  const [userMoney, setUserMoney] = useState(0);
  const [isLoading, setIsLoadiing] = useState(true);
 
+ if (currentUser === "Guest") return (
+    <>
+    <p>You must login to view upgrade options!</p>
+    <Link className="button" to="/game" element={<GamePage />}>{" "}Back to Game{" "}</Link>
+    </>
+ )
+
  useEffect(() => {
   if (currentUser === "Guest") return;
   getUserDetails(currentUser).then((result) => {
