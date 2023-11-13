@@ -10,7 +10,7 @@ import UserHandler from "./UserHandler.jsx";
 export default function WelcomePage() {
 
  return (
-    <div>
+    <div className='bg-blue-400 text-[20px] tracking-[.2em] p-5 rounded-md'>
     <Title />
     <Instructions />
     <StartGame />

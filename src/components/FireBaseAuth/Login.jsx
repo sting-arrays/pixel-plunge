@@ -22,11 +22,11 @@ export default function Login() {
 
     return (
         <>
-        <form onSubmit={signIn}>
-            <h1>Login</h1>
-            <input type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}></input>
-            <input type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
-            <button type="submit"> Login </button>
+        <form className='my-2' onSubmit={signIn}>
+            <h1 className='my-1'>Login</h1>
+            <input className='mx-2.5 px-2 rounded' aria-label='email input'type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}></input>
+            <input className='mx-2.5 px-2 rounded' aria-label='password input' type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
+            <button className='mx-2 button' type="submit"> Login </button>
         </form>
         </>
     )

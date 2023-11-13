@@ -4,7 +4,7 @@ import { PhaserApp } from "./PhaserApp";
 export const ROOT_ID = "root-id";
 
 const Root = memo(() => {
- return <div id={ROOT_ID} />;
+ return <div className='flex justify-center' id={ROOT_ID} />;
 });
 Root.displayName = "Root";
 
