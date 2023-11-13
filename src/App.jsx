@@ -10,32 +10,29 @@ import Register from "./components/FireBaseAuth/Register";
 import { useEffect, useContext } from "react";
 import { UserNameContext } from "./contexts/UsernameContext";
 
-
 function App() {
+  const { currentUser, setCurrentUser } = useContext(UserNameContext);
 
-    const {currentUser, setCurrentUser} = useContext(UserNameContext);
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("email");
+    if (loggedIn) {
+      setCurrentUser(loggedIn);
+    }
+  }, []);
 
-    useEffect(() => {
-        const loggedIn = localStorage.getItem('email')
-        if(loggedIn) {
-            setCurrentUser(loggedIn);
-        }
-    },[]);
-
-
- return (
-  <div>
-   <Routes>
-    <Route path="/" element={<WelcomePage />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<Register />} />
-    <Route path="/game" element={<GamePage />} />
-    <Route path="/fishidex" element={<Fishidex />} />
-    <Route path="/leaderboard" element={<LeaderBoard />} />
-    <Route path="/upgrades" element={<Upgrades />} />
-   </Routes>
-  </div>
- );
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/fishidex" element={<Fishidex />} />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
+        <Route path="/upgrades" element={<Upgrades />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

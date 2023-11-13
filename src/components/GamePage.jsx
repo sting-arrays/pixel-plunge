@@ -11,16 +11,14 @@ export default function GamePage() {
   const { currentUser, setCurrentUser } = useContext(UserNameContext);
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem('email')
-    if(loggedIn) {
-        setCurrentUser(loggedIn);
+    const loggedIn = localStorage.getItem("email");
+    if (loggedIn) {
+      setCurrentUser(loggedIn);
     }
-},[]);
+  }, []);
 
   return (
-    <div>
-
-      
+    <div className="flex flex-col place-items-center">
       <AppBridge width={800} height={600} email={currentUser} />
 
       <div className="flex justify-center mt-5">
@@ -28,7 +26,11 @@ export default function GamePage() {
           {" "}
           Fishidex{" "}
         </Link>
-        <Link className="button mx-6" to="/leaderboard" element={<LeaderBoard />}>
+        <Link
+          className="button mx-6"
+          to="/leaderboard"
+          element={<LeaderBoard />}
+        >
           {" "}
           Leader Board{" "}
         </Link>
@@ -41,7 +43,6 @@ export default function GamePage() {
           Home{" "}
         </Link>
       </div>
-
     </div>
   );
 }
