@@ -25,12 +25,12 @@ export default function Register() {
 
     return (
         <>
-        <form onSubmit={registerUser}>
-            <h1>Create an account</h1>
-            <input type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}></input>
-            <input type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
-            <input type="userName" placeholder="Enter username" value={userName} onChange={e => setUserName(e.target.value)}></input>
-            <button type="submit"> Register </button>
+        <form className='my-3' onSubmit={registerUser}>
+            <h1 className='mb-3'>Create an account</h1>
+            <input className='mx-2 rounded px-2'type="email" aria-label='email input'placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}></input>
+            <input className='mx-2 rounded px-2' aria-label='password input' type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)}></input>
+            <input className='rounded px-2 mx-4' aria-label='username input' type="userName" placeholder="Enter username" value={userName} onChange={e => setUserName(e.target.value)}></input>
+            <button className='button mt-3' type="submit"> Register </button>
         </form>
         </>
     )

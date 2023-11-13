@@ -22,18 +22,16 @@ export default function Fishidex() {
  if (currentUser === "Guest") {
   return (
    <div>
-    <p>This is fishidex!</p>
-    <ul>
+    <h1 className='text-[35px]'>Fishidex</h1>
+    <ul className='grid grid-cols-2 grid-rows-5 gap-3 mb-5'>
      {allFish.map((fish) => {
       if (currentUser === "Guest") {
        return (
-        <div key={fish.name}>
-         <li>
-          <img src={fish.image} alt="fish swimming in the sea and having a great time" />
-         </li>
-         <li>{fish.name}</li>
-         <li>{fish.facts}</li>
-        </div>
+            <li className='flex flex-col' key={fish.name}>
+            <img className='self-center'src={fish.image} alt="fish swimming in the sea and having a great time" />
+            <h3 className='text-[20px]'>{fish.name}</h3>
+            <p>{fish.facts}</p>
+            </li>
        );
       }
      })}
@@ -54,17 +52,15 @@ export default function Fishidex() {
 
  return (
   <div>
-   <p>This is fishidex!</p>
-   <ul>
+   <h1 className='text-[35px]'>Fishidex</h1>
+   <ul className='grid grid-cols-2 grid-rows-5 gap-3 mb-5'>
     {allFish.map((fish) => {
      return (
-      <div key={fish.name}>
-       <li>
-        <img src={usersFish.includes(fish.name) ? fish.image : fish.grey_image} alt="fish swimming in the sea and having a great time" />
-       </li>
-       <li>{fish.name}</li>
-       <li>{fish.facts}</li>
-      </div>
+       <li className='flex flex-col' key={fish.name}>
+        <img className='self-center' src={usersFish.includes(fish.name) ? fish.image : fish.grey_image} alt="fish swimming in the sea and having a great time" />
+       {usersFish.includes(fish.name) ? <h3 className='text-[20px]'>{fish.name}</h3> : <h3 className='text-[20px]'>???</h3>}
+       {usersFish.includes(fish.name) ? <p>{fish.facts}</p> : <p>?????</p>}
+      </li>
      );
     })}
    </ul>

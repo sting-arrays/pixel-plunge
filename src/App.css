@@ -1,9 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Play, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -23,9 +27,9 @@
   -webkit-text-size-adjust: 100%;
 } */
 
-* {
+/* * {
   border: 1px solid black;
-}
+} */
 
 #authors-list {
   list-style-type: none;
@@ -83,10 +87,4 @@ ul {
 
 a {
   text-decoration: none;
-}
-
-.nav-bar {
-  display:flex;
-  justify-content: space-around;
-  width: 800px;
 }

@@ -18,26 +18,30 @@ export default function GamePage() {
 },[]);
 
   return (
-    <>
+    <div>
+
+      
       <AppBridge width={800} height={600} email={currentUser} />
-      <div className="nav-bar">
-        <Link className="button" to="/fishidex" element={<Fishidex />}>
+
+      <div className="flex justify-center mt-5">
+        <Link className="button mx-6" to="/fishidex" element={<Fishidex />}>
           {" "}
           Fishidex{" "}
         </Link>
-        <Link className="button" to="/leaderboard" element={<LeaderBoard />}>
+        <Link className="button mx-6" to="/leaderboard" element={<LeaderBoard />}>
           {" "}
           Leader Board{" "}
         </Link>
-        <Link className="button" to="/upgrades" element={<Upgrades />}>
+        <Link className="button mx-6" to="/upgrades" element={<Upgrades />}>
           {" "}
           Upgrades{" "}
         </Link>
-        <Link className="button" to="/" element={<WelcomePage />}>
+        <Link className="button mx-6" to="/" element={<WelcomePage />}>
           {" "}
           Home{" "}
         </Link>
       </div>
-    </>
+
+    </div>
   );
 }
