@@ -31,6 +31,7 @@ export class MainGame extends Phaser.Scene {
     }
     fishArray = fishData;
     userProfile = currentUserDetails;
+
     coins = +currentUserDetails.Money;
     bucketSize = +currentUserDetails.Fish_Bag;
     oxygentimer = +currentUserDetails.Oxygen;
