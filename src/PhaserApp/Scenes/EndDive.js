@@ -19,9 +19,9 @@ export class EndDive extends Phaser.Scene {
   preload() {}
 
   create() {
-    text = this.add.text(530, 94, "End Dive!", {
+    text = this.add.text(590, 94, "End Dive!", {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
     });
 
     text.setInteractive({ useHandCursor: true });

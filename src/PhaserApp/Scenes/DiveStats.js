@@ -102,22 +102,21 @@ export class DiveStats extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "GameStatsCard").setScale(1.25);
+    this.add.image(400, 300, "GameStatsCard").setScale(1);
 
-    text = this.add.text(335, 350, "Dive Again!", {
+    text = this.add.text(335, 410, "Dive Again!", {
       fontSize: "20px",
-      fill: "#000",
       color: "#ffffff",
     });
 
-    this.add.text(180, 300, `Fish Caught: ${returnCaughtString()}`, {
+    this.add.text(215, 310, `Fish Caught: ${returnCaughtString()}`, {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
     });
 
-    this.add.text(180, 250, `Coins Collected: ${coinsCollected}`, {
+    this.add.text(215, 250, `Coins Collected: ${coinsCollected}`, {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
     });
 
     text.setInteractive({ useHandCursor: true });
