@@ -8,6 +8,7 @@ import { OxygenBar } from "./Scenes/OxygenBar";
 import NewGame from "./Scenes/NewGame";
 import { EndDive } from "./Scenes/EndDive";
 import { DiveStats } from "./Scenes/DiveStats";
+import HelpScene from "./Scenes/HelpScene";
 
 export class PhaserApp {
  constructor({ width, height, id, email }) {
@@ -23,7 +24,7 @@ export class PhaserApp {
      debug: true,
     },
    },
-   scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar, GameOverScene, NewGame, EndDive, DiveStats],
+   scene: [LoadingScreen, MainGame, TestScene, UIScene, OxygenBar, GameOverScene, NewGame, EndDive, DiveStats, HelpScene],
   };
   this.game = new Phaser.Game(config);
   this.game.scene.add("loadingpage", new LoadingScreen(), true, { email });
