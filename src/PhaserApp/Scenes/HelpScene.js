@@ -113,9 +113,18 @@ export default class HelpScene extends Phaser.Scene {
    fontSize: "20px",
    fill: "#fff",
   });
+  this.add.text(660, 580, "Press 'H' to close", {
+   fontSize: "10px",
+   fill: "#ffffff",
+  });
   text.setInteractive({ useHandCursor: true });
   text.on("pointerdown", () => {
    this.scene.stop("helpscene");
+  });
+
+  let keyObj = this.input.keyboard.addKey("H");
+  keyObj.on("down", () => {
+   this.scene.stop("helpscene", {});
   });
  }
  update() {}
