@@ -107,6 +107,7 @@ export class DiveStats extends Phaser.Scene {
     text = this.add.text(335, 350, "Dive Again!", {
       fontSize: "20px",
       fill: "#000",
+      color: "#ffffff",
     });
 
     this.add.text(180, 300, `Fish Caught: ${returnCaughtString()}`, {
