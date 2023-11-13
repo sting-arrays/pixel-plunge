@@ -121,25 +121,40 @@ export class DiveStats extends Phaser.Scene {
     });
 
     text.setInteractive({ useHandCursor: true });
-    updateUser();
-    updateDiveStats(
-      userProfile.email,
-      totalFishCaught,
-      totalMoney,
-      totalFishFound
-    );
-    userProfile.Money = totalMoney;
-    userProfile.Fish_Count = totalFishCaught;
-    userProfile.caught_fish;
+
     text.on("pointerdown", () => {
-      // ^^ Above this line export all game data to the db
-      this.scene.stop("DiveStats");
-      this.scene.start("newgame", {
-        currentUserDetails: userProfile,
-        resetFish: 0,
-        fishData: fishArray,
-      });
-      this.scene.stop("maingame");
+      if (userProfile.userName === "Guest") {
+        userProfile.Money = coinsCollected + currentMoney;
+        userProfile.Fish_Count = 0;
+        // userProfile.caught_fish;
+        // ^^ Above this line export all game data to the db
+        this.scene.stop("DiveStats");
+        this.scene.start("newgame", {
+          currentUserDetails: userProfile,
+          resetFish: 0,
+          fishData: fishArray,
+        });
+        this.scene.stop("maingame");
+      } else {
+        updateUser();
+        updateDiveStats(
+          userProfile.email,
+          totalFishCaught,
+          totalMoney,
+          totalFishFound
+        );
+        userProfile.Money = totalMoney;
+        userProfile.Fish_Count = totalFishCaught;
+        // userProfile.caught_fish;
+        // ^^ Above this line export all game data to the db
+        this.scene.stop("DiveStats");
+        this.scene.start("newgame", {
+          currentUserDetails: userProfile,
+          resetFish: 0,
+          fishData: fishArray,
+        });
+        this.scene.stop("maingame");
+      }
     });
   }
 }
