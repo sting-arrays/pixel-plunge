@@ -1,7 +1,6 @@
 import Phaser from "phaser";
-import coin from "/coin-sprite.png";
-import fishSprite from "/fish-count-sprite.png";
 import { WebFontFile } from "./WebFontFile";
+import * as index from "./index";
 
 let coinCount;
 let fish;
@@ -20,8 +19,9 @@ export class UIScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("coin", coin);
-    this.load.image("fish", fishSprite);
+    this.load.image("coin", index.coinSprite);
+    this.load.image("fish", index.fishSprite);
+    this.load.image("hKey", index.hKey);
 
     this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
   }
@@ -49,30 +49,33 @@ export class UIScene extends Phaser.Scene {
       });
     }
 
-    helpText = this.add.text(717, 65, "?", {
-      fontFamily: "Pixelify Sans",
-      fontSize: "40px",
-      fill: "#ffffff",
-    });
-    const helpText1 = this.add.text(680, 10, "Press 'H'", {
-      fontFamily: "Pixelify Sans",
-      fontSize: "25px",
-      fill: "#ffffff",
-    });
-    const helpText2 = this.add.text(680, 36, "for help", {
+    // helpText = this.add.text(717, 65, "?", {
+    //   fontFamily: "Pixelify Sans",
+    //   fontSize: "40px",
+    //   fill: "#ffffff",
+    // });
+    const hButton = this.add.image(750, 75, "hKey").setScale(0.7);
+    const helpText = this.add.text(725, 10, "Help", {
       fontFamily: "Pixelify Sans",
       fontSize: "25px",
       fill: "#ffffff",
     });
 
+    // const helpText2 = this.add.text(680, 36, "for help", {
+    //   fontFamily: "Pixelify Sans",
+    //   fontSize: "25px",
+    //   fill: "#ffffff",
+    // });
+
     helpText.setInteractive({ useHandCursor: true });
     helpText.on("pointerdown", () => {
       this.scene.launch("helpscene", {});
     });
-    helpText2.setInteractive({ useHandCursor: true });
-    helpText2.on("pointerdown", () => {
-      this.scene.launch("helpscene", {});
-    });
+
+    // helpText2.setInteractive({ useHandCursor: true });
+    // helpText2.on("pointerdown", () => {
+    //   this.scene.launch("helpscene", {});
+    // });
 
     let keyObj = this.input.keyboard.addKey("H");
     keyObj.on("down", () => {
