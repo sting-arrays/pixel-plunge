@@ -20,11 +20,16 @@ export { default as RedRum } from "../../assets/Fish/Red Rum.png";
 export { default as tangFish } from "../../assets/Fish/tang fish.png";
 export { default as zebra } from "../../assets/Fish/zebra.png";
 
-export { default as pier } from "../../assets/Scenary/pier-dark-oak.png";
+// export { default as pier } from "../../assets/Scenary/pier-dark-oak.png";
+// export { default as pier } from "../../assets/Scenary/Pier-1.png";
+// export { default as pier } from "../../assets/Scenary/Pier-2.png";
+export { default as pier } from "../../assets/Scenary/Pier-3.png";
 export { default as column1 } from "../../assets/Scenary/Column1-Cropped.png";
 export { default as column2 } from "../../assets/Scenary/Column2-Cropped.png";
-export { default as column3 } from "../../assets/Scenary/Column1-Cropped.png";
-export { default as railing } from "../../assets/Scenary/Railing.png";
+export { default as column3 } from "../../assets/Scenary/Column-3.png";
+// export { default as railing } from "../../assets/Scenary/Railing.png";
+export { default as railing } from "../../assets/Scenary/Rail-new.png";
+export { default as invisibleWall } from "../../assets/Scenary/Invisible-Wall-Pier.png";
 
 // sprites
 export { default as character } from "../../assets/Character/character.png";

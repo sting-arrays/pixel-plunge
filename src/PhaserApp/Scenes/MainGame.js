@@ -89,6 +89,7 @@ export class MainGame extends Phaser.Scene {
     this.load.image("column2", index.column2);
     this.load.image("column3", index.column3);
     this.load.image("railing", index.railing);
+    this.load.image("invisibleWall", index.invisibleWall);
   }
 
   create() {
@@ -149,7 +150,7 @@ export class MainGame extends Phaser.Scene {
 
     //Create Player
     player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
-    // player.setSize(50, 80, true);
+    player.setSize(60, 130, true);
 
     // player.setCollideWorldBounds(true);
 
@@ -176,13 +177,13 @@ export class MainGame extends Phaser.Scene {
       .setScale(0.5)
       .refreshBody();
     const column3 = fixed
-      .create(250, 224, "column3")
+      .create(256, 224, "column3")
       .setScale(0.5)
       .refreshBody();
 
     this.add.image(40, 161, "railing").setScale(0.4);
 
-    // const railing = image.create(119, 240, "railing")
+    const invisibleWall = fixed.create(120, 255, "invisibleWall").refreshBody();
 
     createCharAnims(this);
 
@@ -542,7 +543,7 @@ export class MainGame extends Phaser.Scene {
       // }
     }
     if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
-      player.setVelocityY(-250).flipY = false;
+      player.setVelocityY(-280).flipY = false;
       player.flipX = false;
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
       this.scene.launch("EndDive", {
