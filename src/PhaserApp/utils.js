@@ -90,3 +90,127 @@ export function sharkAttack(player, shark) {
   player.setVelocityX(0);
  }, 1000);
 }
+
+export function createCharAnims(scene) {
+ scene.anims.create({
+  key: "left",
+  frames: scene.anims.generateFrameNumbers("character", {
+   start: 1,
+   end: 5,
+  }),
+  frameRate: 10,
+  repeat: -1,
+ });
+
+ scene.anims.create({
+  key: "turn",
+  frames: [{ key: "character", frame: 10 }],
+  frameRate: 20,
+ });
+
+ scene.anims.create({
+  key: "right",
+  frames: scene.anims.generateFrameNumbers("character", {
+   start: 6,
+   end: 10,
+  }),
+  frameRate: 10,
+  repeat: -1,
+ });
+
+ scene.anims.create({
+  key: "swimming-up",
+  frames: scene.anims.generateFrameNumbers("swimming", {
+   start: 1,
+   end: 4,
+  }),
+  frameRate: 6,
+  repeat: -1,
+ });
+ scene.anims.create({
+  key: "swimming-idle",
+  frames: scene.anims.generateFrameNumbers("swimming", {
+   start: 1,
+   end: 4,
+  }),
+  frameRate: 6,
+  repeat: -1,
+ });
+
+ scene.anims.create({
+  key: "swimming-down",
+  frames: scene.anims.generateFrameNumbers("swimming", {
+   start: 5,
+   end: 8,
+  }),
+  frameRate: 6,
+  repeat: -1,
+ });
+
+ scene.anims.create({
+  key: "swimming-right",
+  frames: scene.anims.generateFrameNumbers("swimming", {
+   start: 9,
+   end: 12,
+  }),
+  frameRate: 6,
+  repeat: -1,
+ });
+
+ scene.anims.create({
+  key: "swimming-left",
+  frames: scene.anims.generateFrameNumbers("swimming", {
+   start: 13,
+   end: 16,
+  }),
+  frameRate: 10,
+  repeat: -1,
+ });
+ scene.anims.create({
+  key: "player-dead",
+  frames: [{ key: "swimming", frame: 0 }],
+  frameRate: 11,
+ });
+}
+
+export function createRocks(group) {
+ //Create Rocks
+ const rockArrayFlatXL = ["xlrock1flat", "xlrock2flat"];
+ const rockArrayFlatMed = ["medrock1flat"];
+ const rockArrayFlatSmall = [];
+ const rockArrayRight = ["xlrock1right", "xlrock2right"];
+ const rockArrayLeft = ["xlrock1left", "xlrock2left"];
+
+ //flat large
+ for (let i = 0; i < 3; i++) {
+  let x = Phaser.Math.Between(0, 800);
+  let y = Phaser.Math.Between(1000, 2000);
+  let rockType = rockArrayFlatXL[Phaser.Math.Between(0, 1)];
+  const rock = group.create(x, y, rockType);
+  rock.setSize(260, 150);
+ }
+ //flat med
+ for (let i = 0; i < 5; i++) {
+  let x = Phaser.Math.Between(0, 800);
+  let y = Phaser.Math.Between(500, 2000);
+  let rockType = rockArrayFlatMed[Phaser.Math.Between(0, 0)];
+  const rock = group.create(x, y, rockType);
+  rock.setSize(150, 70);
+ }
+ //left
+ for (let i = 0; i < 1; i++) {
+  let x = 90;
+  let y = Phaser.Math.Between(500, 1000);
+  let rockType = rockArrayLeft[Phaser.Math.Between(0, 1)];
+  const rock = group.create(x, y, rockType);
+  rock.setSize(150, 270, true);
+ }
+ //right
+ for (let i = 0; i < 1; i++) {
+  let x = 710;
+  let y = Phaser.Math.Between(500, 1000);
+  let rockType = rockArrayRight[Phaser.Math.Between(0, 1)];
+  const rock = group.create(x, y, rockType);
+  rock.setSize(150, 260, true);
+ }
+}

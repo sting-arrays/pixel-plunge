@@ -80,15 +80,15 @@ export default class HelpScene extends Phaser.Scene {
    fontSize: "14px",
    fill: "#fff",
   });
-  const fishidexArrow = this.add.image(35, 580, "arrowup").setScale(0.2);
+  const fishidexArrow = this.add.image(150, 580, "arrowup").setScale(0.2);
   fishidexArrow.flipY = true;
-  fishidexArrow.flipX = true;
+  //fishidexArrow.flipX = true;
 
   this.add.text(160, 450, "Check Leaderboards", {
    fontSize: "14px",
    fill: "#fff",
   });
-  const leaderArrow = this.add.image(280, 530, "arrowup").setScale(0.5);
+  const leaderArrow = this.add.image(320, 540, "arrowup").setScale(0.5);
   leaderArrow.flipY = true;
 
   this.add.text(400, 530, "Upgrade your gear", {
@@ -96,7 +96,7 @@ export default class HelpScene extends Phaser.Scene {
    fill: "#fff",
   });
 
-  const upgradeArrow = this.add.image(450, 580, "arrowup").setScale(0.2);
+  const upgradeArrow = this.add.image(480, 580, "arrowup").setScale(0.2);
   upgradeArrow.flipY = true;
   upgradeArrow.flipX = true;
 
@@ -105,7 +105,7 @@ export default class HelpScene extends Phaser.Scene {
    fill: "#fff",
   });
 
-  const homeArrow = this.add.image(610, 565, "arrowup").setScale(0.3);
+  const homeArrow = this.add.image(630, 565, "arrowup").setScale(0.3);
   homeArrow.flipY = true;
   homeArrow.flipX = true;
 
