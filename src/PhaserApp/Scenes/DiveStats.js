@@ -1,4 +1,4 @@
-import GameStatsCard from "../../assets/Background/DiveStats.png";
+import GameStatsCard from "../../assets/Background/GreenBackground128.png";
 import * as index from "./index";
 import { updateDiveStats } from "../../firebase";
 
@@ -19,9 +19,12 @@ let fishJustCaught;
 let currentFishCaught;
 let totalFishCaught;
 
-let eachFishCaught;
+let eachFishFound;
 let currentFishFound;
 let totalFishFound;
+
+let newFishFound = [];
+let newFishFoundString;
 
 index.EventsCenter.on(
   "fish-caught",
@@ -41,14 +44,18 @@ index.EventsCenter.on(
 
 function returnCaughtString() {
   if (fishCaught.length === 0) {
+    fishJustCaught = 0;
+    fishJustCaught = fishCaught.length;
+
     return "None";
   } else {
     let counter = {};
     let caughtString = "";
-    eachFishCaught = [];
+    eachFishFound = [];
     fishJustCaught = 0;
 
     fishJustCaught = fishCaught.length;
+    console.log(fishJustCaught);
 
     fishCaught.forEach((ele) => {
       if (counter[ele]) {
@@ -59,12 +66,40 @@ function returnCaughtString() {
     });
 
     for (const [key, value] of Object.entries(counter)) {
-      caughtString += `${key} x${value} `;
+      caughtString += `
+      - ${key} x${value} `;
     }
 
-    eachFishCaught = Object.keys(counter);
+    eachFishFound = Object.keys(counter);
+    console.log(eachFishFound);
 
     return caughtString;
+  }
+}
+
+function returnFishFound() {
+  if (fishCaught.length === 0) {
+    return "None";
+  } else {
+    newFishFound = [];
+    newFishFoundString = "";
+
+    console.log(eachFishFound);
+    console.log(currentFishFound);
+    eachFishFound.forEach((fish) => {
+      if (!currentFishFound.includes(fish)) {
+        newFishFound.push(fish);
+        currentFishFound.push(fish);
+      }
+    });
+
+    console.log(newFishFound);
+    newFishFound.forEach((fish) => {
+      newFishFoundString += `
+      - ${fish}`;
+    });
+    console.log(newFishFoundString);
+    return newFishFoundString;
   }
 }
 
@@ -75,8 +110,8 @@ function updateUser() {
 
   totalFishFound = currentFishFound;
 
-  if (eachFishCaught !== undefined) {
-    eachFishCaught.forEach((fish) => {
+  if (eachFishFound !== undefined) {
+    eachFishFound.forEach((fish) => {
       if (currentFishFound.includes(fish) === false) {
         totalFishFound.push(fish);
       }
@@ -89,7 +124,7 @@ export class DiveStats extends Phaser.Scene {
     super({ key: "DiveStats" });
   }
 
-  init({ timeLeft, currentUserDetails, fishData }) {
+  init({ timeLeft, currentUserDetails, fishData, resetFish }) {
     fishArray = fishData;
     userProfile = currentUserDetails;
     currentMoney = userProfile.Money;
@@ -104,17 +139,24 @@ export class DiveStats extends Phaser.Scene {
   create() {
     this.add.image(400, 300, "GameStatsCard").setScale(1);
 
-    text = this.add.text(335, 410, "Dive Again!", {
+    //Green Board Styling 32x32 Vertical
+    text = this.add.text(335, 480, "Dive Again!", {
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    this.add.text(215, 310, `Fish Caught: ${returnCaughtString()}`, {
+    this.add.text(255, 153, `Fish Caught: ${returnCaughtString()}`, {
+      fontSize: "20px",
+      color: "#ffffff",
+      // fontFamily:
+    });
+
+    this.add.text(255, 323, `Fish Found: ${returnFishFound()}`, {
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    this.add.text(215, 250, `Coins Collected: ${coinsCollected}`, {
+    this.add.text(255, 105, `Coins Collected: ${coinsCollected}`, {
       fontSize: "20px",
       color: "#ffffff",
     });
@@ -125,6 +167,8 @@ export class DiveStats extends Phaser.Scene {
       if (userProfile.userName === "Guest") {
         userProfile.Money = coinsCollected + currentMoney;
         userProfile.Fish_Count = 0;
+        userProfile.caught_fish = currentFishFound;
+
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");
@@ -144,6 +188,7 @@ export class DiveStats extends Phaser.Scene {
         );
         userProfile.Money = totalMoney;
         userProfile.Fish_Count = totalFishCaught;
+        userProfile.caught_fish = totalFishFound;
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");

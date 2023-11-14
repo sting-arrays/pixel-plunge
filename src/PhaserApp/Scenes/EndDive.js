@@ -1,10 +1,11 @@
-import GameOverBackground from "../../assets/Background/GameOver.png";
+import Banner from "../../assets/Background/Banner.png";
 
 let bg;
 let text;
 let time;
 let userProfile;
 let fishArray;
+let banner;
 
 export class EndDive extends Phaser.Scene {
   constructor() {
@@ -16,17 +17,21 @@ export class EndDive extends Phaser.Scene {
     fishArray = fishData;
   }
 
-  preload() {}
+  preload() {
+    this.load.image("EndGameBanner", Banner);
+  }
 
   create() {
-    text = this.add.text(590, 94, "End Dive!", {
+    banner = this.add.image(671, 107, "EndGameBanner").setScale(1.25);
+
+    text = this.add.text(620, 94, "End Dive!", {
       fontSize: "20px",
-      color: "#ffffff",
+      color: "#000000",
     });
 
-    text.setInteractive({ useHandCursor: true });
+    banner.setInteractive({ useHandCursor: true });
 
-    text.on("pointerdown", () => {
+    banner.on("pointerdown", () => {
       // ^^ Above this line export all game data to the db
       this.scene.launch("DiveStats", {
         currentUserDetails: userProfile,
