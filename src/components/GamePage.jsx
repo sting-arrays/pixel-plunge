@@ -21,7 +21,7 @@ export default function GamePage() {
     <div className="flex flex-col place-items-center">
       <img
         className="drop-shadow-md"
-        src="src/assets/Other/pixelplungelogo-2.png"
+        src="../../assets/Other/secondlogo.png"
         alt=""
       />
       <AppBridge width={800} height={600} email={currentUser} />
