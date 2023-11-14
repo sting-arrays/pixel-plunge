@@ -5,11 +5,12 @@ import {
   setDoc,
   getDocs,
   collection,
-  updateDoc, query, orderBy,
+  updateDoc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
 
 const firebaseConfig = {
   apiKey: `${import.meta.env.VITE_APIKEY}`,
@@ -46,6 +47,7 @@ export function updateUser(
     Password: password,
     Fish_Bag: fishBag,
     Fish_Count: fishCount,
+    caught_fish: [],
     Level: level,
     Money: money,
     Oxygen: oxygen,
@@ -100,4 +102,3 @@ export async function upgradeFishNet(user, newValue, newMoney) {
     Money: newMoney,
   });
 }
-
