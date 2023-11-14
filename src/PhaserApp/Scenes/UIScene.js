@@ -34,7 +34,7 @@ export class UIScene extends Phaser.Scene {
       });
     }
 
-    helpText = this.add.text(750, 25, "?", {
+    helpText = this.add.text(765, 25, "?", {
       fontSize: "40px",
       fill: "#ffffff",
     });
