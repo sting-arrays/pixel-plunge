@@ -25,11 +25,11 @@ export default function Fishidex() {
         <div className='flex justify-center leading-[100px]'>
         <img 
         alt='fish swimming to the side'
-        src='/src/assets/Other/fishidex-fish-2.png' />
+        src='/fishidex-fish-2.png' />
         <h1 className="text-[35px] mb-5">Fishidex</h1>
         <img 
         alt='fish swimming to the side'
-        src='/src/assets/Other/fishidex-fish-2.png'/>
+        src='/fishidex-fish-2.png'/>
         </div>
         
         <ul className="grid grid-cols-2 grid-rows-5 gap-3 mb-5">
@@ -68,12 +68,20 @@ export default function Fishidex() {
 
   return (
     <div>
-      <h1 className="text-[35px] mb-5">Fishidex</h1>
+      <div className='flex justify-center leading-[100px]'>
+        <img 
+        alt='fish swimming to the side'
+        src='/fishidex-fish-2.png' />
+        <h1 className="text-[35px] mb-5">Fishidex</h1>
+        <img 
+        alt='fish swimming to the side'
+        src='/fishidex-fish-2.png' />
+        </div>
       <ul className="grid grid-cols-2 grid-rows-5 gap-3 mb-5">
         {allFish.map((fish) => {
           return (
             <li
-              className="flex flex-col mr-0 bg-cyan-600 rounded-lg py-7 w-96 text-white bg-opacity-60"
+              className="flex flex-col mr-0 bg-cyan-600 rounded-lg py-7 w-96 text-white bg-opacity-60 justify-self-center"
               key={fish.name}
             >
               <img
