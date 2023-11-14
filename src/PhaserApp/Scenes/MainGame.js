@@ -125,7 +125,7 @@ export class MainGame extends Phaser.Scene {
       index.EventsCenter.emit("fish-caught", caughtFish);
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
-          // coins += fishArray[i].fish_value;
+          coins += fishArray[i].fish_value;
           coinsCollectedThatDive += fishArray[i].fish_value;
           index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
         }
@@ -142,8 +142,6 @@ export class MainGame extends Phaser.Scene {
       index.EventsCenter.emit("fish-caught", caughtFish);
       index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
     }
-
-    // background = this.physics.add.image();
 
     fixed = this.physics.add.staticGroup();
     createRocks(fixed);
@@ -357,8 +355,12 @@ export class MainGame extends Phaser.Scene {
 
     this.physics.add.overlap(player, fishes, collectFish, null, this);
 
-    //this.scene.launch("testscene");
-    this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
+    // this.scene.launch("testscene");
+    this.scene.launch("uiscene", {
+      coins: coins,
+      fishCount: fishCount,
+      bucketSize: bucketSize,
+    });
 
     index.EventsCenter.on(
       "time-left",

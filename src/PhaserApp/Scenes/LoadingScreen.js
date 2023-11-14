@@ -45,7 +45,11 @@ export default class LoadingScreen extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor("#00337C");
     const image = this.add.image(400, 250, "logo").setScale(0.5);
-    this.add.text(335, 500, "Sting-Arrays", "#FFF");
+    this.add.text(270, 475, "Sting Arrays", {
+      fontFamily: "Pixelify Sans",
+      fontSize: "40px",
+      color: "#ffffff",
+    });
 
     this.cameras.main.fadeIn(2000);
     const loader = setInterval(() => {
