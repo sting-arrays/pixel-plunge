@@ -1,5 +1,5 @@
-import Phaser from "phaser";
-import { createUniqueFish } from "../utils";
+import Phaser, { NONE } from "phaser";
+import { createShark, createUniqueFish, sharkAttack } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
 import swampBG from "../../assets/Background/swamp-bg.json";
@@ -52,6 +52,7 @@ export class MainGame extends Phaser.Scene {
     this.load.image("northern fish", index.northernFish);
     this.load.image("really big fish", index.reallyBigFish);
     this.load.image("the fish named jordan", index.theFishNamedJordan);
+    this.load.image("shark", index.shark);
     this.load.image("xlrock2flat", index.xlrock2flat);
     this.load.image("xlrock2left", index.xlrock2left);
     this.load.image("xlrock2right", index.xlrock2right);
@@ -171,7 +172,7 @@ export class MainGame extends Phaser.Scene {
 
     this.cameras.main.startFollow(player, true);
     this.cameras.main.setBounds(0, 0, 800, height);
-    this.cameras.main.zoom = 0.5;
+    this.cameras.main.zoom = 0.8;
 
     // setTimeout(() => {
     //   this.scene.launch("EndDive");
@@ -373,6 +374,12 @@ export class MainGame extends Phaser.Scene {
       },
       this
     );
+
+    const sharks = this.physics.add.group();
+    createShark(1, 550, 850, sharks, "shark", 550, 850);
+    createShark(1, 1500, 2000, sharks, "shark", 1500, 2000);
+
+    this.physics.add.collider(player, sharks, sharkAttack, null, this);
   }
 
   update() {

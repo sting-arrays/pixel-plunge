@@ -10,6 +10,7 @@ export { default as magicFish } from "../../assets/Fish/magic fish.png";
 export { default as northernFish } from "../../assets/Fish/northern fish.png";
 export { default as reallyBigFish } from "../../assets/Fish/really big fish.png";
 export { default as theFishNamedJordan } from "../../assets/Fish/the fish named jordan.png";
+export { default as shark } from "../../assets/Fish/shark.png";
 
 // sprites
 export { default as character } from "../../assets/Character/character.png";
