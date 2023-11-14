@@ -11,6 +11,14 @@ export { default as northernFish } from "../../assets/Fish/northern fish.png";
 export { default as reallyBigFish } from "../../assets/Fish/really big fish.png";
 export { default as theFishNamedJordan } from "../../assets/Fish/the fish named jordan.png";
 export { default as shark } from "../../assets/Fish/shark.png";
+export { default as chomp } from "../../assets/Fish/chomp.png";
+export { default as dumbo } from "../../assets/Fish/dumbo.png";
+export { default as Eleventicles } from "../../assets/Fish/Eleventicles.png";
+export { default as FlatBoi } from "../../assets/Fish/Flat Boi.png";
+export { default as kaboom } from "../../assets/Fish/kaboom.png";
+export { default as RedRum } from "../../assets/Fish/Red Rum.png";
+export { default as tangFish } from "../../assets/Fish/tang fish.png";
+export { default as zebra } from "../../assets/Fish/zebra.png";
 
 export { default as pier } from "../../assets/Scenary/pier-dark-oak.png";
 export { default as column1 } from "../../assets/Scenary/Column1-Cropped.png";

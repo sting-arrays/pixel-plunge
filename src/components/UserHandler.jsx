@@ -8,6 +8,7 @@ import { UserNameContext } from "../contexts/UsernameContext";
 export default function UserHandler() {
 
     const { currentUser } = useContext(UserNameContext);
+    console.log('hello')
 
     return (
         <>

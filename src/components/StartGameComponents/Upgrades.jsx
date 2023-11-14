@@ -25,7 +25,17 @@ export default function Upgrades() {
   if (currentUser === "Guest")
     return (
       <div className="flex flex-col justify-center h-screen">
-        <p className="block text-3xl">
+        <div className='flex justify-center'>
+      <img 
+      src='src/assets/Other/Scuba mask 2.png'
+      className='w-24'/>
+      <p className='text-[35px] mb-5 font-bold leading-[100px]'>Upgrades</p>
+      <img 
+      src='src/assets/Other/Scuba mask 2.png'
+      className='w-24'/>
+      </div>
+      
+        <p className="block text-3xl text-white">
           You must login to view upgrade options!
         </p>
         <Link
@@ -51,16 +61,26 @@ export default function Upgrades() {
 
   return (
     <div>
-      <p>This is the upgrades page</p>
-      <Link className="button" to="/game" element={<GamePage />}>
-        {" "}
-        Back to Game{" "}
-      </Link>
+      <div className='flex justify-center'>
+      <img 
+      src='src/assets/Other/Scuba mask 2.png'
+      className='w-24'/>
+      <p className='text-[35px] mb-5 font-bold leading-[100px]'>Ugrades</p>
+      <img 
+      src='src/assets/Other/Scuba mask 2.png'
+      className='w-24'/>
+      </div>
+      
+      
       <Currency userMoney={userMoney} />
       <ul className="">
         <OxygenTank userMoney={userMoney} setUserMoney={setUserMoney} />
         <FishNet userMoney={userMoney} setUserMoney={setUserMoney} />
       </ul>
+      <Link className="button mt-12" to="/game" element={<GamePage />}>
+        {" "}
+        Back to Game{" "}
+      </Link>
     </div>
   );
 }
