@@ -5,73 +5,93 @@ import { useEffect, useState, useContext } from "react";
 import { UserNameContext } from "../../contexts/UsernameContext";
 
 export default function Fishidex() {
- const [allFish, setAllFish] = useState([]);
- const { currentUser, setCurentUser } = useContext(UserNameContext);
- const [usersFish, setUsersFish] = useState([]);
+  const [allFish, setAllFish] = useState([]);
+  const { currentUser, setCurentUser } = useContext(UserNameContext);
+  const [usersFish, setUsersFish] = useState([]);
 
- useEffect(() => {
-  getAllFish().then((response) => {
-   setAllFish(response);
-  });
- }, []);
+  useEffect(() => {
+    getAllFish().then((response) => {
+      setAllFish(response);
+    });
+  }, []);
 
- if (allFish.length === 0) {
-  return <p>is loading ...</p>;
- }
+  if (allFish.length === 0) {
+    return <p>is loading ...</p>;
+  }
 
- if (currentUser === "Guest") {
-  return (
-   <div>
-    <p>This is fishidex!</p>
-    <ul>
-     {allFish.map((fish) => {
-      if (currentUser === "Guest") {
-       return (
-        <div key={fish.name}>
-         <li>
-          <img src={fish.image} alt="fish swimming in the sea and having a great time" />
-         </li>
-         <li>{fish.name}</li>
-         <li>{fish.facts}</li>
-        </div>
-       );
-      }
-     })}
-    </ul>
-    <Link className="button" to="/game" element={<GamePage />}>
-     {" "}
-     Back to Game{" "}
-    </Link>
-   </div>
-  );
- }
-
- getUserDetails(currentUser).then((result) => {
-  setUsersFish(result.caught_fish);
- });
-
- if (usersFish.length === 0) return <div>Loading...</div>;
-
- return (
-  <div>
-   <p>This is fishidex!</p>
-   <ul>
-    {allFish.map((fish) => {
-     return (
-      <div key={fish.name}>
-       <li>
-        <img src={usersFish.includes(fish.name) ? fish.image : fish.grey_image} alt="fish swimming in the sea and having a great time" />
-       </li>
-       <li>{fish.name}</li>
-       <li>{fish.facts}</li>
+  if (currentUser === "Guest") {
+    return (
+      <div>
+        <h1 className="text-[35px]">Fishidex</h1>
+        <ul className="grid grid-cols-2 grid-rows-5 gap-3 mb-5">
+          {allFish.map((fish) => {
+            if (currentUser === "Guest") {
+              return (
+                <li
+                  className="flex flex-col justify-self-center bg-teal-600 rounded-lg py-7 w-96"
+                  key={fish.name}
+                >
+                  <img
+                    className="self-center"
+                    src={fish.image}
+                    alt="fish swimming in the sea and having a great time"
+                  />
+                  <h3 className="text-[20px]">{fish.name}</h3>
+                  <p>{fish.facts}</p>
+                </li>
+              );
+            }
+          })}
+        </ul>
+        <Link className="button" to="/game" element={<GamePage />}>
+          {" "}
+          Back to Game{" "}
+        </Link>
       </div>
-     );
-    })}
-   </ul>
-   <Link className="button" to="/game" element={<GamePage />}>
-    {" "}
-    Back to Game{" "}
-   </Link>
-  </div>
- );
+    );
+  }
+
+  getUserDetails(currentUser).then((result) => {
+    setUsersFish(result.caught_fish);
+  });
+
+  if (usersFish.length === 0) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1 className="text-[35px]">Fishidex</h1>
+      <ul className="grid grid-cols-2 grid-rows-5 gap-3 mb-5">
+        {allFish.map((fish) => {
+          return (
+            <li
+              className="flex flex-col bg-cyan-600 rounded-lg py-7 w-96"
+              key={fish.name}
+            >
+              <img
+                className="self-center"
+                src={
+                  usersFish.includes(fish.name) ? fish.image : fish.grey_image
+                }
+                alt="fish swimming in the sea and having a great time"
+              />
+              {usersFish.includes(fish.name) ? (
+                <h3 className="text-[20px]">{fish.name}</h3>
+              ) : (
+                <h3 className="text-[20px]">???</h3>
+              )}
+              {usersFish.includes(fish.name) ? (
+                <p>{fish.facts}</p>
+              ) : (
+                <p>?????</p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <Link className="button" to="/game" element={<GamePage />}>
+        {" "}
+        Back to Game{" "}
+      </Link>
+    </div>
+  );
 }

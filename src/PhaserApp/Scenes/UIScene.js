@@ -3,6 +3,7 @@ import Phaser from "phaser";
 let coinCount;
 let fish;
 let bucket;
+let helpText;
 
 export class UIScene extends Phaser.Scene {
   constructor() {
@@ -32,5 +33,32 @@ export class UIScene extends Phaser.Scene {
         fill: "#FF0000",
       });
     }
+
+    helpText = this.add.text(750, 25, "?", {
+      fontSize: "40px",
+      fill: "#ffffff",
+    });
+    const helpText1 = this.add.text(735, 5, "Press 'H'", {
+      fontSize: "10px",
+      fill: "#ffffff",
+    });
+    const helpText2 = this.add.text(735, 15, "for help", {
+      fontSize: "10px",
+      fill: "#ffffff",
+    });
+
+    helpText.setInteractive({ useHandCursor: true });
+    helpText.on("pointerdown", () => {
+      this.scene.launch("helpscene", {});
+    });
+    helpText2.setInteractive({ useHandCursor: true });
+    helpText2.on("pointerdown", () => {
+      this.scene.launch("helpscene", {});
+    });
+
+    let keyObj = this.input.keyboard.addKey("H");
+    keyObj.on("down", () => {
+      this.scene.launch("helpscene", {});
+    });
   }
 }

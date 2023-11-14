@@ -4,6 +4,7 @@ import Currency from "../UpgradesComponents/Currency";
 import OxygenTank from "../UpgradesComponents/OxygenTank";
 import SwimSpeed from "../UpgradesComponents/SwimSpeed";
 import FishNet from "../UpgradesComponents/FishNet";
+import WelcomePage from "../WelcomePage";
 import { getUserDetails } from "../../firebase";
 import { useContext, useState, useEffect } from "react";
 import { UserNameContext } from "../../contexts/UsernameContext";
@@ -23,13 +24,27 @@ export default function Upgrades() {
 
   if (currentUser === "Guest")
     return (
-      <>
-        <p>You must login to view upgrade options!</p>
-        <Link className="button" to="/game" element={<GamePage />}>
+      <div className="flex flex-col justify-center h-screen">
+        <p className="block text-3xl">
+          You must login to view upgrade options!
+        </p>
+        <Link
+          className="block mx-auto my-5 w-96 button"
+          to="/game"
+          element={<GamePage />}
+        >
           {" "}
           Back to Game{" "}
         </Link>
-      </>
+        <Link
+          className="block mx-auto my-5 w-96 button"
+          to="/"
+          element={<WelcomePage />}
+        >
+          {" "}
+          Return Home to Login{" "}
+        </Link>
+      </div>
     );
 
   if (isLoading) return <p>Loading...</p>;
@@ -42,8 +57,10 @@ export default function Upgrades() {
         Back to Game{" "}
       </Link>
       <Currency userMoney={userMoney} />
-      <OxygenTank userMoney={userMoney} setUserMoney={setUserMoney} />
-      <FishNet userMoney={userMoney} setUserMoney={setUserMoney} />
+      <ul className="">
+        <OxygenTank userMoney={userMoney} setUserMoney={setUserMoney} />
+        <FishNet userMoney={userMoney} setUserMoney={setUserMoney} />
+      </ul>
     </div>
   );
 }
