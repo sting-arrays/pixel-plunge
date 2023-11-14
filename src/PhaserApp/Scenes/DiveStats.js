@@ -66,7 +66,7 @@ function returnCaughtString() {
 
     for (const [key, value] of Object.entries(counter)) {
       caughtString += `
-      - ${key} x${value} `;
+      - ${key} x ${value} `;
     }
 
     eachFishFound = Object.keys(counter);
@@ -134,28 +134,32 @@ export class DiveStats extends Phaser.Scene {
     this.add.image(400, 300, "GameStatsCard").setScale(1);
 
     //Green Board Styling 32x32 Vertical
-    text = this.add.text(335, 480, "Dive Again!", {
+    text = this.add.text(335, 480, "Dive Again", {
+      fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
     });
 
     this.add.text(255, 153, `Fish Caught: ${returnCaughtString()}`, {
+      fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
       // fontFamily:
     });
 
-    this.add.text(255, 323, `Fish Found: ${returnFishFound()}`, {
+    this.add.text(255, 323, `Fishidex Updates: ${returnFishFound()}`, {
+      fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    this.add.text(255, 105, `Coins Collected: ${coinsCollected}`, {
+    this.add.text(255, 105, `Earnings: ${coinsCollected} coins`, {
+      fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    text.setInteractive({ useHandCursor: true });
+    text.setInteractive();
 
     text.on("pointerdown", () => {
       if (userProfile.userName === "Guest") {

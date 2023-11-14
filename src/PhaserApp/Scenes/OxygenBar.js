@@ -25,7 +25,7 @@ export class OxygenBar extends Phaser.Scene {
   create() {
     this.timeLeft = this.initialTime;
 
-    let o2Container = this.add.sprite(400, 32, "oxygencontainer");
+    let o2Container = this.add.sprite(400, 40, "oxygencontainer");
     let o2Bar = this.add.sprite(o2Container.x, o2Container.y, "oxygenbar");
 
     this.o2Mask = this.add.sprite(o2Bar.x, o2Bar.y, "oxygenbar");
