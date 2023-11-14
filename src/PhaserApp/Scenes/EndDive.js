@@ -1,6 +1,6 @@
 import Banner from "/Banner.png";
 import { WebFontFile } from "./WebFontFile";
-import eKey from "/eKey.png";
+import * as index from "./index";
 
 let bg;
 let text;
@@ -22,7 +22,7 @@ export class EndDive extends Phaser.Scene {
   preload() {
     this.load.image("EndGameBanner", Banner);
     this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
-    this.load.image("eKey", eKey);
+    this.load.image("eKey", index.eKey);
   }
 
   create() {

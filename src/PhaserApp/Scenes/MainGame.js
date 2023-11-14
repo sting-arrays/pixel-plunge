@@ -122,19 +122,22 @@ export class MainGame extends Phaser.Scene {
       }
       caughtFish.push(fish.texture.key);
       fishCount++;
+
       index.EventsCenter.emit("fish-caught", caughtFish);
+
       for (let i = 0; i < fishArray.length; i++) {
         if (fishArray[i].name === fish.texture.key) {
           coins += fishArray[i].fish_value;
           coinsCollectedThatDive += fishArray[i].fish_value;
+
           index.EventsCenter.emit("coins-collected", coinsCollectedThatDive);
         }
       }
       fish.disableBody(true, true);
       this.scene.launch("uiscene", {
-        coins: coins,
-        fishCount: fishCount,
-        bucketSize: bucketSize,
+        coins,
+        fishCount,
+        bucketSize,
       });
     }
 

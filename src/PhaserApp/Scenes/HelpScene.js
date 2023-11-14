@@ -6,6 +6,7 @@ import arrowUp from "../../assets/Other/arrowup.png";
 import arrowSide from "../../assets/Other/arrowside.png";
 import arrowFishCount from "../../assets/Other/arrowfishcount.png";
 import arrowCharacter from "../../assets/Other/arrowcharacter.png";
+import * as index from "./index";
 import { WebFontFile } from "./WebFontFile";
 export default class HelpScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,7 @@ export default class HelpScene extends Phaser.Scene {
     this.load.image("arrowup", arrowUp);
     this.load.image("arrowcharacter", arrowCharacter);
     this.load.image("arrowfishcount", arrowFishCount);
+    this.load.image("hKey", index.hKey);
 
     this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
   }
@@ -36,18 +38,16 @@ export default class HelpScene extends Phaser.Scene {
     });
 
     this.add.image(400, 270, "arrowkeys").setScale(0.5);
-    this.add.text(290, 320, "Use the arrow keys to move", {
+    this.add.text(270, 320, "Use the arrow keys to move", {
       fontFamily: "Pixelify Sans",
       fontSize: "19px",
       fill: "#fff",
     });
-    this.add.text(345, 340, "the character", {
+    this.add.text(330, 340, "the character", {
       fontFamily: "Pixelify Sans",
       fontSize: "19px",
       fill: "#fff",
     });
-    const arrowChar = this.add.image(180, 350, "arrowcharacter").setScale(0.6);
-    arrowChar.flipY = true;
 
     this.add.text(10, 200, "Amount of coins and fish \ncurrently held", {
       fontFamily: "Pixelify Sans",
@@ -110,18 +110,21 @@ export default class HelpScene extends Phaser.Scene {
     homeArrow.flipY = true;
     homeArrow.flipX = true;
 
-    const text = this.add.text(670, 560, "close help", {
+    // const text = this.add.text(670, 560, "close help", {
+    //   fontFamily: "Pixelify Sans",
+    //   fontSize: "25px",
+    //   fill: "#fff",
+    // });
+
+    let closeText = this.add.text(720, 110, "Close", {
       fontFamily: "Pixelify Sans",
       fontSize: "25px",
-      fill: "#fff",
-    });
-    this.add.text(665, 580, "Press 'H' to close", {
-      fontFamily: "Pixelify Sans",
-      fontSize: "15px",
       fill: "#ffffff",
     });
-    text.setInteractive({ useHandCursor: true });
-    text.on("pointerdown", () => {
+    this.add.image(750, 75, "hKey").setScale(0.7);
+
+    closeText.setInteractive({ useHandCursor: true });
+    closeText.on("pointerdown", () => {
       this.scene.stop("helpscene");
     });
 

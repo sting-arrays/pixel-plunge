@@ -19,6 +19,13 @@ export { default as RedRum } from "../../assets/Fish/Red Rum.png";
 export { default as tangFish } from "../../assets/Fish/tang fish.png";
 export { default as zebra } from "../../assets/Fish/zebra.png";
 
+export { default as eKey } from "/keyIcons/eKey.png";
+export { default as hKey } from "/keyIcons/hKey.png";
+export { default as spaceBar } from "/keyIcons/spaceBar.png";
+
+export { default as coinSprite } from "/coin-sprite.png";
+export { default as fishSprite } from "/fish-count-sprite.png";
+
 export { default as pier } from "/Pier-3.png";
 export { default as column1 } from "/Column1-Cropped.png";
 export { default as column2 } from "/Column2-Cropped.png";
