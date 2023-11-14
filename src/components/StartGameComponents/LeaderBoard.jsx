@@ -25,7 +25,7 @@ export default function LeaderBoard() {
             <img
             className='relative'
             alt="Pixel Plunge"
-            src="src/assets/Other/scroll-leaderboard-2.png"
+            src="/scroll-leaderboard-2.png"
             />
             <p className=' absolute bottom-[550px] left-[620px] text-[35px]'>Leaderboard</p>
             <ul className='absolute bottom-[-160px] left-[640px]'>
