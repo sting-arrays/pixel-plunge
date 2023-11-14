@@ -27,11 +27,11 @@ export default function Upgrades() {
       <div className="flex flex-col justify-center h-screen">
         <div className='flex justify-center'>
       <img 
-      src='src/assets/Other/Scuba mask 2.png'
+      src='/Scuba mask 2.png'
       className='w-24'/>
       <p className='text-[35px] mb-5 font-bold leading-[100px]'>Upgrades</p>
       <img 
-      src='src/assets/Other/Scuba mask 2.png'
+      src='/Scuba mask 2.png'
       className='w-24'/>
       </div>
       
@@ -63,11 +63,11 @@ export default function Upgrades() {
     <div>
       <div className='flex justify-center'>
       <img 
-      src='src/assets/Other/Scuba mask 2.png'
+      src='/Scuba mask 2.png'
       className='w-24'/>
       <p className='text-[35px] mb-5 font-bold leading-[100px]'>Ugrades</p>
       <img 
-      src='src/assets/Other/Scuba mask 2.png'
+      src='/Scuba mask 2.png'
       className='w-24'/>
       </div>
       
