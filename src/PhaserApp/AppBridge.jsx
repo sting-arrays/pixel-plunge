@@ -6,7 +6,7 @@ export const ROOT_ID = "root-id";
 const Root = memo(() => {
   return (
     <div
-      className="flex justify-center w-min rounded-md p-2 shadow-3xl bg-gradient-to-b from-white to-cyan-700"
+      className="flex justify-center w-min rounded-md p-2 shadow-3xl bg-gradient-to-b from-white/75 to-sky-700/75"
       id={ROOT_ID}
     />
   );

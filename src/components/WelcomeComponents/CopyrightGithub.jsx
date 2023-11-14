@@ -16,7 +16,7 @@ export default function CopyrightGithub() {
         id="authors-list"
         className="py-4 shadow-xl w-2/5 bg-cyan-500/70 rounded-md"
       >
-        <h3 className="text-white text-3xl">Contributors</h3>
+        <h3 className="text-white text-3xl">Developers</h3>
         <li className="text-[17px]  text-white hover:text-black">
           <a href="https://github.com/tomalcock" target="blank">
             Tom Lacy-Alcock

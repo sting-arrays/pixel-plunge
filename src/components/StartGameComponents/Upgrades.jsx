@@ -57,7 +57,7 @@ export default function Upgrades() {
         Back to Game{" "}
       </Link>
       <Currency userMoney={userMoney} />
-      <ul className="grid grid-cols2 grid-rows-1">
+      <ul className="">
         <OxygenTank userMoney={userMoney} setUserMoney={setUserMoney} />
         <FishNet userMoney={userMoney} setUserMoney={setUserMoney} />
       </ul>
