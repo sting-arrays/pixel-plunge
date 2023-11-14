@@ -1,4 +1,4 @@
-import Banner from "../../assets/Background/Banner.png";
+import Banner from "/Banner.png";
 
 let bg;
 let text;

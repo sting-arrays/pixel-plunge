@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import oxygenBarTexture from "../../assets/UI/o2bar-192x192.png";
-import oxygenContainerTexture from "../../assets/UI/o2border-192x192.png";
+import oxygenBarTexture from "/o2bar-192x192.png";
+import oxygenContainerTexture from "/o2border-192x192.png";
 import EventsCenter from "../EventsCenter";
 
 let userProfile;
