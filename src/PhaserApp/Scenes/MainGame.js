@@ -180,9 +180,11 @@ export class MainGame extends Phaser.Scene {
  update() {
   if (player.y < 290 && player.x < 300) {
    this.cameras.main.zoomTo(1.5, 1500);
+   player.rotation = 0;
   }
   //When player is out of water
   if (player.y < 215) {
+   player.rotation = 0;
    player.body.setAllowGravity(true);
    if (cursors.left.isDown && player.x > 16) {
     player.setVelocityX(-200);
@@ -205,28 +207,64 @@ export class MainGame extends Phaser.Scene {
    //As the player jumps into the water the camera has a transitional Zoom in
    this.cameras.main.zoomTo(2.5, 3000);
    player.body.setAllowGravity(false);
-
-   if ((cursors.left.isDown && player.x > 16 && timeLeft > 1) || (cursors.left.isDown && player.x > 16 && timeLeft === undefined)) {
-    player.setVelocityX(-200);
+   if (
+    (cursors.left.isDown && cursors.down.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.left.isDown && cursors.down.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(-100);
+    player.setVelocityY(100);
+    player.anims.play("swimming-left", true);
+    player.rotation = 12;
+   } else if (
+    (cursors.right.isDown && cursors.down.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.right.isDown && cursors.down.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(100);
+    player.setVelocityY(100);
+    player.anims.play("swimming-right", true);
+    player.rotation = 7;
+   } else if (
+    (cursors.left.isDown && cursors.up.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.left.isDown && cursors.up.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(-100);
+    player.setVelocityY(-100);
+    player.anims.play("swimming-left", true);
+    player.rotation = 13;
+   } else if (
+    (cursors.right.isDown && cursors.up.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.right.isDown && cursors.up.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(100);
+    player.setVelocityY(-100);
+    player.anims.play("swimming-right", true);
+    player.rotation = 6;
+   } else if ((cursors.left.isDown && player.x > 16 && timeLeft > 1) || (cursors.left.isDown && player.x > 16 && timeLeft === undefined)) {
+    player.rotation = 0;
+    player.setVelocityX(-150);
     player.anims.play("swimming-left", true);
    } else if ((cursors.right.isDown && player.x < 784 && timeLeft > 1) || (cursors.right.isDown && player.x < 784 && timeLeft === undefined)) {
-    player.setVelocityX(200);
+    player.rotation = 0;
+    player.setVelocityX(150);
     player.anims.play("swimming-right", true);
    } else if (
     (cursors.up.isDown && player.x < 784 && player.x > 16 && timeLeft > 1) ||
     (cursors.up.isDown && player.x < 784 && player.x > 16 && timeLeft === undefined)
    ) {
-    player.setVelocityY(-200);
+    player.rotation = 0;
+    player.setVelocityY(-150);
     player.anims.play("swimming-up", true);
    } else if (
     (cursors.down.isDown && player.y <= height - 48 && player.x < 784 && player.x > 16 && timeLeft > 1) ||
     (cursors.down.isDown && player.y <= height - 48 && player.x < 784 && player.x > 16 && timeLeft === undefined)
    ) {
-    player.setVelocityY(200);
+    player.rotation = 0;
+    player.setVelocityY(150);
     player.anims.play("swimming-down", true);
    } else if ((!cursors.isDown && timeLeft > 1) || (!cursors.isDown && timeLeft === undefined)) {
     player.setVelocityY(10).setVelocityX(0);
     player.anims.play("swimming-idle", true);
+    player.rotation = 0;
    }
   }
 

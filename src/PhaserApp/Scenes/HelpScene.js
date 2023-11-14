@@ -22,8 +22,8 @@ export default class HelpScene extends Phaser.Scene {
   this.load.image("arrowup", arrowUp);
   this.load.image("arrowcharacter", arrowCharacter);
   this.load.image("arrowfishcount", arrowFishCount);
-  this.load.image("Dory", Dory);
-  this.load.image("Cod", Cod);
+  //   this.load.image("Dory", Dory);
+  //   this.load.image("Cod", Cod);
  }
  create() {
   this.add.image(400, 300, "background");
