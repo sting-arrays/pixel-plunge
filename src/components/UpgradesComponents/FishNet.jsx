@@ -14,9 +14,11 @@ export default function FishNet({ userMoney, setUserMoney }) {
  }, [currentUser, userFishNet]);
 
  return (
-  <>
-   <p>Fish Net: {userFishNet}</p>
+  <li className="flex flex-cols justify-center items-center border-black text-white mt-10">
+   <p className='mx-2 text-[25px] font-bold'>Fish Net: Holds {userFishNet} fish</p>
+   <img className="w-32" src="src/assets/Other/net-upgrade.png" alt="" />
    <button
+   className={userMoney < 1000 ? 'button-disabled' : "button"}
     disabled={userMoney < 1000 ? true : false}
     onClick={() => {
      if (userMoney >= 1000) {
@@ -27,8 +29,8 @@ export default function FishNet({ userMoney, setUserMoney }) {
      }
     }}
    >
-    Upgrade Fish Net (1000)
+    Upgrade (1000)
    </button>
-  </>
+  </li>
  );
 }

@@ -2,7 +2,7 @@ export default function CopyrightGithub() {
   return (
     <div className="flex flex-col place-items-center">
       <div className=" mb-5 py-4 shadow-xl w-2/5 bg-cyan-500/70 rounded-md">
-        <h4 className="text-white text-3xl">The Team Github</h4>
+        <h3 className="text-white text-3xl">The Team Github</h3>
         <a
           className="text-[17px] text-white hover:text-black"
           href="https://github.com/sting-arrays"
@@ -16,7 +16,7 @@ export default function CopyrightGithub() {
         id="authors-list"
         className="py-4 shadow-xl w-2/5 bg-cyan-500/70 rounded-md"
       >
-        <h3 className="text-white text-3xl">Developers</h3>
+        <h4 className="text-white text-3xl">Developers</h4>
         <li className="text-[17px]  text-white hover:text-black">
           <a href="https://github.com/tomalcock" target="blank">
             Tom Lacy-Alcock
