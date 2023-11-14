@@ -17,24 +17,24 @@ export class UIScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(32, 32, `Coins: ${coinCount}`, {
+    this.add.text(90, 28, `Coins: ${coinCount}`, {
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    this.add.text(590, 32, `Fish caught: ${fish}`, {
+    this.add.text(540, 28, `Fish caught: ${fish}`, {
       fontSize: "20px",
       color: "#ffffff",
     });
 
     if (fish === bucket) {
-      this.add.text(590, 64, "Bucket full!", {
+      this.add.text(540, 64, "Bucket full!", {
         fontSize: "20px",
         fill: "#FF0000",
       });
     }
 
-    helpText = this.add.text(765, 25, "?", {
+    helpText = this.add.text(750, 25, "?", {
       fontSize: "40px",
       fill: "#ffffff",
     });

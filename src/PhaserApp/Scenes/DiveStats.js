@@ -55,7 +55,6 @@ function returnCaughtString() {
     fishJustCaught = 0;
 
     fishJustCaught = fishCaught.length;
-    console.log(fishJustCaught);
 
     fishCaught.forEach((ele) => {
       if (counter[ele]) {
@@ -71,7 +70,6 @@ function returnCaughtString() {
     }
 
     eachFishFound = Object.keys(counter);
-    console.log(eachFishFound);
 
     return caughtString;
   }
@@ -84,8 +82,6 @@ function returnFishFound() {
     newFishFound = [];
     newFishFoundString = "";
 
-    console.log(eachFishFound);
-    console.log(currentFishFound);
     eachFishFound.forEach((fish) => {
       if (!currentFishFound.includes(fish)) {
         newFishFound.push(fish);
@@ -93,12 +89,10 @@ function returnFishFound() {
       }
     });
 
-    console.log(newFishFound);
     newFishFound.forEach((fish) => {
       newFishFoundString += `
       - ${fish}`;
     });
-    console.log(newFishFoundString);
     return newFishFoundString;
   }
 }

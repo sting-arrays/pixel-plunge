@@ -22,9 +22,9 @@ export class EndDive extends Phaser.Scene {
   }
 
   create() {
-    banner = this.add.image(671, 107, "EndGameBanner").setScale(1.25);
+    banner = this.add.image(619, 107, "EndGameBanner").setScale(1.25);
 
-    text = this.add.text(620, 94, "End Dive!", {
+    text = this.add.text(568, 94, "End Dive!", {
       fontSize: "20px",
       color: "#000000",
     });
