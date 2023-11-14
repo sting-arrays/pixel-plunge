@@ -166,9 +166,10 @@ export class MainGame extends Phaser.Scene {
   createUniqueFish(Phaser.Math.Between(4, 7), 1000, 1800, fishes, "northern fish", 1000, 1800);
   createUniqueFish(Phaser.Math.Between(1, 3), 1500, 1900, fishes, "Jaws", 1500, 1900);
   createUniqueFish(Phaser.Math.Between(1, 3), 1500, 1900, fishes, "the fish named jordan", 1500, 1900);
+  createUniqueFish(Phaser.Math.Between(1, 5), 500, 1500, fishes, "zebra", 500, 1500);
   createUniqueFish(Phaser.Math.Between(1, 2), 1500, 2000, fishes, "dumbo", 1500, 2000);
   createUniqueFish(Phaser.Math.Between(0, 1), 1800, 2000, fishes, "chomp", 1800, 2000);
-  createUniqueFish(Phaser.Math.Between(1, 5), 500, 1500, fishes, "zebra", 500, 1500);
+  createUniqueFish(Phaser.Math.Between(1, 2), 1800, 2000, fishes, "really big fish", 1800, 2000);
 
   if (Phaser.Math.Between(1, 25) === 19) {
    createUniqueFish(1, 1800, 2000, fishes, "kaboom", 1800, 2000);
