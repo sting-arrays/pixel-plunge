@@ -4,6 +4,7 @@ import GamePage from "../GamePage";
 import { Link } from "react-router-dom";
 
 export default function LeaderBoard() {
+    let counter = 1;
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -20,15 +21,22 @@ export default function LeaderBoard() {
  
     return(
         <div>
-            <p>This is the leader board!</p>
-            <ul>
+            
+            <img
+            className='relative'
+            alt="Pixel Plunge"
+            src="src/assets/Other/scroll-leaderboard-2.png"
+            />
+            <p className=' absolute bottom-[550px] left-[620px] text-[35px]'>Leaderboard</p>
+            <ul className='absolute bottom-[-160px] left-[640px]'>
             {users.map( (user) => { 
                 return(
                     <li key={user.userName}>
-                        Name: {user.userName}
+                        <p className='text-[20px]'>{counter++ + ' - ' + user.userName}</p>
                         <div></div>
-                        Fish Caught: {user.Fish_Count}
+                        <p className='text-[14px] mb-2'>Fish Caught: {user.Fish_Count}</p>
                     </li>
+
                 )
             })}
             </ul>
