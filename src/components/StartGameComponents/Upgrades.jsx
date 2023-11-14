@@ -14,6 +14,14 @@ export default function Upgrades() {
   const [userMoney, setUserMoney] = useState(0);
   const [isLoading, setIsLoadiing] = useState(true);
 
+  useEffect(() => {
+    if (currentUser === "Guest") return;
+    getUserDetails(currentUser).then((result) => {
+      setUserMoney(result.Money);
+      setIsLoadiing(false);
+    });
+  }, [currentUser]);
+
   if (currentUser === "Guest")
     return (
       <div className="flex flex-col justify-center h-screen">
@@ -48,14 +56,6 @@ export default function Upgrades() {
         </Link>
       </div>
     );
-
-  useEffect(() => {
-    if (currentUser === "Guest") return;
-    getUserDetails(currentUser).then((result) => {
-      setUserMoney(result.Money);
-      setIsLoadiing(false);
-    });
-  }, [currentUser]);
 
   if (isLoading) return <p>Loading...</p>;
 

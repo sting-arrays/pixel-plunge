@@ -1,5 +1,5 @@
-import Phaser from "phaser";
-import { createUniqueFish } from "../utils";
+import Phaser, { NONE } from "phaser";
+import { createCharAnims, createRocks, createShark, createUniqueFish, sharkAttack } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
 import swampBG from "../../assets/Background/swamp-bg.json";
@@ -52,6 +52,15 @@ export class MainGame extends Phaser.Scene {
   this.load.image("northern fish", index.northernFish);
   this.load.image("really big fish", index.reallyBigFish);
   this.load.image("the fish named jordan", index.theFishNamedJordan);
+  this.load.image("shark", index.shark);
+  this.load.image("chomp", index.chomp);
+  this.load.image("dumbo", index.dumbo);
+  this.load.image("Eleventicles", index.Eleventicles);
+  this.load.image("Flat Boi", index.FlatBoi);
+  this.load.image("kaboom", index.kaboom);
+  this.load.image("Red Rum", index.RedRum);
+  this.load.image("tang fish", index.tangFish);
+  this.load.image("zebra", index.zebra);
   this.load.image("xlrock2flat", index.xlrock2flat);
   this.load.image("xlrock2left", index.xlrock2left);
   this.load.image("xlrock2right", index.xlrock2right);
@@ -115,46 +124,7 @@ export class MainGame extends Phaser.Scene {
   }
 
   fixed = this.physics.add.staticGroup();
-
-  //Create Rocks
-  const rockArrayFlatXL = ["xlrock1flat", "xlrock2flat"];
-  const rockArrayFlatMed = ["medrock1flat"];
-  const rockArrayFlatSmall = [];
-  const rockArrayRight = ["xlrock1right", "xlrock2right"];
-  const rockArrayLeft = ["xlrock1left", "xlrock2left"];
-
-  //flat large
-  for (let i = 0; i < 3; i++) {
-   let x = Phaser.Math.Between(0, 800);
-   let y = Phaser.Math.Between(1000, 2000);
-   let rockType = rockArrayFlatXL[Phaser.Math.Between(0, 1)];
-   const rock = fixed.create(x, y, rockType);
-   rock.setSize(260, 150);
-  }
-  //flat med
-  for (let i = 0; i < 5; i++) {
-   let x = Phaser.Math.Between(0, 800);
-   let y = Phaser.Math.Between(500, 2000);
-   let rockType = rockArrayFlatMed[Phaser.Math.Between(0, 0)];
-   const rock = fixed.create(x, y, rockType);
-   rock.setSize(150, 70);
-  }
-  //left
-  for (let i = 0; i < 1; i++) {
-   let x = 90;
-   let y = Phaser.Math.Between(500, 1000);
-   let rockType = rockArrayLeft[Phaser.Math.Between(0, 1)];
-   const rock = fixed.create(x, y, rockType);
-   rock.setSize(150, 270, true);
-  }
-  //right
-  for (let i = 0; i < 1; i++) {
-   let x = 710;
-   let y = Phaser.Math.Between(500, 1000);
-   let rockType = rockArrayRight[Phaser.Math.Between(0, 1)];
-   const rock = fixed.create(x, y, rockType);
-   rock.setSize(150, 260, true);
-  }
+  createRocks(fixed);
 
   //Create Player
   player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
@@ -164,96 +134,17 @@ export class MainGame extends Phaser.Scene {
 
   this.cameras.main.startFollow(player, true);
   this.cameras.main.setBounds(0, 0, 800, height);
-  this.cameras.main.zoom = 0.5;
+  this.cameras.main.zoom = 0.8;
 
   // setTimeout(() => {
   //   this.scene.launch("EndDive");
   // }, 5000);
 
-  this.anims.create({
-   key: "left",
-   frames: this.anims.generateFrameNumbers("character", {
-    start: 1,
-    end: 5,
-   }),
-   frameRate: 10,
-   repeat: -1,
-  });
-
-  this.anims.create({
-   key: "turn",
-   frames: [{ key: "character", frame: 10 }],
-   frameRate: 20,
-  });
-
-  this.anims.create({
-   key: "right",
-   frames: this.anims.generateFrameNumbers("character", {
-    start: 6,
-    end: 10,
-   }),
-   frameRate: 10,
-   repeat: -1,
-  });
-
-  this.anims.create({
-   key: "swimming-up",
-   frames: this.anims.generateFrameNumbers("swimming", {
-    start: 1,
-    end: 4,
-   }),
-   frameRate: 6,
-   repeat: -1,
-  });
-
   //Create Player
   const boat = fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
   boat.setSize(220, 60, true);
 
-  this.anims.create({
-   key: "swimming-idle",
-   frames: this.anims.generateFrameNumbers("swimming", {
-    start: 1,
-    end: 4,
-   }),
-   frameRate: 6,
-   repeat: -1,
-  });
-
-  this.anims.create({
-   key: "swimming-down",
-   frames: this.anims.generateFrameNumbers("swimming", {
-    start: 5,
-    end: 8,
-   }),
-   frameRate: 6,
-   repeat: -1,
-  });
-
-  this.anims.create({
-   key: "swimming-right",
-   frames: this.anims.generateFrameNumbers("swimming", {
-    start: 9,
-    end: 12,
-   }),
-   frameRate: 6,
-   repeat: -1,
-  });
-
-  this.anims.create({
-   key: "swimming-left",
-   frames: this.anims.generateFrameNumbers("swimming", {
-    start: 13,
-    end: 16,
-   }),
-   frameRate: 10,
-   repeat: -1,
-  });
-  this.anims.create({
-   key: "player-dead",
-   frames: [{ key: "swimming", frame: 0 }],
-   frameRate: 11,
-  });
+  createCharAnims(this);
 
   cursors = this.input.keyboard.createCursorKeys();
 
@@ -264,17 +155,31 @@ export class MainGame extends Phaser.Scene {
 
   const fishes = this.physics.add.group();
   createUniqueFish(Phaser.Math.Between(3, 8), 400, 600, fishes, "Cod", 400, 600);
+  createUniqueFish(Phaser.Math.Between(6, 12), 400, 2000, fishes, "Red Rum", 400, 2000);
   createUniqueFish(Phaser.Math.Between(3, 8), 500, 800, fishes, "Darth Fisher", 500, 800);
   createUniqueFish(Phaser.Math.Between(3, 8), 700, 1100, fishes, "Dory", 700, 1100);
   createUniqueFish(Phaser.Math.Between(3, 8), 1000, 1400, fishes, "coolfish", 1000, 1400);
+  createUniqueFish(Phaser.Math.Between(1, 2), 400, 2000, fishes, "Eleventicles", 400, 2000);
+  createUniqueFish(Phaser.Math.Between(1, 2), 600, 1000, fishes, "Flat Boi", 600, 1000);
   createUniqueFish(Phaser.Math.Between(3, 8), 1000, 1400, fishes, "magic fish", 1000, 1400);
   createUniqueFish(Phaser.Math.Between(3, 8), 1000, 1800, fishes, "McFish", 1000, 1800);
   createUniqueFish(Phaser.Math.Between(4, 7), 1000, 1800, fishes, "northern fish", 1000, 1800);
   createUniqueFish(Phaser.Math.Between(1, 3), 1500, 1900, fishes, "Jaws", 1500, 1900);
   createUniqueFish(Phaser.Math.Between(1, 3), 1500, 1900, fishes, "the fish named jordan", 1500, 1900);
+  createUniqueFish(Phaser.Math.Between(1, 5), 500, 1500, fishes, "zebra", 500, 1500);
+  createUniqueFish(Phaser.Math.Between(1, 2), 1500, 2000, fishes, "dumbo", 1500, 2000);
+  createUniqueFish(Phaser.Math.Between(0, 1), 1800, 2000, fishes, "chomp", 1800, 2000);
   createUniqueFish(Phaser.Math.Between(1, 2), 1800, 2000, fishes, "really big fish", 1800, 2000);
 
+  if (Phaser.Math.Between(1, 25) === 19) {
+   createUniqueFish(1, 1800, 2000, fishes, "kaboom", 1800, 2000);
+  }
+  if (Phaser.Math.Between(1, 50) === 5) {
+   createUniqueFish(Phaser.Math.Between(0, 1), 1800, 2000, fishes, "tang fish", 1800, 2000);
+  }
+
   this.physics.add.overlap(player, fishes, collectFish, null, this);
+
   //this.scene.launch("testscene");
   this.scene.launch("uiscene", { coins: coins, fishCount: fishCount });
 
@@ -285,14 +190,22 @@ export class MainGame extends Phaser.Scene {
    },
    this
   );
+
+  const sharks = this.physics.add.group();
+  createShark(1, 550, 850, sharks, "shark", 550, 850);
+  createShark(1, 1500, 2000, sharks, "shark", 1500, 2000);
+
+  this.physics.add.collider(player, sharks, sharkAttack, null, this);
  }
 
  update() {
   if (player.y < 290 && player.x < 300) {
    this.cameras.main.zoomTo(1.5, 1500);
+   player.rotation = 0;
   }
   //When player is out of water
   if (player.y < 215) {
+   player.rotation = 0;
    player.body.setAllowGravity(true);
    if (cursors.left.isDown && player.x > 16) {
     player.setVelocityX(-200);
@@ -315,28 +228,64 @@ export class MainGame extends Phaser.Scene {
    //As the player jumps into the water the camera has a transitional Zoom in
    this.cameras.main.zoomTo(2.5, 3000);
    player.body.setAllowGravity(false);
-
-   if ((cursors.left.isDown && player.x > 16 && timeLeft > 1) || (cursors.left.isDown && player.x > 16 && timeLeft === undefined)) {
-    player.setVelocityX(-200);
+   if (
+    (cursors.left.isDown && cursors.down.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.left.isDown && cursors.down.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(-100);
+    player.setVelocityY(100);
+    player.anims.play("swimming-left", true);
+    player.rotation = 12;
+   } else if (
+    (cursors.right.isDown && cursors.down.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.right.isDown && cursors.down.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(100);
+    player.setVelocityY(100);
+    player.anims.play("swimming-right", true);
+    player.rotation = 7;
+   } else if (
+    (cursors.left.isDown && cursors.up.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.left.isDown && cursors.up.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(-100);
+    player.setVelocityY(-100);
+    player.anims.play("swimming-left", true);
+    player.rotation = 13;
+   } else if (
+    (cursors.right.isDown && cursors.up.isDown && player.x > 16 && timeLeft > 1) ||
+    (cursors.right.isDown && cursors.up.isDown && player.x > 16 && timeLeft === undefined)
+   ) {
+    player.setVelocityX(100);
+    player.setVelocityY(-100);
+    player.anims.play("swimming-right", true);
+    player.rotation = 6;
+   } else if ((cursors.left.isDown && player.x > 16 && timeLeft > 1) || (cursors.left.isDown && player.x > 16 && timeLeft === undefined)) {
+    player.rotation = 0;
+    player.setVelocityX(-150);
     player.anims.play("swimming-left", true);
    } else if ((cursors.right.isDown && player.x < 784 && timeLeft > 1) || (cursors.right.isDown && player.x < 784 && timeLeft === undefined)) {
-    player.setVelocityX(200);
+    player.rotation = 0;
+    player.setVelocityX(150);
     player.anims.play("swimming-right", true);
    } else if (
     (cursors.up.isDown && player.x < 784 && player.x > 16 && timeLeft > 1) ||
     (cursors.up.isDown && player.x < 784 && player.x > 16 && timeLeft === undefined)
    ) {
-    player.setVelocityY(-200);
+    player.rotation = 0;
+    player.setVelocityY(-150);
     player.anims.play("swimming-up", true);
    } else if (
     (cursors.down.isDown && player.y <= height - 48 && player.x < 784 && player.x > 16 && timeLeft > 1) ||
     (cursors.down.isDown && player.y <= height - 48 && player.x < 784 && player.x > 16 && timeLeft === undefined)
    ) {
-    player.setVelocityY(200);
+    player.rotation = 0;
+    player.setVelocityY(150);
     player.anims.play("swimming-down", true);
    } else if ((!cursors.isDown && timeLeft > 1) || (!cursors.isDown && timeLeft === undefined)) {
     player.setVelocityY(10).setVelocityX(0);
     player.anims.play("swimming-idle", true);
+    player.rotation = 0;
    }
   }
 
@@ -360,12 +309,14 @@ export class MainGame extends Phaser.Scene {
 
   if (timeLeft === 1) {
    // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
-
    this.input.keyboard.enabled = false;
    player.anims.play("player-dead", true).flipY = true;
    player.setVelocityX(0);
    player.setVelocityY(40);
    fishCount = 0;
+   // if (player.y >= 2048) {
+   //   player.setVelocityY(0);
+   // }
   }
   if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
    player.setVelocityY(-250).flipY = false;

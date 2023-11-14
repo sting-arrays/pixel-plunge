@@ -1,4 +1,4 @@
-import GameStatsCard from "../../assets/Background/DiveStats.png";
+import GameStatsCard from "../../assets/Background/GreenBackground128.png";
 import * as index from "./index";
 import { updateDiveStats } from "../../firebase";
 
@@ -19,9 +19,12 @@ let fishJustCaught;
 let currentFishCaught;
 let totalFishCaught;
 
-let eachFishCaught;
+let eachFishFound;
 let currentFishFound;
 let totalFishFound;
+
+let newFishFound = [];
+let newFishFoundString;
 
 index.EventsCenter.on(
   "fish-caught",
@@ -41,11 +44,14 @@ index.EventsCenter.on(
 
 function returnCaughtString() {
   if (fishCaught.length === 0) {
+    fishJustCaught = 0;
+    fishJustCaught = fishCaught.length;
+
     return "None";
   } else {
     let counter = {};
     let caughtString = "";
-    eachFishCaught = [];
+    eachFishFound = [];
     fishJustCaught = 0;
 
     fishJustCaught = fishCaught.length;
@@ -59,12 +65,35 @@ function returnCaughtString() {
     });
 
     for (const [key, value] of Object.entries(counter)) {
-      caughtString += `${key} x${value} `;
+      caughtString += `
+      - ${key} x${value} `;
     }
 
-    eachFishCaught = Object.keys(counter);
+    eachFishFound = Object.keys(counter);
 
     return caughtString;
+  }
+}
+
+function returnFishFound() {
+  if (fishCaught.length === 0) {
+    return "None";
+  } else {
+    newFishFound = [];
+    newFishFoundString = "";
+
+    eachFishFound.forEach((fish) => {
+      if (!currentFishFound.includes(fish)) {
+        newFishFound.push(fish);
+        currentFishFound.push(fish);
+      }
+    });
+
+    newFishFound.forEach((fish) => {
+      newFishFoundString += `
+      - ${fish}`;
+    });
+    return newFishFoundString;
   }
 }
 
@@ -75,8 +104,8 @@ function updateUser() {
 
   totalFishFound = currentFishFound;
 
-  if (eachFishCaught !== undefined) {
-    eachFishCaught.forEach((fish) => {
+  if (eachFishFound !== undefined) {
+    eachFishFound.forEach((fish) => {
       if (currentFishFound.includes(fish) === false) {
         totalFishFound.push(fish);
       }
@@ -89,7 +118,7 @@ export class DiveStats extends Phaser.Scene {
     super({ key: "DiveStats" });
   }
 
-  init({ timeLeft, currentUserDetails, fishData }) {
+  init({ timeLeft, currentUserDetails, fishData, resetFish }) {
     fishArray = fishData;
     userProfile = currentUserDetails;
     currentMoney = userProfile.Money;
@@ -102,21 +131,28 @@ export class DiveStats extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "GameStatsCard").setScale(1.25);
+    this.add.image(400, 300, "GameStatsCard").setScale(1);
 
-    text = this.add.text(335, 350, "Dive Again!", {
+    //Green Board Styling 32x32 Vertical
+    text = this.add.text(335, 480, "Dive Again!", {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
     });
 
-    this.add.text(180, 300, `Fish Caught: ${returnCaughtString()}`, {
+    this.add.text(255, 153, `Fish Caught: ${returnCaughtString()}`, {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
+      // fontFamily:
     });
 
-    this.add.text(180, 250, `Coins Collected: ${coinsCollected}`, {
+    this.add.text(255, 323, `Fish Found: ${returnFishFound()}`, {
       fontSize: "20px",
-      fill: "#000",
+      color: "#ffffff",
+    });
+
+    this.add.text(255, 105, `Coins Collected: ${coinsCollected}`, {
+      fontSize: "20px",
+      color: "#ffffff",
     });
 
     text.setInteractive({ useHandCursor: true });
@@ -125,6 +161,8 @@ export class DiveStats extends Phaser.Scene {
       if (userProfile.userName === "Guest") {
         userProfile.Money = coinsCollected + currentMoney;
         userProfile.Fish_Count = 0;
+        userProfile.caught_fish = currentFishFound;
+
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");
@@ -144,6 +182,7 @@ export class DiveStats extends Phaser.Scene {
         );
         userProfile.Money = totalMoney;
         userProfile.Fish_Count = totalFishCaught;
+        userProfile.caught_fish = totalFishFound;
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");
