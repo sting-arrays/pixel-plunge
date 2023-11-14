@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "water-bg": "url(src/assets/Background/pixel_art_water_bg.png)",
+        "water-bg": "url(/pixel_art_water_bg.png)",
       },
     },
   },
