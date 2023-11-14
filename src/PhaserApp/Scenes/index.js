@@ -12,6 +12,12 @@ export { default as reallyBigFish } from "../../assets/Fish/really big fish.png"
 export { default as theFishNamedJordan } from "../../assets/Fish/the fish named jordan.png";
 export { default as shark } from "../../assets/Fish/shark.png";
 
+export { default as pier } from "../../assets/Scenary/pier-dark-oak.png";
+export { default as column1 } from "../../assets/Scenary/Column1-Cropped.png";
+export { default as column2 } from "../../assets/Scenary/Column2-Cropped.png";
+export { default as column3 } from "../../assets/Scenary/Column1-Cropped.png";
+export { default as railing } from "../../assets/Scenary/Railing.png";
+
 // sprites
 export { default as character } from "../../assets/Character/character.png";
 export { default as swimming } from "../../assets/Character/swimming-anims.png";
