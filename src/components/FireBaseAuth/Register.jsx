@@ -25,7 +25,7 @@ export default function Register() {
   return (
     <>
       <form className="my-3" onSubmit={registerUser}>
-        <h1 className="mb-3 text-white">Create an account</h1>
+        <h1 className="mt-2 text-white">Create an account</h1>
         <input
           required
           className="mx-2 rounded px-2"
