@@ -25,6 +25,7 @@ let caughtFish = [];
 let fishArray = [];
 let userProfile;
 let coinsCollectedThatDive;
+// let background;
 
 export class MainGame extends Phaser.Scene {
   constructor() {
@@ -59,6 +60,14 @@ export class MainGame extends Phaser.Scene {
     this.load.image("really big fish", index.reallyBigFish);
     this.load.image("the fish named jordan", index.theFishNamedJordan);
     this.load.image("shark", index.shark);
+    this.load.image("chomp", index.chomp);
+    this.load.image("dumbo", index.dumbo);
+    this.load.image("Eleventicles", index.Eleventicles);
+    this.load.image("Flat Boi", index.FlatBoi);
+    this.load.image("kaboom", index.kaboom);
+    this.load.image("Red Rum", index.RedRum);
+    this.load.image("tang fish", index.tangFish);
+    this.load.image("zebra", index.zebra);
     this.load.image("xlrock2flat", index.xlrock2flat);
     this.load.image("xlrock2left", index.xlrock2left);
     this.load.image("xlrock2right", index.xlrock2right);
@@ -75,6 +84,12 @@ export class MainGame extends Phaser.Scene {
       frameWidth: 128,
       frameHeight: 128,
     });
+    this.load.image("pier", index.pier);
+    this.load.image("column1", index.column1);
+    this.load.image("column2", index.column2);
+    this.load.image("column3", index.column3);
+    this.load.image("railing", index.railing);
+    this.load.image("invisibleWall", index.invisibleWall);
   }
 
   create() {
@@ -133,7 +148,7 @@ export class MainGame extends Phaser.Scene {
 
     //Create Player
     player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
-    player.setSize(50, 80, true);
+    player.setSize(60, 130, true);
 
     // player.setCollideWorldBounds(true);
 
@@ -145,9 +160,28 @@ export class MainGame extends Phaser.Scene {
     //   this.scene.launch("EndDive");
     // }, 5000);
 
-    //Create Player
-    const boat = fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
-    boat.setSize(220, 60, true);
+    //Create Boat
+    // const boat = fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
+    // boat.setSize(220, 60, true);
+
+    const pier = fixed.create(120, 182, "pier").refreshBody();
+
+    const column1 = fixed
+      .create(15, 224, "column1")
+      .setScale(0.5)
+      .refreshBody();
+    const column2 = fixed
+      .create(146, 224, "column2")
+      .setScale(0.5)
+      .refreshBody();
+    const column3 = fixed
+      .create(256, 224, "column3")
+      .setScale(0.5)
+      .refreshBody();
+
+    this.add.image(40, 161, "railing").setScale(0.4);
+
+    const invisibleWall = fixed.create(120, 255, "invisibleWall").refreshBody();
 
     createCharAnims(this);
 
@@ -167,6 +201,15 @@ export class MainGame extends Phaser.Scene {
       "Cod",
       400,
       600
+    );
+    createUniqueFish(
+      Phaser.Math.Between(6, 12),
+      400,
+      2000,
+      fishes,
+      "Red Rum",
+      400,
+      2000
     );
     createUniqueFish(
       Phaser.Math.Between(3, 8),
@@ -194,6 +237,24 @@ export class MainGame extends Phaser.Scene {
       "coolfish",
       1000,
       1400
+    );
+    createUniqueFish(
+      Phaser.Math.Between(1, 2),
+      400,
+      2000,
+      fishes,
+      "Eleventicles",
+      400,
+      2000
+    );
+    createUniqueFish(
+      Phaser.Math.Between(1, 2),
+      600,
+      1000,
+      fishes,
+      "Flat Boi",
+      600,
+      1000
     );
     createUniqueFish(
       Phaser.Math.Between(3, 8),
@@ -241,6 +302,33 @@ export class MainGame extends Phaser.Scene {
       1900
     );
     createUniqueFish(
+      Phaser.Math.Between(1, 5),
+      500,
+      1500,
+      fishes,
+      "zebra",
+      500,
+      1500
+    );
+    createUniqueFish(
+      Phaser.Math.Between(1, 2),
+      1500,
+      2000,
+      fishes,
+      "dumbo",
+      1500,
+      2000
+    );
+    createUniqueFish(
+      Phaser.Math.Between(0, 1),
+      1800,
+      2000,
+      fishes,
+      "chomp",
+      1800,
+      2000
+    );
+    createUniqueFish(
       Phaser.Math.Between(1, 2),
       1800,
       2000,
@@ -249,6 +337,21 @@ export class MainGame extends Phaser.Scene {
       1800,
       2000
     );
+
+    if (Phaser.Math.Between(1, 25) === 19) {
+      createUniqueFish(1, 1800, 2000, fishes, "kaboom", 1800, 2000);
+    }
+    if (Phaser.Math.Between(1, 50) === 5) {
+      createUniqueFish(
+        Phaser.Math.Between(0, 1),
+        1800,
+        2000,
+        fishes,
+        "tang fish",
+        1800,
+        2000
+      );
+    }
 
     this.physics.add.overlap(player, fishes, collectFish, null, this);
 
@@ -442,7 +545,7 @@ export class MainGame extends Phaser.Scene {
       // }
     }
     if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
-      player.setVelocityY(-250).flipY = false;
+      player.setVelocityY(-280).flipY = false;
       player.flipX = false;
       //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
       this.scene.launch("EndDive", {
