@@ -25,16 +25,12 @@ export default function Upgrades() {
   if (currentUser === "Guest")
     return (
       <div className="flex flex-col justify-center h-screen">
-        <div className='flex justify-center'>
-      <img 
-      src='/Scuba mask 2.png'
-      className='w-24'/>
-      <p className='text-[35px] mb-5 font-bold leading-[100px]'>Upgrades</p>
-      <img 
-      src='/Scuba mask 2.png'
-      className='w-24'/>
-      </div>
-      
+        <div className="flex justify-center">
+          <img src="/Scuba mask 2.png" className="w-24" />
+          <p className="text-[35px] mb-5 font-bold leading-[100px]">Upgrades</p>
+          <img src="/Scuba mask 2.png" className="w-24" />
+        </div>
+
         <p className="block text-3xl text-white">
           You must login to view upgrade options!
         </p>
@@ -61,17 +57,12 @@ export default function Upgrades() {
 
   return (
     <div>
-      <div className='flex justify-center'>
-      <img 
-      src='/Scuba mask 2.png'
-      className='w-24'/>
-      <p className='text-[35px] mb-5 font-bold leading-[100px]'>Ugrades</p>
-      <img 
-      src='/Scuba mask 2.png'
-      className='w-24'/>
+      <div className="flex justify-center">
+        <img src="/Scuba mask 2.png" className="w-24" />
+        <p className="text-[35px] mb-5 font-bold leading-[100px]">Upgrades</p>
+        <img src="/Scuba mask 2.png" className="w-24" />
       </div>
-      
-      
+
       <Currency userMoney={userMoney} />
       <ul className="">
         <OxygenTank userMoney={userMoney} setUserMoney={setUserMoney} />
