@@ -45,8 +45,9 @@ export class GameOverScene extends Phaser.Scene {
     text.setInteractive({ useHandCursor: true });
 
     text.on("pointerdown", () => {
+      this.scene.stop("GameOverScene");
       this.scene.stop("maingame");
-      this.scene.start("maingame", {
+      this.scene.start("newgame", {
         currentUserDetails: userProfile,
         resetFish: 0,
         fishData: fishArray,
@@ -58,8 +59,9 @@ export class GameOverScene extends Phaser.Scene {
     });
 
     restartButton.on("down", () => {
+      this.scene.stop("GameOverScene");
       this.scene.stop("maingame");
-      this.scene.start("maingame", {
+      this.scene.start("newgame", {
         currentUserDetails: userProfile,
         resetFish: 0,
         fishData: fishArray,
