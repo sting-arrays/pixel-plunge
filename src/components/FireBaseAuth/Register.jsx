@@ -25,7 +25,7 @@ export default function Register() {
     }
    })
    .then(() => {
-    createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password);
    })
    .then((userCredential) => {
     updateUser(userName, email, password, 5, 0, 0, 0, 20);
@@ -34,8 +34,12 @@ export default function Register() {
     setCurrentUser(email);
     localStorage.setItem("email", email);
     setIsError(false);
+    setUserName('')
+    setPassword('')
+    setEmail('')
    })
    .catch((error) => {
+    console.log(error)
     setIsError(true);
     if (error.msg === "Username taken") {
      setErrorMSG("Username taken");
@@ -44,6 +48,7 @@ export default function Register() {
      setErrorMSG("Password doesn't meet the requirements");
     }
     if (error.code === "auth/email-already-in-use") {
+      console.log('hello')
      setErrorMSG("Email already in use");
     }
    });
