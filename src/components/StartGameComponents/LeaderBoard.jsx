@@ -36,10 +36,12 @@ export default function LeaderBoard() {
      </ul>
     </div>
    </div>
-   <Link className="button relative  mt-[4%]" to="/game" element={<GamePage />}>
-    {" "}
-    Back to Game{" "}
-   </Link>
+   <div className="min-w-[870px]">
+    <Link className="button" to="/game" element={<GamePage />}>
+     {" "}
+     Back to Game{" "}
+    </Link>
+   </div>
   </div>
  );
 }
