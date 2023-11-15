@@ -32,6 +32,8 @@ export { default as column2 } from "/Column2-Cropped.png";
 export { default as column3 } from "/Column-3.png";
 export { default as railing } from "/Rail-new.png";
 export { default as invisibleWall } from "/Invisible-Wall-Pier.png";
+export { default as bottomBoundary } from "/b-bound.png";
+export { default as sideBoundary } from "/s-bound.png";
 
 // sprites
 export { default as character } from "../../assets/Character/character.png";

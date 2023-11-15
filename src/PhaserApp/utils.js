@@ -42,6 +42,168 @@ export function createUniqueFish(
   }
 }
 
+export function createAllFish(fishes) {
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    400,
+    600,
+    fishes,
+    "Cod",
+    400,
+    600
+  );
+  createUniqueFish(
+    Phaser.Math.Between(6, 12),
+    400,
+    2000,
+    fishes,
+    "Red Rum",
+    400,
+    2000
+  );
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    500,
+    800,
+    fishes,
+    "Darth Fisher",
+    500,
+    800
+  );
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    700,
+    1100,
+    fishes,
+    "Dory",
+    700,
+    1100
+  );
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    1000,
+    1400,
+    fishes,
+    "coolfish",
+    1000,
+    1400
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 2),
+    400,
+    2000,
+    fishes,
+    "Eleventicles",
+    400,
+    2000
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 2),
+    600,
+    1000,
+    fishes,
+    "Flat Boi",
+    600,
+    1000
+  );
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    1000,
+    1400,
+    fishes,
+    "magic fish",
+    1000,
+    1400
+  );
+  createUniqueFish(
+    Phaser.Math.Between(3, 8),
+    1000,
+    1800,
+    fishes,
+    "McFish",
+    1000,
+    1800
+  );
+  createUniqueFish(
+    Phaser.Math.Between(4, 7),
+    1000,
+    1800,
+    fishes,
+    "northern fish",
+    1000,
+    1800
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 3),
+    1500,
+    1900,
+    fishes,
+    "Jaws",
+    1500,
+    1900
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 3),
+    1500,
+    1900,
+    fishes,
+    "the fish named jordan",
+    1500,
+    1900
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 5),
+    500,
+    1500,
+    fishes,
+    "zebra",
+    500,
+    1500
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 2),
+    1500,
+    2000,
+    fishes,
+    "dumbo",
+    1500,
+    2000
+  );
+  createUniqueFish(
+    Phaser.Math.Between(0, 1),
+    1800,
+    2000,
+    fishes,
+    "chomp",
+    1800,
+    2000
+  );
+  createUniqueFish(
+    Phaser.Math.Between(1, 2),
+    1800,
+    2000,
+    fishes,
+    "really big fish",
+    1800,
+    2000
+  );
+
+  if (Phaser.Math.Between(1, 25) === 19) {
+    createUniqueFish(1, 1800, 2000, fishes, "kaboom", 1800, 2000);
+  }
+  if (Phaser.Math.Between(1, 50) === 5) {
+    createUniqueFish(
+      Phaser.Math.Between(0, 1),
+      1800,
+      2000,
+      fishes,
+      "tang fish",
+      1800,
+      2000
+    );
+  }
+}
+
 export function between(item, val1, val2) {
   return item >= val1 && item <= val2;
 }
