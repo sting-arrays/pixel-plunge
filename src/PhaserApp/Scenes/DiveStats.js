@@ -159,44 +159,6 @@ export class DiveStats extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
 
-    diveAgainButton.on("down", () => {
-      if (userProfile.userName === "Guest") {
-        userProfile.Money = coinsCollected + currentMoney;
-        userProfile.Fish_Count = 0;
-        userProfile.caught_fish = currentFishFound;
-
-        // userProfile.caught_fish;
-        // ^^ Above this line export all game data to the db
-        this.scene.stop("DiveStats");
-        this.scene.start("newgame", {
-          currentUserDetails: userProfile,
-          resetFish: 0,
-          fishData: fishArray,
-        });
-        this.scene.stop("maingame");
-      } else {
-        updateUser();
-        updateDiveStats(
-          userProfile.email,
-          totalFishCaught,
-          totalMoney,
-          totalFishFound
-        );
-        userProfile.Money = totalMoney;
-        userProfile.Fish_Count = totalFishCaught;
-        userProfile.caught_fish = totalFishFound;
-        // userProfile.caught_fish;
-        // ^^ Above this line export all game data to the db
-        this.scene.stop("DiveStats");
-        this.scene.start("newgame", {
-          currentUserDetails: userProfile,
-          resetFish: 0,
-          fishData: fishArray,
-        });
-        this.scene.stop("maingame");
-      }
-    });
-
     this.add.text(255, 153, `Fish Caught: ${returnCaughtString()}`, {
       fontFamily: "Pixelify Sans",
       fontSize: "20px",
@@ -216,9 +178,7 @@ export class DiveStats extends Phaser.Scene {
       color: "#ffffff",
     });
 
-    text.setInteractive();
-
-    text.on("pointerdown", () => {
+    diveAgainButton.on("down", () => {
       if (userProfile.userName === "Guest") {
         userProfile.Money = coinsCollected + currentMoney;
         userProfile.Fish_Count = 0;
@@ -227,12 +187,12 @@ export class DiveStats extends Phaser.Scene {
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");
-        this.scene.start("newgame", {
-          currentUserDetails: userProfile,
-          resetFish: 0,
-          fishData: fishArray,
-        });
         this.scene.stop("maingame");
+        this.scene.start("maingame", {
+          currentUserDetails: userProfile,
+          fishData: fishArray,
+          resetFish: 0,
+        });
       } else {
         updateUser();
         updateDiveStats(
@@ -247,12 +207,52 @@ export class DiveStats extends Phaser.Scene {
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
         this.scene.stop("DiveStats");
-        this.scene.start("newgame", {
+        this.scene.stop("maingame");
+        this.scene.start("maingame", {
           currentUserDetails: userProfile,
           resetFish: 0,
           fishData: fishArray,
         });
+      }
+    });
+
+    text.setInteractive();
+
+    text.on("pointerdown", () => {
+      if (userProfile.userName === "Guest") {
+        userProfile.Money = coinsCollected + currentMoney;
+        userProfile.Fish_Count = 0;
+        userProfile.caught_fish = currentFishFound;
+
+        // userProfile.caught_fish;
+        // ^^ Above this line export all game data to the db
+        this.scene.stop("DiveStats");
         this.scene.stop("maingame");
+        this.scene.start("maingame", {
+          currentUserDetails: userProfile,
+          resetFish: 0,
+          fishData: fishArray,
+        });
+      } else {
+        updateUser();
+        updateDiveStats(
+          userProfile.email,
+          totalFishCaught,
+          totalMoney,
+          totalFishFound
+        );
+        userProfile.Money = totalMoney;
+        userProfile.Fish_Count = totalFishCaught;
+        userProfile.caught_fish = totalFishFound;
+        // userProfile.caught_fish;
+        // ^^ Above this line export all game data to the db
+        this.scene.stop("DiveStats");
+        this.scene.stop("maingame");
+        this.scene.start("maingame", {
+          currentUserDetails: userProfile,
+          resetFish: 0,
+          fishData: fishArray,
+        });
       }
     });
   }

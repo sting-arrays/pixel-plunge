@@ -5,6 +5,7 @@ import {
   createShark,
   createUniqueFish,
   sharkAttack,
+  createAllFish,
 } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
@@ -90,6 +91,8 @@ export class MainGame extends Phaser.Scene {
     this.load.image("column3", index.column3);
     this.load.image("railing", index.railing);
     this.load.image("invisibleWall", index.invisibleWall);
+    this.load.image("bottomboundary", index.bottomBoundary);
+    this.load.image("sideboundary", index.sideBoundary);
   }
 
   create() {
@@ -150,14 +153,14 @@ export class MainGame extends Phaser.Scene {
     createRocks(fixed);
 
     //Create Player
-    player = this.physics.add.sprite(30, 30, "character").setScale(0.5);
+    player = this.physics.add.sprite(30, 130, "character").setScale(0.5);
     player.setSize(60, 130, true);
 
     // player.setCollideWorldBounds(true);
 
     this.cameras.main.startFollow(player, true);
     this.cameras.main.setBounds(0, 0, 800, height);
-    this.cameras.main.zoom = 0.8;
+    this.cameras.main.zoom = 1.5;
 
     // setTimeout(() => {
     //   this.scene.launch("EndDive");
@@ -185,6 +188,9 @@ export class MainGame extends Phaser.Scene {
     this.add.image(40, 161, "railing").setScale(0.4);
 
     const invisibleWall = fixed.create(120, 255, "invisibleWall").refreshBody();
+    fixed.create(400, 2048, "bottomboundary");
+    fixed.create(816, 1024, "sideboundary");
+    fixed.create(-16, 1024, "sideboundary");
 
     createCharAnims(this);
 
@@ -196,165 +202,7 @@ export class MainGame extends Phaser.Scene {
     //Do we want to split these up into groups for points reasons? Can make the higher point fish spawn lower, be faster etc
 
     const fishes = this.physics.add.group();
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      400,
-      600,
-      fishes,
-      "Cod",
-      400,
-      600
-    );
-    createUniqueFish(
-      Phaser.Math.Between(6, 12),
-      400,
-      2000,
-      fishes,
-      "Red Rum",
-      400,
-      2000
-    );
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      500,
-      800,
-      fishes,
-      "Darth Fisher",
-      500,
-      800
-    );
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      700,
-      1100,
-      fishes,
-      "Dory",
-      700,
-      1100
-    );
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      1000,
-      1400,
-      fishes,
-      "coolfish",
-      1000,
-      1400
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 2),
-      400,
-      2000,
-      fishes,
-      "Eleventicles",
-      400,
-      2000
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 2),
-      600,
-      1000,
-      fishes,
-      "Flat Boi",
-      600,
-      1000
-    );
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      1000,
-      1400,
-      fishes,
-      "magic fish",
-      1000,
-      1400
-    );
-    createUniqueFish(
-      Phaser.Math.Between(3, 8),
-      1000,
-      1800,
-      fishes,
-      "McFish",
-      1000,
-      1800
-    );
-    createUniqueFish(
-      Phaser.Math.Between(4, 7),
-      1000,
-      1800,
-      fishes,
-      "northern fish",
-      1000,
-      1800
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 3),
-      1500,
-      1900,
-      fishes,
-      "Jaws",
-      1500,
-      1900
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 3),
-      1500,
-      1900,
-      fishes,
-      "the fish named jordan",
-      1500,
-      1900
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 5),
-      500,
-      1500,
-      fishes,
-      "zebra",
-      500,
-      1500
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 2),
-      1500,
-      2000,
-      fishes,
-      "dumbo",
-      1500,
-      2000
-    );
-    createUniqueFish(
-      Phaser.Math.Between(0, 1),
-      1800,
-      2000,
-      fishes,
-      "chomp",
-      1800,
-      2000
-    );
-    createUniqueFish(
-      Phaser.Math.Between(1, 2),
-      1800,
-      2000,
-      fishes,
-      "really big fish",
-      1800,
-      2000
-    );
-
-    if (Phaser.Math.Between(1, 25) === 19) {
-      createUniqueFish(1, 1800, 2000, fishes, "kaboom", 1800, 2000);
-    }
-    if (Phaser.Math.Between(1, 50) === 5) {
-      createUniqueFish(
-        Phaser.Math.Between(0, 1),
-        1800,
-        2000,
-        fishes,
-        "tang fish",
-        1800,
-        2000
-      );
-    }
+    createAllFish(fishes);
 
     this.physics.add.overlap(player, fishes, collectFish, null, this);
 
@@ -407,111 +255,61 @@ export class MainGame extends Phaser.Scene {
 
     //When player is in water
     if (player.y > 230) {
+      const { left, up, down, right } = cursors;
+      const swimmingLeft = left.isDown;
+      const swimmingRight = right.isDown;
+      const swimmingUp = up.isDown;
+      const swimmingDown = down.isDown;
+
+      const diagUpRight = swimmingUp && swimmingRight;
+      const diagUpLeft = swimmingUp && swimmingLeft;
+      const diagDownRight = swimmingDown && swimmingRight;
+      const diagDownLeft = swimmingDown && swimmingLeft;
+
+      const noMovement = !cursors.isDown;
+      const timeRemaining = timeLeft > 1 || timeLeft === undefined;
+
       //As the player jumps into the water the camera has a transitional Zoom in
       this.cameras.main.zoomTo(2.5, 3000);
       player.body.setAllowGravity(false);
-      if (
-        (cursors.left.isDown &&
-          cursors.down.isDown &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.left.isDown &&
-          cursors.down.isDown &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+
+      if (diagDownLeft && timeRemaining) {
         player.setVelocityX(-100);
         player.setVelocityY(100);
         player.anims.play("swimming-left", true);
         player.rotation = 12;
-      } else if (
-        (cursors.right.isDown &&
-          cursors.down.isDown &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.right.isDown &&
-          cursors.down.isDown &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+      } else if (diagDownRight && timeRemaining) {
         player.setVelocityX(100);
         player.setVelocityY(100);
         player.anims.play("swimming-right", true);
         player.rotation = 7;
-      } else if (
-        (cursors.left.isDown &&
-          cursors.up.isDown &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.left.isDown &&
-          cursors.up.isDown &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+      } else if (diagUpLeft && timeRemaining) {
         player.setVelocityX(-100);
         player.setVelocityY(-100);
         player.anims.play("swimming-left", true);
         player.rotation = 13;
-      } else if (
-        (cursors.right.isDown &&
-          cursors.up.isDown &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.right.isDown &&
-          cursors.up.isDown &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+      } else if (diagUpRight && timeRemaining) {
         player.setVelocityX(100);
         player.setVelocityY(-100);
         player.anims.play("swimming-right", true);
         player.rotation = 6;
-      } else if (
-        (cursors.left.isDown && player.x > 16 && timeLeft > 1) ||
-        (cursors.left.isDown && player.x > 16 && timeLeft === undefined)
-      ) {
+      } else if (swimmingLeft && timeRemaining) {
         player.rotation = 0;
         player.setVelocityX(-150);
         player.anims.play("swimming-left", true);
-      } else if (
-        (cursors.right.isDown && player.x < 784 && timeLeft > 1) ||
-        (cursors.right.isDown && player.x < 784 && timeLeft === undefined)
-      ) {
+      } else if (swimmingRight) {
         player.rotation = 0;
         player.setVelocityX(150);
         player.anims.play("swimming-right", true);
-      } else if (
-        (cursors.up.isDown &&
-          player.x < 784 &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.up.isDown &&
-          player.x < 784 &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+      } else if (swimmingUp && timeRemaining) {
         player.rotation = 0;
         player.setVelocityY(-150);
         player.anims.play("swimming-up", true);
-      } else if (
-        (cursors.down.isDown &&
-          player.y <= height - 48 &&
-          player.x < 784 &&
-          player.x > 16 &&
-          timeLeft > 1) ||
-        (cursors.down.isDown &&
-          player.y <= height - 48 &&
-          player.x < 784 &&
-          player.x > 16 &&
-          timeLeft === undefined)
-      ) {
+      } else if (swimmingDown && timeRemaining) {
         player.rotation = 0;
         player.setVelocityY(150);
         player.anims.play("swimming-down", true);
-      } else if (
-        (!cursors.isDown && timeLeft > 1) ||
-        (!cursors.isDown && timeLeft === undefined)
-      ) {
+      } else if (noMovement && timeRemaining) {
         player.setVelocityY(10).setVelocityX(0);
         player.anims.play("swimming-idle", true);
         player.rotation = 0;
