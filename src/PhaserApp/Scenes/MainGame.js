@@ -242,7 +242,7 @@ export class MainGame extends Phaser.Scene {
   }, Phaser.Math.Between(2000, 6000));
 
   const medEmitter = setInterval(() => {
-   if (timeLeft === 1) {
+   if (timeLeft < 2) {
     clearInterval(medEmitter);
    }
    if (player.y > 400) {
