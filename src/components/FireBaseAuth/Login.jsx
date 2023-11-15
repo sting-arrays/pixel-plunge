@@ -20,6 +20,8 @@ export default function Login() {
    .then(() => {
     setCurrentUser(email);
     setIsError(false);
+    setEmail('')
+    setPassword('')
    })
    .catch(() => {
     setIsError(true);
