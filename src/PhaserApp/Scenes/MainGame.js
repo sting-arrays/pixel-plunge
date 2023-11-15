@@ -53,7 +53,6 @@ export class MainGame extends Phaser.Scene {
     this.load.tilemapTiledJSON("swamp", swampBG);
 
     this.load.image("extruded-tiles", index.extrudedWaterTiles);
-    this.load.image("boat", index.boat);
     this.load.image("Cod", index.Cod);
     this.load.image("Darth Fisher", index.darthFisher);
     this.load.image("Dory", index.Dory);
@@ -99,6 +98,9 @@ export class MainGame extends Phaser.Scene {
     this.load.image("invisibleWall", index.invisibleWall);
     this.load.image("bottomboundary", index.bottomBoundary);
     this.load.image("sideboundary", index.sideBoundary);
+    this.load.image("smallBubble", index.smallBubble);
+    this.load.image("medBubble", index.medBubble);
+    this.load.image("largeBubble", index.largeBubble);
 
     this.load.audio("bgmusic", "src/assets/Audio/bg_music.wav");
     this.load.audio("pickupeffect", "src/assets/Audio/fish_get.wav");
@@ -273,6 +275,7 @@ export class MainGame extends Phaser.Scene {
     createShark(1, 1500, 2000, sharks, "shark", 1500, 2000);
 
     this.physics.add.collider(player, sharks, sharkAttack, null, this);
+    createBubbles(this, player);
   }
 
   update() {
