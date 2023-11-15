@@ -9,6 +9,7 @@ let userProfile;
 let fishArray;
 let banner;
 let backgroundMusic;
+let mainCamera;
 
 export class EndDive extends Phaser.Scene {
   constructor() {

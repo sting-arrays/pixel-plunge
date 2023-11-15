@@ -29,6 +29,8 @@ export class UIScene extends Phaser.Scene {
   }
 
   create() {
+    let helpSound = this.sound.add("help", { loop: false, volume: 0.4 });
+
     this.add.image(50, 45, "coin").setScale(0.8);
     this.add.image(50, 105, "fish").setScale(0.6);
     this.add.text(90, 30, `${coinCount}`, {
@@ -71,6 +73,7 @@ export class UIScene extends Phaser.Scene {
 
     helpText.setInteractive({ useHandCursor: true });
     helpText.on("pointerdown", () => {
+      helpSound.play();
       this.scene.launch("helpscene", {});
     });
 
@@ -81,6 +84,7 @@ export class UIScene extends Phaser.Scene {
 
     let keyObj = this.input.keyboard.addKey("H");
     keyObj.on("down", () => {
+      helpSound.play();
       this.scene.launch("helpscene", {});
     });
   }

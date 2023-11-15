@@ -15,11 +15,13 @@ export default function OxygenTank({ userMoney, setUserMoney }) {
 
   return (
     <li className="flex flex-cols justify-center items-center border-black">
-      <p className='text-[25px] font-bold text-white'>Oxygen Tank: {userOxygen} seconds</p>
-      <img className="w-32" src="src/assets/Other/o2-upgrade.png" alt="" />
+      <p className="text-[25px] font-bold text-white">
+        Oxygen Tank: {userOxygen} seconds
+      </p>
+      <img className="w-32" src="/o2-upgrade.png" alt="" />
 
       <button
-        className={userMoney < 500 ? 'button-disabled' : "button"}
+        className={userMoney < 500 ? "button-disabled" : "button"}
         disabled={userMoney < 500 ? true : false}
         onClick={() => {
           if (userMoney >= 500) {

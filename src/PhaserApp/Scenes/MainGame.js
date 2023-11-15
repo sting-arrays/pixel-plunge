@@ -30,6 +30,7 @@ let swimmingEffect;
 let divingSound;
 let pickUpSound;
 let biteSound;
+let bubbleSound;
 
 let fishCollider;
 
@@ -107,6 +108,10 @@ export class MainGame extends Phaser.Scene {
     this.load.audio("bgmusic", "/Audio/bg_music.mp3");
     this.load.audio("pickupeffect", "/Audio/fish_get.mp3");
     this.load.audio("bite", "/Audio/bite.mp3");
+    this.load.audio("gameover", "/Audio/game_over.mp3");
+    this.load.audio("success", "/Audio/success.mp3");
+    this.load.audio("bubble", "/Audio/bubble.mp3");
+    this.load.audio("help", "/Audio/help.mp3");
   }
 
   create() {
@@ -133,12 +138,18 @@ export class MainGame extends Phaser.Scene {
 
     caughtFish = [];
 
+    // Add sound effects
     pickUpSound = this.sound.add("pickupeffect", {
       loop: false,
       volume: 0.5,
     });
 
     biteSound = this.sound.add("bite", { loop: false, volume: 1 });
+
+    bubbleSound = this.sound.add("bubble", {
+      loop: false,
+      volume: 0.2,
+    });
 
     backgroundMusic = this.sound.add("bgmusic", {
       loop: true,
@@ -282,6 +293,7 @@ export class MainGame extends Phaser.Scene {
       gravityY: -100,
       emitting: true,
     });
+
     const medBubble = this.add.particles(0, 0, "medBubble", {
       lifespan: 3000,
       speed: { min: 10, max: 20 },
@@ -290,6 +302,7 @@ export class MainGame extends Phaser.Scene {
       gravityY: -100,
       emitting: true,
     });
+
     const largeBubble = this.add.particles(0, 0, "largeBubble", {
       lifespan: 3000,
       speed: { min: 10, max: 20 },
@@ -304,6 +317,7 @@ export class MainGame extends Phaser.Scene {
         clearInterval(smallEmitter);
       }
       if (player.y > 400) {
+        bubbleSound.play();
         smallBubble.emitParticleAt(
           player.x,
           player.y,
@@ -317,14 +331,17 @@ export class MainGame extends Phaser.Scene {
         clearInterval(medEmitter);
       }
       if (player.y > 400) {
+        bubbleSound.play();
         medBubble.emitParticleAt(player.x, player.y, Phaser.Math.Between(1, 2));
       }
     }, Phaser.Math.Between(2000, 6000));
+
     const largeEmitter = setInterval(() => {
       if (timeLeft < 2) {
         clearInterval(largeEmitter);
       }
       if (player.y > 400) {
+        bubbleSound.play();
         largeBubble.emitParticleAt(
           player.x,
           player.y,
