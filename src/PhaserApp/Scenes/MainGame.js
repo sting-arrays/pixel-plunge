@@ -1,5 +1,5 @@
 import Phaser, { NONE } from "phaser";
-import { createCharAnims, createRocks, createShark, sharkAttack, createAllFish } from "../utils";
+import { createCharAnims, createRocks, createShark, createAllFish } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
 import swampBG from "../../assets/Background/swamp-bg.json";
@@ -19,7 +19,12 @@ let caughtFish = [];
 let fishArray = [];
 let userProfile;
 let coinsCollectedThatDive;
-// let background;
+
+let backgroundMusic;
+let swimmingEffect;
+let divingSound;
+let pickUpSound;
+let biteSound;
 
 export class MainGame extends Phaser.Scene {
  constructor() {
@@ -41,6 +46,7 @@ export class MainGame extends Phaser.Scene {
  preload() {
   this.load.tilemapTiledJSON("default", waterBG);
   this.load.tilemapTiledJSON("swamp", swampBG);
+
   this.load.image("extruded-tiles", index.extrudedWaterTiles);
   this.load.image("Cod", index.Cod);
   this.load.image("Darth Fisher", index.darthFisher);
@@ -69,6 +75,7 @@ export class MainGame extends Phaser.Scene {
   this.load.image("xlrock1right", index.xlrock1right);
   this.load.image("medrock1flat", index.medrock1flat);
   this.load.image("medrock2flat", index.smallrock1flat);
+
   this.load.spritesheet("character", index.character, {
    frameWidth: 128,
    frameHeight: 128,
@@ -77,6 +84,7 @@ export class MainGame extends Phaser.Scene {
    frameWidth: 128,
    frameHeight: 128,
   });
+
   this.load.image("pier", index.pier);
   this.load.image("column1", index.column1);
   this.load.image("column2", index.column2);
@@ -88,6 +96,10 @@ export class MainGame extends Phaser.Scene {
   this.load.image("smallBubble", index.smallBubble);
   this.load.image("medBubble", index.medBubble);
   this.load.image("largeBubble", index.largeBubble);
+
+  this.load.audio("bgmusic", "src/assets/Audio/bg_music.wav");
+  this.load.audio("pickupeffect", "src/assets/Audio/fish_get.wav");
+  this.load.audio("bite", "src/assets/Audio/bite.wav");
  }
 
  create() {
@@ -107,10 +119,46 @@ export class MainGame extends Phaser.Scene {
 
   caughtFish = [];
 
+  pickUpSound = this.sound.add("pickupeffect", {
+   loop: false,
+   volume: 0.5,
+  });
+
+  biteSound = this.sound.add("bite", { loop: false, volume: 1 });
+
+  backgroundMusic = this.sound.add("bgmusic", {
+   loop: true,
+   volume: 0.05,
+  });
+
+  backgroundMusic.play();
+
+  function sharkAttack(player, shark) {
+   biteSound.play();
+   if (shark.body.velocity.x > 0) {
+    player.rotation += 1;
+   } else {
+    player.rotation -= 1;
+   }
+   player.setTint(0xff0000);
+   shark.setVelocityX(shark.body.velocity.x * -2);
+   if (shark.body.velocity.x < 0) {
+    shark.flipX = false;
+   } else {
+    shark.flipX = true;
+   }
+   setTimeout(() => {
+    player.rotation = 0;
+    player.clearTint();
+    player.setVelocityX(0);
+   }, 1000);
+  }
+
   function collectFish(player, fish) {
    if (fishCount === bucketSize) {
     return;
    }
+   pickUpSound.play();
    caughtFish.push(fish.texture.key);
    fishCount++;
 
@@ -190,6 +238,7 @@ export class MainGame extends Phaser.Scene {
    coins: coins,
    fishCount: fishCount,
    bucketSize: bucketSize,
+   bgMusic: backgroundMusic,
   });
 
   index.EventsCenter.on(
@@ -285,6 +334,10 @@ export class MainGame extends Phaser.Scene {
   }
 
   //When player is in water
+  if (player.y === 230) {
+   pickUpSound.play;
+  }
+
   if (player.y > 230) {
    const { left, up, down, right } = cursors;
    const swimmingLeft = left.isDown;
@@ -358,6 +411,7 @@ export class MainGame extends Phaser.Scene {
     oxygentimer,
     currentUserDetails: userProfile,
     fishData: fishArray,
+    bgMusic: backgroundMusic,
    });
   }
 
@@ -383,6 +437,7 @@ export class MainGame extends Phaser.Scene {
    this.scene.launch("EndDive", {
     currentUserDetails: userProfile,
     fishData: fishArray,
+    bgMusic: backgroundMusic,
    });
   }
  }

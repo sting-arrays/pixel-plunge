@@ -130,9 +130,12 @@ export class DiveStats extends Phaser.Scene {
   preload() {
     this.load.image("GameStatsCard", GameStatsCard);
     this.load.image("spacebar", index.spaceBar);
+    this.load.audio("success", "src/assets/Audio/success.wav");
   }
 
   create() {
+    const successMelody = this.sound.add("success", { loop: false });
+    successMelody.play();
     this.add.image(400, 300, "GameStatsCard").setScale(1);
 
     //Green Board Styling 32x32 Vertical

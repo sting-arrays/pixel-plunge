@@ -5,16 +5,18 @@ import EventsCenter from "../EventsCenter";
 
 let userProfile;
 let fishArray;
+let backgroundMusic;
 
 export class OxygenBar extends Phaser.Scene {
   constructor() {
     super("oxygenscene");
   }
 
-  init({ oxygentimer, currentUserDetails, fishData }) {
+  init({ oxygentimer, currentUserDetails, fishData, bgMusic }) {
     userProfile = currentUserDetails;
     this.initialTime = oxygentimer;
     fishArray = fishData;
+    backgroundMusic = bgMusic;
   }
 
   preload() {
@@ -43,6 +45,7 @@ export class OxygenBar extends Phaser.Scene {
         this.o2Mask.x -= stepWidth;
 
         if (this.timeLeft === 1) {
+          backgroundMusic.stop();
           this.scene.launch("GameOverScene", {
             currentUserDetails: userProfile,
             fishData: fishArray,

@@ -97,26 +97,6 @@ export function createShark(amount, minY, maxY, sharkGroup, image, yUpperLimit, 
  }
 }
 
-export function sharkAttack(player, shark) {
- if (shark.body.velocity.x > 0) {
-  player.rotation += 1;
- } else {
-  player.rotation -= 1;
- }
- player.setTint(0xff0000);
- shark.setVelocityX(shark.body.velocity.x * -2);
- if (shark.body.velocity.x < 0) {
-  shark.flipX = false;
- } else {
-  shark.flipX = true;
- }
- setTimeout(() => {
-  player.rotation = 0;
-  player.clearTint();
-  player.setVelocityX(0);
- }, 1000);
-}
-
 export function createCharAnims(scene) {
  scene.anims.create({
   key: "left",
