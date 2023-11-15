@@ -34,6 +34,9 @@ export default function Register() {
     setCurrentUser(email);
     localStorage.setItem("email", email);
     setIsError(false);
+    setUserName('')
+    setPassword('')
+    setEmail('')
    })
    .catch((error) => {
     console.log(error)
