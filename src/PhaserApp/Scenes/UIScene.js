@@ -6,16 +6,18 @@ let coinCount;
 let fish;
 let bucket;
 let helpText;
+let backgroundMusic;
 
 export class UIScene extends Phaser.Scene {
   constructor() {
     super("uiscene");
   }
 
-  init({ coins, fishCount, bucketSize }) {
+  init({ coins, fishCount, bucketSize, bgMusic }) {
     coinCount = coins;
     fish = fishCount;
     bucket = bucketSize;
+    backgroundMusic = bgMusic;
   }
 
   preload() {

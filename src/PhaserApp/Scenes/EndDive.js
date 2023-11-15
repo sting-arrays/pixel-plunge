@@ -8,21 +8,23 @@ let time;
 let userProfile;
 let fishArray;
 let banner;
+let backgroundMusic;
 
 export class EndDive extends Phaser.Scene {
   constructor() {
     super({ key: "EndDive" });
   }
 
-  init({ timeLeft, currentUserDetails, fishData }) {
+  init({ timeLeft, currentUserDetails, fishData, bgMusic }) {
     userProfile = currentUserDetails;
     fishArray = fishData;
+    backgroundMusic = bgMusic;
   }
 
   preload() {
     this.load.image("EndGameBanner", Banner);
-    this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
     this.load.image("eKey", index.eKey);
+    this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
   }
 
   create() {
@@ -42,6 +44,7 @@ export class EndDive extends Phaser.Scene {
     banner.setInteractive({ useHandCursor: true });
 
     endDiveButton.on("down", () => {
+      backgroundMusic.stop();
       this.scene.launch("DiveStats", {
         currentUserDetails: userProfile,
         fishData: fishArray,
@@ -50,6 +53,7 @@ export class EndDive extends Phaser.Scene {
     });
 
     banner.on("pointerdown", () => {
+      backgroundMusic.stop();
       // ^^ Above this line export all game data to the db
       this.scene.launch("DiveStats", {
         currentUserDetails: userProfile,
