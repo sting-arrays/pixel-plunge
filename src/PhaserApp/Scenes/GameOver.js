@@ -40,13 +40,13 @@ export class GameOverScene extends Phaser.Scene {
     this.add.image(400, 300, "GameOverBackground").setScale(0.8);
     this.add.image(400, 460, "spacebar").setScale(0.6);
 
-    this.add.text(325, 275, "GAME OVER", {
+    this.add.text(355, 275, "GAME\nOVER", {
       fontFamily: "Pixelify Sans",
-      fontSize: "30px",
+      fontSize: "35px",
       fill: "#000000",
     });
 
-    text = this.add.text(355, 330, "RESTART", {
+    text = this.add.text(340, 390, "RESTART", {
       fontFamily: "Pixelify Sans",
       fontSize: "30px",
       fill: "#000",

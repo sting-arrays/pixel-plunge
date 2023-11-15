@@ -26,6 +26,11 @@ export default class HelpScene extends Phaser.Scene {
     this.load.addFile(new WebFontFile(this.load, "Pixelify Sans"));
   }
   create() {
+    let helpSound = this.sound.add("help", {
+      loop: false,
+      volume: 0.4,
+    });
+
     this.add.image(400, 300, "background");
 
     this.add.image(690, 300, "arrowfishcount").setScale(0.3);
@@ -125,11 +130,13 @@ export default class HelpScene extends Phaser.Scene {
 
     closeText.setInteractive({ useHandCursor: true });
     closeText.on("pointerdown", () => {
+      helpSound.play();
       this.scene.stop("helpscene");
     });
 
     let keyObj = this.input.keyboard.addKey("H");
     keyObj.on("down", () => {
+      helpSound.play();
       this.scene.stop("helpscene", {});
     });
   }

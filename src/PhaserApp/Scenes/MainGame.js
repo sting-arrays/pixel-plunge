@@ -111,6 +111,7 @@ export class MainGame extends Phaser.Scene {
     this.load.audio("gameover", "/Audio/game_over.mp3");
     this.load.audio("success", "/Audio/success.mp3");
     this.load.audio("bubble", "/Audio/bubble.mp3");
+    this.load.audio("help", "/Audio/help.mp3");
   }
 
   create() {
