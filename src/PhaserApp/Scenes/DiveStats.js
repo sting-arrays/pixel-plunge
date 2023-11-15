@@ -23,7 +23,7 @@ let totalFishCaught;
 let eachFishFound;
 let currentFishFound;
 let totalFishFound;
-
+let mainCamera;
 let newFishFound = [];
 let newFishFoundString;
 
@@ -130,7 +130,6 @@ export class DiveStats extends Phaser.Scene {
   preload() {
     this.load.image("GameStatsCard", GameStatsCard);
     this.load.image("spacebar", index.spaceBar);
-    this.load.audio("success", "/Audio/success.mp3");
   }
 
   create() {
@@ -182,6 +181,7 @@ export class DiveStats extends Phaser.Scene {
     });
 
     diveAgainButton.on("down", () => {
+      this.cameras.main.fadeOut(2000);
       if (userProfile.userName === "Guest") {
         userProfile.Money = coinsCollected + currentMoney;
         userProfile.Fish_Count = 0;

@@ -26,6 +26,13 @@ export class GameOverScene extends Phaser.Scene {
   }
 
   create() {
+    let gameOverSound = this.sound.add("gameover", {
+      loop: false,
+      volume: 0.2,
+    });
+
+    gameOverSound.play();
+
     this.input.keyboard.enabled = true;
     let restartButton = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
@@ -34,10 +41,16 @@ export class GameOverScene extends Phaser.Scene {
     this.add.image(400, 300, "GameOverBackground").setScale(0.75);
     this.add.image(400, 400, "spacebar");
 
-    text = this.add.text(332, 290, "RESTART", {
+    this.add.text(325, 275, "GAME OVER", {
       fontFamily: "Pixelify Sans",
-      fontSize: "18px",
-      fill: "#000",
+      fontSize: "30px",
+      fill: "#000000",
+    });
+
+    text = this.add.text(355, 330, "RESTART", {
+      fontFamily: "Pixelify Sans",
+      fontSize: "23px",
+      fill: "#000000",
     });
 
     this.add.image(400, 240, "skull").setScale(0.15);
