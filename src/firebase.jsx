@@ -26,11 +26,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export const auth = getAuth(app);
 
-//adding register user functionality:
-// createUserWithEmailAndPassword(auth, email, password)
-//   .then( userCredential => {const user = userCredential.user})
-//   .catch( error => console.log(error) )
-
 export function updateUser(
   user,
   email,
@@ -51,7 +46,7 @@ export function updateUser(
     Level: level,
     Money: money,
     Oxygen: oxygen,
-  }).then(() => console.log("this has worked"));
+  });
 }
 
 export async function getAllUsers() {
@@ -85,7 +80,7 @@ export function updateDiveStats(user, fishCount, money, caughtFish) {
     Fish_Count: fishCount,
     Money: money,
     caught_fish: caughtFish,
-  }).then(() => console.log("this has worked"));
+  });
 }
 
 export async function upgradeOxygen(user, newValue, newMoney) {
