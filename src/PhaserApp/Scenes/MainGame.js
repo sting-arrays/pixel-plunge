@@ -31,6 +31,8 @@ let divingSound;
 let pickUpSound;
 let biteSound;
 
+let fishCollider;
+
 export class MainGame extends Phaser.Scene {
   constructor() {
     super("maingame");
@@ -204,19 +206,9 @@ export class MainGame extends Phaser.Scene {
     player = this.physics.add.sprite(30, 130, "character").setScale(0.5);
     player.setSize(60, 130, true);
 
-    // player.setCollideWorldBounds(true);
-
     this.cameras.main.startFollow(player, true);
     this.cameras.main.setBounds(0, 0, 800, height);
     this.cameras.main.zoom = 1.5;
-
-    // setTimeout(() => {
-    //   this.scene.launch("EndDive");
-    // }, 5000);
-
-    //Create Boat
-    // const boat = fixed.create(119, 250, "boat").setScale(0.6).refreshBody();
-    // boat.setSize(220, 60, true);
 
     const pier = fixed.create(120, 182, "pier").refreshBody();
 
@@ -252,9 +244,14 @@ export class MainGame extends Phaser.Scene {
     const fishes = this.physics.add.group();
     createAllFish(fishes);
 
-    this.physics.add.overlap(player, fishes, collectFish, null, this);
+    fishCollider = this.physics.add.overlap(
+      player,
+      fishes,
+      collectFish,
+      null,
+      this
+    );
 
-    // this.scene.launch("testscene");
     this.scene.launch("uiscene", {
       coins: coins,
       fishCount: fishCount,
@@ -354,7 +351,6 @@ export class MainGame extends Phaser.Scene {
         player.anims.play("right", true);
       } else {
         player.setVelocityX(0);
-        // player.setVelocityY(100);
         player.anims.play("turn");
       }
       if (cursors.up.isDown && player.body.touching.down) {
@@ -432,7 +428,6 @@ export class MainGame extends Phaser.Scene {
     if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
       player.setVelocityY(-250).flipY = false;
       player.flipX = false;
-      //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
     }
 
     if (player.y < 230) {
@@ -449,20 +444,16 @@ export class MainGame extends Phaser.Scene {
     }
 
     if (timeLeft === 1) {
-      // Currently not working, a fixed animation for when the character dies flicks to swimming when turning ^^
       this.input.keyboard.enabled = false;
       player.anims.play("player-dead", true).flipY = true;
       player.setVelocityX(0);
       player.setVelocityY(40);
       fishCount = 0;
-      // if (player.y >= 2048) {
-      //   player.setVelocityY(0);
-      // }
+      this.physics.world.removeCollider(fishCollider);
     }
     if (player.y > 215 && player.y < 230 && cursors.up.isDown) {
       player.setVelocityY(-280).flipY = false;
       player.flipX = false;
-      //Couldn't get the zoom out to work but would be nice to implement, but also depends on how our game ends
       this.scene.launch("EndDive", {
         currentUserDetails: userProfile,
         fishData: fishArray,

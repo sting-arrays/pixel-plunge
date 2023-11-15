@@ -1,4 +1,3 @@
-// import GameOverBackground from "../../assets/Background/Map256.png";
 import GameOverBackground from "../../assets/Background/Map256-90op.png";
 import skull from "../../assets/Other/skull.png";
 import * as index from "./index";
@@ -31,12 +30,12 @@ export class GameOverScene extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
 
-    this.add.image(400, 300, "GameOverBackground").setScale(0.75);
-    this.add.image(400, 400, "spacebar");
+    this.add.image(400, 300, "GameOverBackground").setScale(0.8);
+    this.add.image(400, 460, "spacebar").setScale(0.6);
 
-    text = this.add.text(332, 290, "RESTART", {
+    text = this.add.text(337, 330, "RESTART", {
       fontFamily: "Pixelify Sans",
-      fontSize: "18px",
+      fontSize: "30px",
       fill: "#000",
     });
 
