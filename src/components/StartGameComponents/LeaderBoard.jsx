@@ -10,7 +10,7 @@ export default function LeaderBoard() {
 
  useEffect(() => {
   getAllUsers().then((result) => {
-   setUsers(result.sort((a, b) => b.Fish_Count - a.Fish_Count).slice(0, 10));
+   setUsers(result.sort((a, b) => b.Fish_Count - a.Fish_Count).slice(0, 9));
    setLoading(false);
   });
  }, []);
