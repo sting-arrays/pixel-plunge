@@ -130,7 +130,7 @@ export class DiveStats extends Phaser.Scene {
   preload() {
     this.load.image("GameStatsCard", GameStatsCard);
     this.load.image("spacebar", index.spaceBar);
-    this.load.audio("success", "src/assets/Audio/success.wav");
+    this.load.audio("success", "/Audio/success.mp3");
   }
 
   create() {
