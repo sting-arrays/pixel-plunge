@@ -16,31 +16,23 @@ export default function LeaderBoard() {
     }, [])
 
     if(loading) return <p>is loading...</p>
-
-    console.log(users)
  
     return(
-        <div>
-            
-            <img
-            className='relative'
-            alt="Pixel Plunge"
-            src="/scroll-leaderboard-2.png"
-            />
-            <p className=' absolute bottom-[550px] left-[620px] text-[35px]'>Leaderboard</p>
-            <ul className='absolute bottom-[-160px] left-[640px]'>
-            {users.map( (user) => { 
+        <div className='absolute'>
+            <img className='relative' alt="Pixel Plunge" src="/scroll-leaderboard-2.png" />
+            <p className='relative text-[35px] mt-[-90%]'>Leaderboard</p>
+            <ul className="relative text-[35px] mt-[10%]">
+            {users.map( user => { 
                 return(
                     <li key={user.userName}>
                         <p className='text-[20px]'>{counter++ + ' - ' + user.userName}</p>
                         <div></div>
                         <p className='text-[14px] mb-2'>Fish Caught: {user.Fish_Count}</p>
                     </li>
-
                 )
             })}
             </ul>
-            <Link className='button' to='/game' element={<GamePage />}> Back to Game </Link>
+            <Link className='button relative  mt-[4%]' to='/game' element={<GamePage />}> Back to Game </Link>
         </div>  
     )
 }
