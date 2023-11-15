@@ -49,8 +49,8 @@ export { default as xlrock1right } from "../../assets/Scenary/xlrock1right.png";
 export { default as medrock1flat } from "../../assets/Scenary/medrock1flat.png";
 export { default as smallrock1flat } from "../../assets/Scenary/smallrock1flat.png";
 export { default as extrudedWaterTiles } from "../../assets/Background/water-tiles-nobg-ext.png";
-export { default as smallBubble } from "../../assets/Other/small-bubble.png";
-export { default as largeBubble } from "../../assets/Other/large-bubble.png";
-export { default as medBubble } from "../../assets/Other/medium-bubble.png";
+export { default as smallBubble } from "/small-bubble.png";
+export { default as largeBubble } from "/large-bubble.png";
+export { default as medBubble } from "/medium-bubble.png";
 
 export { default as EventsCenter } from "../EventsCenter";
