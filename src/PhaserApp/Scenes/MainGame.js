@@ -1,5 +1,5 @@
 import Phaser, { NONE } from "phaser";
-import { createCharAnims, createRocks, createShark, createUniqueFish, sharkAttack, createAllFish, createBubbles } from "../utils";
+import { createCharAnims, createRocks, createShark, sharkAttack, createAllFish } from "../utils";
 import * as index from "./index";
 import waterBG from "../../assets/Background/water-bg.json";
 import swampBG from "../../assets/Background/swamp-bg.json";
@@ -205,7 +205,58 @@ export class MainGame extends Phaser.Scene {
   createShark(1, 1500, 2000, sharks, "shark", 1500, 2000);
 
   this.physics.add.collider(player, sharks, sharkAttack, null, this);
-  createBubbles(this, player);
+  //   createBubbles(this, player, timeLeft);
+
+  const smallBubble = this.add.particles(0, 0, "smallBubble", {
+   lifespan: 3000,
+   speed: { min: 10, max: 20 },
+   scale: { start: 0.4, end: 0 },
+   rotate: { start: 0, end: 360 },
+   gravityY: -100,
+   emitting: true,
+  });
+  const medBubble = this.add.particles(0, 0, "medBubble", {
+   lifespan: 3000,
+   speed: { min: 10, max: 20 },
+   scale: { start: 0.4, end: 0 },
+   rotate: { start: 0, end: 360 },
+   gravityY: -100,
+   emitting: true,
+  });
+  const largeBubble = this.add.particles(0, 0, "largeBubble", {
+   lifespan: 3000,
+   speed: { min: 10, max: 20 },
+   scale: { start: 0.3, end: 0 },
+   rotate: { start: 0, end: 360 },
+   gravityY: -100,
+   emitting: true,
+  });
+
+  const smallEmitter = setInterval(() => {
+   if (timeLeft < 2) {
+    clearInterval(smallEmitter);
+   }
+   if (player.y > 400) {
+    smallBubble.emitParticleAt(player.x, player.y, Phaser.Math.Between(1, 3));
+   }
+  }, Phaser.Math.Between(2000, 6000));
+
+  const medEmitter = setInterval(() => {
+   if (timeLeft === 1) {
+    clearInterval(medEmitter);
+   }
+   if (player.y > 400) {
+    medBubble.emitParticleAt(player.x, player.y, Phaser.Math.Between(1, 2));
+   }
+  }, Phaser.Math.Between(2000, 6000));
+  const largeEmitter = setInterval(() => {
+   if (timeLeft < 2) {
+    clearInterval(largeEmitter);
+   }
+   if (player.y > 400) {
+    largeBubble.emitParticleAt(player.x, player.y, Phaser.Math.Between(0, 1));
+   }
+  }, Phaser.Math.Between(2000, 4000));
  }
 
  update() {
