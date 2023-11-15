@@ -3,25 +3,21 @@ import * as index from "./index";
 import { updateDiveStats } from "../../firebase";
 import Banner from "/Banner.png";
 
-let bg;
 let text;
-let time;
 let userProfile;
 let fishArray;
 let fishCaught = [];
-let counter = {};
-let caughtString = "";
 
-let coinsCollected;
-let currentMoney;
+let coinsCollectedInSession;
+let currentMoneyInDB;
 let totalMoney;
 
 let fishJustCaught;
-let currentFishCaught;
+let currentFishCaughtInDB;
 let totalFishCaught;
 
-let eachFishFound;
-let currentFishFound;
+let eachFishFoundInSession;
+let currentFishFoundInDB;
 let totalFishFound;
 
 let newFishFound = [];
@@ -38,7 +34,7 @@ index.EventsCenter.on(
 index.EventsCenter.on(
   "coins-collected",
   (coins) => {
-    coinsCollected = coins;
+    coinsCollectedInSession = coins;
   },
   this
 );
@@ -52,8 +48,12 @@ function returnCaughtString() {
   } else {
     let counter = {};
     let caughtString = "";
-    eachFishFound = [];
+    eachFishFoundInSession = [];
     fishJustCaught = 0;
+    let limit = 5;
+    let limitCounter = 0;
+    let counterArray = [];
+    let counterArrayLength = 0;
 
     fishJustCaught = fishCaught.length;
 
@@ -65,12 +65,23 @@ function returnCaughtString() {
       }
     });
 
-    for (const [key, value] of Object.entries(counter)) {
+    counterArray = Object.entries(counter);
+    counterArrayLength = counterArray.length;
+    counterArray = counterArray.slice(0, 5);
+
+    counterArray.forEach((fish) => {
       caughtString += `
-      - ${key} x ${value} `;
+      - ${fish.join(" : ")}`;
+    });
+
+    if (counterArrayLength > 5) {
+      caughtString += `
+      And more...`;
     }
 
-    eachFishFound = Object.keys(counter);
+    caughtString.replaceAll(",", " :");
+
+    eachFishFoundInSession = Object.keys(counter);
 
     return caughtString;
   }
@@ -82,32 +93,43 @@ function returnFishFound() {
   } else {
     newFishFound = [];
     newFishFoundString = "";
+    let displayArray = [];
+    let newFishFoundLength = 0;
 
-    eachFishFound.forEach((fish) => {
-      if (!currentFishFound.includes(fish)) {
+    eachFishFoundInSession.forEach((fish) => {
+      if (!currentFishFoundInDB.includes(fish)) {
         newFishFound.push(fish);
-        currentFishFound.push(fish);
+        currentFishFoundInDB.push(fish);
       }
     });
 
-    newFishFound.forEach((fish) => {
+    newFishFoundLength = newFishFound.length;
+    displayArray = newFishFound.slice(0, 5);
+
+    displayArray.forEach((fish) => {
       newFishFoundString += `
       - ${fish}`;
     });
+
+    if (newFishFoundLength > 5) {
+      newFishFoundString += `
+      And more...`;
+    }
+
     return newFishFoundString;
   }
 }
 
-function updateUser() {
-  totalMoney = coinsCollected + currentMoney;
+function createNewDiveStats() {
+  totalMoney = coinsCollectedInSession + currentMoneyInDB;
 
-  totalFishCaught = fishJustCaught + currentFishCaught;
+  totalFishCaught = fishJustCaught + currentFishCaughtInDB;
 
-  totalFishFound = currentFishFound;
+  totalFishFound = currentFishFoundInDB;
 
-  if (eachFishFound !== undefined) {
-    eachFishFound.forEach((fish) => {
-      if (currentFishFound.includes(fish) === false) {
+  if (eachFishFoundInSession !== undefined) {
+    eachFishFoundInSession.forEach((fish) => {
+      if (currentFishFoundInDB.includes(fish) === false) {
         totalFishFound.push(fish);
       }
     });
@@ -122,9 +144,9 @@ export class DiveStats extends Phaser.Scene {
   init({ timeLeft, currentUserDetails, fishData, resetFish }) {
     fishArray = fishData;
     userProfile = currentUserDetails;
-    currentMoney = userProfile.Money;
-    currentFishCaught = userProfile.Fish_Count;
-    currentFishFound = userProfile.caught_fish;
+    currentMoneyInDB = userProfile.Money;
+    currentFishCaughtInDB = userProfile.Fish_Count;
+    currentFishFoundInDB = userProfile.caught_fish;
   }
 
   preload() {
@@ -140,7 +162,7 @@ export class DiveStats extends Phaser.Scene {
 
     //Green Board Styling 32x32 Vertical
     let bottomBanner = this.add.image(400, 490, "EndGameBanner").setScale(1.25);
-    let topBanner = this.add.image(400, 50, "EndGameBanner").setScale(1.5);
+    let topBanner = this.add.image(400, 43, "EndGameBanner").setScale(1.5);
     this.add
       .image(bottomBanner.x, bottomBanner.y + 30, "spacebar")
       .setScale(0.55);
@@ -151,7 +173,7 @@ export class DiveStats extends Phaser.Scene {
       color: "#000000",
     });
 
-    this.add.text(345, 33, "RESULTS", {
+    this.add.text(345, 26, "RESULTS", {
       fontFamily: "Pixelify Sans",
       fontSize: "28px",
       color: "#000000",
@@ -162,20 +184,20 @@ export class DiveStats extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
 
-    this.add.text(255, 153, `Fish Caught: ${returnCaughtString()}`, {
+    this.add.text(255, 155, `Fish Caught: ${returnCaughtString()}`, {
       fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
       // fontFamily:
     });
 
-    this.add.text(255, 323, `Fishidex Updates: ${returnFishFound()}`, {
+    this.add.text(255, 322, `Fishidex Updates: ${returnFishFound()}`, {
       fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
     });
 
-    this.add.text(255, 105, `Earnings: ${coinsCollected} coins`, {
+    this.add.text(255, 105, `Earnings: ${coinsCollectedInSession} coins`, {
       fontFamily: "Pixelify Sans",
       fontSize: "20px",
       color: "#ffffff",
@@ -183,9 +205,9 @@ export class DiveStats extends Phaser.Scene {
 
     diveAgainButton.on("down", () => {
       if (userProfile.userName === "Guest") {
-        userProfile.Money = coinsCollected + currentMoney;
+        userProfile.Money = coinsCollectedInSession + currentMoneyInDB;
         userProfile.Fish_Count = 0;
-        userProfile.caught_fish = currentFishFound;
+        userProfile.caught_fish = currentFishFoundInDB;
 
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
@@ -197,7 +219,7 @@ export class DiveStats extends Phaser.Scene {
           resetFish: 0,
         });
       } else {
-        updateUser();
+        createNewDiveStats();
         updateDiveStats(
           userProfile.email,
           totalFishCaught,
@@ -223,9 +245,9 @@ export class DiveStats extends Phaser.Scene {
 
     text.on("pointerdown", () => {
       if (userProfile.userName === "Guest") {
-        userProfile.Money = coinsCollected + currentMoney;
+        userProfile.Money = coinsCollectedInSession + currentMoneyInDB;
         userProfile.Fish_Count = 0;
-        userProfile.caught_fish = currentFishFound;
+        userProfile.caught_fish = currentFishFoundInDB;
 
         // userProfile.caught_fish;
         // ^^ Above this line export all game data to the db
@@ -237,7 +259,7 @@ export class DiveStats extends Phaser.Scene {
           fishData: fishArray,
         });
       } else {
-        updateUser();
+        createNewDiveStats();
         updateDiveStats(
           userProfile.email,
           totalFishCaught,
