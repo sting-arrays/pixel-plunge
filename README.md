@@ -40,7 +40,7 @@ Give it a try and see if you can top the leaderboard!
 
   <br>
   
-  * <img src="src/assets/Other/Phaser.png" width=141 height=30>
+  * <a href='https://phaser.io'><img src="src/assets/Other/Phaser.png" width=141 height=30></a>
 
   * [![React][React.js]][React-url]
   * [![Javascript][Javascriptimg]][Javscript-url]
