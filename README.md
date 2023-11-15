@@ -1,75 +1,114 @@
+<!-- PROJECT SHIELDS -->
+
 <img src="./public/secondlogo.png" width="300" alt="accessibility text">
 
 Pixel Plunge is a deep sea fishing game, where the aim is to catch as many fish as possible before the oxygen runs out!
 <br>
-Users can upgrade equipment to extend their dive times, and also check what fish they have caught and what fish they are missing!
+
+Users can upgrade equipment to extend their dive times, and also check what fish they have caught and what fish they are missing in the 'fishidex'!
 <br>
+
 Give it a try and see if you can top the leaderboard!
 
+<a href="https://pixel-plunge.netlify.app/">View Deployed App</a>
+
 <br>
 
-Check out the hosted version below:
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#developers">Developers</a>
+    </li>
+    <li>
+      <a href="#tech-stack">Tech Stack</a>
+    </li>
+    <li><a href="#how-to-clone-and-run-locally">How to clone and run locally</a></li>
+  </ol>
+</details>
 
-## https://pixel-plunge.netlify.app/
+## Developers:
 
-## Devs:
-
-- Jordan Eckford (https://github.com/JordanEckford)
-- Tom Lacy-Alcock (https://github.com/tomalcock)
-- Max Field (https://github.com/muxappo)
-- Luke Riches (https://github.com/LukeRiches)
-- Isaac Madden (https://github.com/Isaac-Madden)
+- Jordan Eckford [![LinkedIn][linkedin-shield]][linkedin-url-je] [![github][github-shield]][github-url-je]
+- Tom Lacy-Alcock [![LinkedIn][linkedin-shield]][linkedin-url-tla] [![github][github-shield]][github-url-tla]
+- Max Field [![LinkedIn][linkedin-shield]][linkedin-url-mf] [![github][github-shield]][github-url-mf]
+- Luke Riches [![LinkedIn][linkedin-shield]][linkedin-url-lr] [![github][github-shield]][github-url-lr]
+- Isaac Madden [![LinkedIn][linkedin-shield]][linkedin-url-im] [![github][github-shield]][github-url-im]
 
 ## Tech Stack:
 
-- Phaser 3
   <br>
-  <img src="https://github.com/photonstorm/phaser/blob/v2.6.2/resources/Phaser%20Logo/PNG/Phaser%20Logo%20Web%20Quality.png?raw=true" width="90" alt="accessibility text">
+  
+  * <a href='https://phaser.io'><img src="src/assets/Other/Phaser.png" width=141 height=30></a>
 
-- React
-  <br>
-  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/512/react_original_wordmark_logo_icon_146375.png" width="90" alt="accessibility text">
+  * [![React][React.js]][React-url]
+  * [![Javascript][Javascriptimg]][Javscript-url]
+  * [![React-Router][ReactRouterimg]][ReactRouter-url]
+  * [![Netlify][Netlifyimg]][Netlify-url]
+  * [![Firebase][Firebaseimg]][Firebase-url]
+  * [![Vite][Viteimg]][Vite-url]
 
-- JavaScript
-  <br>
-  <img src="https://seeklogo.com/images/J/javascript-logo-8892AEFCAC-seeklogo.com.png" width="70" alt="accessibility text">
 
-- Firebase
-  <br>
-  <img src="https://i.pinimg.com/originals/09/63/a6/0963a6051212c3268e25d640c0410583.png" width="90" alt="accessibility text">
 
-- Vite
-  <br>
-  <img src="https://camo.githubusercontent.com/61e102d7c605ff91efedb9d7e47c1c4a07cef59d3e1da202fd74f4772122ca4e/68747470733a2f2f766974656a732e6465762f6c6f676f2e737667" width="90" alt="accessibility text">
+## How to clone and run locally:
 
-##
+1. Clone the repo
 
-### How to clone and run locally:
+```sh
+git clone https://github.com/sting-arrays/pixel-plunge.git
+```
 
-Copy the GitHub clone link
 
-> https://github.com/sting-arrays/pixel-plunge.git
+2. Open your terminal and navigate to your desired file path
 
-Open your terminal and navigate to your desired file path
+```sh
+cd pixel-plunge
+```
 
-> cd [file name]
+3. Install the required packages
 
-Run the below to clone the project
+```sh
+npm install
+```
 
-> git clone https://github.com/sting-arrays/pixel-plunge.git
+4. Create a local server
 
-Navigate into the newly created folder
-
-> cd pixel-plunge
-
-Install the required packages
-
-> npm install
-
-Create a local server
-
-> npm run dev
+```sh
+npm run dev
+```
 
 Open the link shown in the terminal and have fun!
 
 <img src="./public/pixelplungelogo.png" width="200" title="hover text">
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+
+[linkedin-url-tla]: https://www.linkedin.com/in/tom-lacy-alcock-b28b84283/
+[linkedin-url-je]: https://www.linkedin.com/in/jordan-eckford-3a6b18103/
+[linkedin-url-im]: https://www.linkedin.com/in/isaac-madden-5a1097213/
+[linkedin-url-lr]: https://www.linkedin.com/in/luke-riches-a18792260/
+[linkedin-url-mf]: https://www.linkedin.com/in/maxwell-field/
+
+[github-shield]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
+
+[github-url-tla]: https://github.com/JordanEckford
+[github-url-je]: https://github.com/tomalcock
+[github-url-im]: https://github.com/Isaac-Madden
+[github-url-lr]: https://github.com/LukeRiches
+[github-url-mf]: https://github.com/muxappo
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Javascriptimg]:https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[Javscript-url]:https://www.javascript.com
+[ReactRouterimg]:https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[ReactRouter-url]:https://reactrouter.com/en/main
+[Netlifyimg]:https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white
+[Netlify-url]:https://www.netlify.com
+[Firebaseimg]: https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white
+[Firebase-url]: https://firebase.google.com
+[Viteimg]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev
