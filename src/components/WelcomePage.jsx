@@ -6,6 +6,8 @@ import CopyrightGithub from "./WelcomeComponents/CopyrightGithub";
 import Login from "../components/FireBaseAuth/Login.jsx";
 import Register from "../components/FireBaseAuth/Register.jsx";
 import UserHandler from "./UserHandler.jsx";
+import Credits from "./WelcomeComponents/Credits.jsx";
+import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
   return (
@@ -15,6 +17,7 @@ export default function WelcomePage() {
       <StartGame />
       <UserHandler />
       <CopyrightGithub />
+      <Link className='text-black mt-4 hover:text-white' to='/credits'>Credits</Link>
     </div>
   );
 }

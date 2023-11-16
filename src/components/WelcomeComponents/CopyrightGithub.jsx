@@ -43,8 +43,7 @@ export default function CopyrightGithub() {
           </a>
         </li>
       </ul>
-
-      <p className="mt-4 text-[20px] text-white">© 2023 Sting Arrays</p>
+      <p className="mt-4 mb-2 text-[20px] text-white">© 2023 Sting Arrays</p>
     </div>
   );
 }

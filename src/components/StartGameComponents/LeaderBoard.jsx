@@ -19,7 +19,6 @@ export default function LeaderBoard() {
 
  return (
   <div className="m-auto">
-   {/* <img className="" alt="Pixel Plunge" src="/scroll-leaderboard-2.png" /> */}
    <div className="bg-[url('/scroll-leaderboard-2.png')] bg-contain bg-no-repeat bg-center min-h-[820px] min-w-[870px] overflow-auto m-auto pb-60">
     <p className=" text-[35px] pt-28 ">Leaderboard</p>
     <div className="min-h-[500px]">
