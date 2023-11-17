@@ -29,7 +29,6 @@ export const auth = getAuth(app);
 export function updateUser(
   user,
   email,
-  password,
   fishBag,
   fishCount,
   level,
@@ -39,7 +38,6 @@ export function updateUser(
   return setDoc(doc(db, "Users", email), {
     userName: user,
     email: email,
-    Password: password,
     Fish_Bag: fishBag,
     Fish_Count: fishCount,
     caught_fish: [],
