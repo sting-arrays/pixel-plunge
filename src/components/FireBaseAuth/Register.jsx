@@ -28,7 +28,7 @@ export default function Register() {
     return createUserWithEmailAndPassword(auth, email, password);
    })
    .then((userCredential) => {
-    updateUser(userName, email, password, 5, 0, 0, 0, 20);
+    updateUser(userName, email, 5, 0, 0, 0, 20);
    })
    .then(() => {
     setCurrentUser(email);
