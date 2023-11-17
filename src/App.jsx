@@ -9,6 +9,7 @@ import Login from "./components/FireBaseAuth/Login";
 import Register from "./components/FireBaseAuth/Register";
 import { useEffect, useContext } from "react";
 import { UserNameContext } from "./contexts/UsernameContext";
+import Credits from "./components/WelcomeComponents/Credits";
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(UserNameContext);
@@ -30,6 +31,7 @@ function App() {
         <Route path="/fishidex" element={<Fishidex />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/upgrades" element={<Upgrades />} />
+        <Route path="/credits" element={<Credits />} />
       </Routes>
     </div>
   );

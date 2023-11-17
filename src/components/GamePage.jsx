@@ -21,28 +21,11 @@ export default function GamePage() {
     <div className="flex flex-col place-items-center">
       <img className="drop-shadow-md" src="/secondlogo.png" alt="" />
       <AppBridge width={800} height={600} email={currentUser} />
-
       <div className="flex justify-center mt-5">
-        <Link className="button mx-6" to="/fishidex" element={<Fishidex />}>
-          {" "}
-          Fishidex{" "}
-        </Link>
-        <Link
-          className="button mx-6"
-          to="/leaderboard"
-          element={<LeaderBoard />}
-        >
-          {" "}
-          Leader Board{" "}
-        </Link>
-        <Link className="button mx-6" to="/upgrades" element={<Upgrades />}>
-          {" "}
-          Upgrades{" "}
-        </Link>
-        <Link className="button mx-6" to="/" element={<WelcomePage />}>
-          {" "}
-          Home{" "}
-        </Link>
+        <Link className="button mx-6" to="/fishidex" element={<Fishidex />}>Fishidex</Link>
+        <Link className="button mx-6" to="/leaderboard" element={<LeaderBoard />}>Leader Board</Link>
+        <Link className="button mx-6" to="/upgrades" element={<Upgrades />}>Upgrades</Link>
+        <Link className="button mx-6" to="/" element={<WelcomePage />}>Home</Link>
       </div>
     </div>
   );
