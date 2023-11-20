@@ -50,10 +50,11 @@ export default class LoadingScreen extends Phaser.Scene {
   this.cameras.main.fadeIn(2000);
   const loader = setInterval(() => {
    timeOut++;
-   if (timeOut === 6) {
+   if (timeOut > 10) {
     clearInterval(loader);
-    currentUserDetails = "Guest";
+    currentUserDetails = guestAccount;
     hasUserLoaded = true;
+    timeOut = 0;
    }
    if (hasUserLoaded) {
     this.cameras.main.once("camerafadeincomplete", function (camera) {

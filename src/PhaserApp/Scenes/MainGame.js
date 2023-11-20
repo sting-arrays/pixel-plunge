@@ -46,9 +46,9 @@ export class MainGame extends Phaser.Scene {
     fishArray = fishData;
     userProfile = currentUserDetails;
 
-    coins = +currentUserDetails.Money;
-    bucketSize = +currentUserDetails.Fish_Bag;
-    oxygentimer = +currentUserDetails.Oxygen;
+    coins = currentUserDetails.Money;
+    bucketSize = currentUserDetails.Fish_Bag;
+    oxygentimer = currentUserDetails.Oxygen;
   }
 
   preload() {
@@ -141,7 +141,7 @@ export class MainGame extends Phaser.Scene {
     // Add sound effects
     pickUpSound = this.sound.add("pickupeffect", {
       loop: false,
-      volume: 0.6,
+      volume: 0.5,
     });
 
     biteSound = this.sound.add("bite", { loop: false, volume: 1 });
@@ -153,7 +153,7 @@ export class MainGame extends Phaser.Scene {
 
     backgroundMusic = this.sound.add("bgmusic", {
       loop: true,
-      volume: 0.5,
+      volume: 0.05,
     });
 
     backgroundMusic.play();

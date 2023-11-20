@@ -72,8 +72,7 @@ export default function Fishidex() {
     })}
    </ul>
    <Link className="button" to="/game" element={<GamePage />}>
-    {" "}
-    Back to Game{" "}
+    Back to Game
    </Link>
   </div>
  );

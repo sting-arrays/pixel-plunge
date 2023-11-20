@@ -42,14 +42,12 @@ Give it a try and see if you can top the leaderboard!
   
   * <a href='https://phaser.io'><img src="src/assets/Other/Phaser.png" width=141 height=30></a>
 
-  * [![React][React.js]][React-url]
-  * [![Javascript][Javascriptimg]][Javscript-url]
-  * [![React-Router][ReactRouterimg]][ReactRouter-url]
-  * [![Netlify][Netlifyimg]][Netlify-url]
-  * [![Firebase][Firebaseimg]][Firebase-url]
-  * [![Vite][Viteimg]][Vite-url]
-
-
+- [![React][React.js]][React-url]
+- [![Javascript][Javascriptimg]][Javscript-url]
+- [![React-Router][ReactRouterimg]][ReactRouter-url]
+- [![Netlify][Netlifyimg]][Netlify-url]
+- [![Firebase][Firebaseimg]][Firebase-url]
+- [![Vite][Viteimg]][Vite-url]
 
 ## How to clone and run locally:
 
@@ -58,7 +56,6 @@ Give it a try and see if you can top the leaderboard!
 ```sh
 git clone https://github.com/sting-arrays/pixel-plunge.git
 ```
-
 
 2. Open your terminal and navigate to your desired file path
 
@@ -82,32 +79,28 @@ Open the link shown in the terminal and have fun!
 
 <img src="./public/pixelplungelogo.png" width="200" title="hover text">
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url-tla]: https://www.linkedin.com/in/tom-lacy-alcock-b28b84283/
 [linkedin-url-je]: https://www.linkedin.com/in/jordan-eckford-3a6b18103/
 [linkedin-url-im]: https://www.linkedin.com/in/isaac-madden-5a1097213/
 [linkedin-url-lr]: https://www.linkedin.com/in/luke-riches-a18792260/
 [linkedin-url-mf]: https://www.linkedin.com/in/maxwell-field/
-
 [github-shield]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
-
-[github-url-tla]: https://github.com/JordanEckford
-[github-url-je]: https://github.com/tomalcock
+[github-url-tla]: https://github.com/tomalcock
+[github-url-je]: https://github.com/JordanEckford
 [github-url-im]: https://github.com/Isaac-Madden
 [github-url-lr]: https://github.com/LukeRiches
 [github-url-mf]: https://github.com/muxappo
-
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Javascriptimg]:https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
-[Javscript-url]:https://www.javascript.com
-[ReactRouterimg]:https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
-[ReactRouter-url]:https://reactrouter.com/en/main
-[Netlifyimg]:https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white
-[Netlify-url]:https://www.netlify.com
+[Javascriptimg]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[Javscript-url]: https://www.javascript.com
+[ReactRouterimg]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[ReactRouter-url]: https://reactrouter.com/en/main
+[Netlifyimg]: https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white
+[Netlify-url]: https://www.netlify.com
 [Firebaseimg]: https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white
 [Firebase-url]: https://firebase.google.com
 [Viteimg]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
