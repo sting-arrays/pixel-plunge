@@ -196,11 +196,22 @@ export class DiveStats extends Phaser.Scene {
       color: "#ffffff",
     });
 
-    this.add.text(255, 105, `Earnings: ${coinsCollectedInSession} coins`, {
-      fontFamily: "Pixelify Sans",
-      fontSize: "20px",
-      color: "#ffffff",
-    });
+    this.add.text(
+      255,
+      105,
+      `Earnings: ${
+        coinsCollectedInSession === 0
+          ? "None"
+          : `${coinsCollectedInSession} ${
+              coinsCollectedInSession === 1 ? "coin" : "coins"
+            }`
+      }`,
+      {
+        fontFamily: "Pixelify Sans",
+        fontSize: "20px",
+        color: "#ffffff",
+      }
+    );
 
     diveAgainButton.on("down", () => {
       this.cameras.main.fadeOut(2000);
